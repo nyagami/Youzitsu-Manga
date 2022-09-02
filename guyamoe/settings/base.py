@@ -22,8 +22,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "oxrdiDDsuMtd8SIsgAy7i+aJzSGCWt3Xl1IXe
 
 CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
 
-DEBUG = True
-
 ALLOWED_HOSTS = ["localhost","54.169.199.132","youzitsu.ga"]
 
 SITE_ID = 1
