@@ -3,11 +3,11 @@ import os
 from .base import *
 
 
-CANONICAL_ROOT_DOMAIN = "localhost:8000"
+CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
 
 DEBUG = True
 
-ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS", "localhost")]
+ALLOWED_HOSTS = ['youzitsu.ga','127.0.0.1']
 
 
 CACHES = {

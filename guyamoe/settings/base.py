@@ -18,13 +18,13 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 PARENT_DIR = BASE_DIR.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "o kawaii koto")
+SECRET_KEY = os.environ.get("SECRET_KEY", "oxrdiDDsuMtd8SIsgAy7i+aJzSGCWt3Xl1IXeMyfCbA=")
 
-CANONICAL_ROOT_DOMAIN = "localhost:8000"
+CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["localhost","54.169.199.132","youzitsu.ga"]
 
 SITE_ID = 1
 
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 ]
 
 
-INTERNAL_IPS = ("127.0.0.1",)
+# INTERNAL_IPS = ("127.0.0.1",)
 
 ROOT_URLCONF = "guyamoe.urls"
 
@@ -124,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "vi"
 
 TIME_ZONE = "UTC"
 
@@ -137,7 +137,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = "/tmp/static"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static_global"),
 ]
@@ -147,7 +147,7 @@ STATIC_VERSION = "?v=" + subprocess.check_output(
 )
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = "/tmp/media"
 
 
 IMGUR_CLIENT_ID = os.environ.get("IMGUR_CLIENT_ID", "")

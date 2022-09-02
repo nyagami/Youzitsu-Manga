@@ -12,7 +12,7 @@ HEIGHT = 1250
 PAGES = 18
 PROCESSES = 15
 
-MEDIA_BASE = "media"
+MEDIA_BASE = "/tmp/media"
 FIXTURES_PATH = "./reader/fixtures/reader_fixtures.json"
 
 

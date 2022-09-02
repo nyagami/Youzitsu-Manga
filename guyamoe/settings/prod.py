@@ -3,7 +3,7 @@ import os
 from .base import *
 
 
-CANONICAL_ROOT_DOMAIN = "aka.guya.moe"
+CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
 SECURE_HSTS_SECONDS = 60
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
@@ -18,30 +18,6 @@ X_FRAME_OPTIONS = "ALLOW"
 
 DEBUG = False
 SITE_ID = 2
-
-ALLOWED_HOSTS = [
-    "guya.moe",
-    "www.guya.moe",
-    "kaguya.guya.moe",
-    "www.kaguya.guya.moe",
-    "ka.guya.moe",
-    "www.ka.guya.moe",
-    "ice.guya.moe",
-    "www.ice.guya.moe",
-    "baka.guya.moe",
-    "www.baka.guya.moe",
-    "trash.guya.moe",
-    "www.trash.guya.moe",
-    "dog.guya.moe",
-    "www.dog.guya.moe",
-    "kuu.guya.moe",
-    "www.kuu.guya.moe",
-    "read.guya.moe",
-    "manga.guya.moe",
-    "aka.guya.moe",
-    "guya.cubari.moe",
-    "localhost",
-]
 
 CANONICAL_SITE_NAME = CANONICAL_ROOT_DOMAIN
 
@@ -74,15 +50,15 @@ CACHES = {
     }
 }
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASS"),
-        "HOST": "localhost",
-        "PORT": "",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": os.environ.get("DB_NAME"),
+#         "USER": os.environ.get("DB_USER"),
+#         "PASSWORD": os.environ.get("DB_PASS"),
+#         "HOST": "localhost",
+#         "PORT": "",
+#     }
+# }
 
 OCR_SCRIPT_PATH = os.path.join(PARENT_DIR, "ocr_tool.sh")
