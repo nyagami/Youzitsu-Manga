@@ -28,8 +28,6 @@ from homepage.sitemaps import (
     SeriesViewSitemap,
     StaticViewSitemap,
 )
-from proxy import sources
-
 sitemaps = {
     "static": StaticViewSitemap,
     "series": SeriesViewSitemap,
@@ -46,17 +44,10 @@ urlpatterns = [
     path("read/", include("reader.urls")),
     path("api/", include("api.urls")),
     path("pages/", include("misc.urls")),
-    path(
-        "",
-        include(
-            [route for source in sources for route in source.register_shortcut_routes()]
-        ),
-    ),
-    path("proxy/", include("proxy.urls")),
 ]
 
 handler404 = "homepage.views.handle404"
-
+handler500 = "homepage.views.handle500"
 if settings.DEBUG:
     # import debug_toolbar
     # urlpatterns = [

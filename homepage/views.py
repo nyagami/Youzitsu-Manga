@@ -34,10 +34,11 @@ def admin_home(request):
 def home(request):
     return render(
         request,
-        "homepage/home.html",
+        "homepage/yhome.html",
         {
             "abs_url": request.build_absolute_uri(),
             "relative_url": "",
+            "page_title":"Chào mừng đến lớp học đề cao thực lực",
             "template": "home",
             "version_query": settings.STATIC_VERSION,
         },
@@ -122,3 +123,6 @@ def random(request):
 
 def handle404(request, exception):
     return render(request, "homepage/how_cute_404.html", status=404)
+
+def handle500(request):
+    return render(request, "homepage/thonk_500.html", status=500)

@@ -41,7 +41,7 @@ admin.site.register(Group, GroupAdmin)
 
 class SeriesAdmin(admin.ModelAdmin):
     form = SeriesForm
-    readonly_fields = ("slug",)
+    # readonly_fields = ("slug",)
     list_display = ("name",)
 
 

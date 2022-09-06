@@ -4,7 +4,7 @@ Django==3.1.8
 django-extensions==2.1.9
 django-ratelimit==2.0.0
 Markdown==3.1.1
-Pillow==8.1.1
+Pillow
 python-memcached==1.59
 requests==2.22.0
 beautifulsoup4==4.8.2

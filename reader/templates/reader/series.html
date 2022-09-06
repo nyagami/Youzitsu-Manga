@@ -400,7 +400,8 @@ var reading_button = null;
 	});
 
 </script>
-{% endblock %} {% block body %}
+{% endblock %} 
+{% block body %}
 <style>
 	.active {
 		background-color: red;
@@ -435,6 +436,9 @@ var reading_button = null;
 
 	.table:not(.spoiler) .spoiler-title {
 		display: none;
+	}
+	footer{
+		visibility: hidden;
 	}
 </style>
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

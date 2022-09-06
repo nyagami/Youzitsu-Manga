@@ -20,7 +20,7 @@ venv.bak/
 .vscode
 
 #db
-db.sqlite3
+# db.sqlite3
 
 #django migrations
 migrations/
@@ -29,4 +29,4 @@ migrations/
 static/
 
 #media root
-media/*
+# media/*

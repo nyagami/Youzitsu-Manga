@@ -1,0 +1,83 @@
+.container-fluid.big-page {
+    left: 5%;
+    position: fixed;
+    height: 77%;
+    padding-bottom: auto;
+    margin-bottom: 70px;
+    border-radius: 5px;
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.content.row{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.card-item{
+    position: relative;
+    text-align: center;
+    margin: 10px;
+}
+
+.page-nav{
+    position: relative;
+    color: lightcoral;
+}
+
+.card-nav{
+    position: relative;
+    font-weight: bolder;
+    top: 35%;
+    color: rgb(225, 237, 237);
+    text-align: center;
+}
+
+.card-nav .item{
+    position: relative;
+}
+.carousel-control-btn{
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: white;
+}
+.carousel-control-btn:hover{
+    cursor: pointer;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate
+}
+@-webkit-keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px lightcoral, 0 0 30px lightcoral, 0 0 40px lightcoral, 0 0 50px lightcoral, 0 0 60px lightcoral, 0 0 70px lightcoral;
+    }
+
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+}
+
+.series-item{
+    background-color: #b5acac29;
+}
+
+.series-title{
+    margin-top: 2px;
+    position: relative;
+    height: 20%;
+}
+.series-content{
+    position: relative;
+    margin: 10px 0 10px 0;
+    height: 70%;
+}
+.series-footer{
+    position: relative;
+    height: 5%;
+}
+
+.volume-cover{
+    width: 90%;
+    border-radius: 2px;
+    border: dashed aqua;
+    max-height: 520px;
+}

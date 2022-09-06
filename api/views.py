@@ -29,7 +29,7 @@ from .api import (
 )
 
 
-@cache_control(public=True, max_age=30, s_maxage=30)
+@cache_control(public=True, max_age=30, s_maxage=30)    
 def get_series_data(request, series_slug):
     series_api_data = cache.get(f"series_api_data_{series_slug}")
     if not series_api_data:
@@ -46,7 +46,6 @@ def get_series_page_data_req(request, series_slug):
 
 @cache_control(public=True, max_age=900, s_maxage=900)
 def get_all_series(request):
-    all_series_data = cache.get("all_series_data")
     if not all_series_data:
         all_series = Series.objects.all().select_related("author", "artist")
         all_series_data = {}
@@ -213,18 +212,16 @@ def get_volume_covers(request, series_slug):
                 .order_by("volume_number")
                 .values_list("volume_number", "volume_cover")
             )
-            covers = {
-                "covers": [
-                    [
-                        cover[0],
-                        f"/media/{str(cover[1])}",
-                        f"/media/{str(cover[1]).rsplit('.', 1)[0]}.webp",
-                        f"/media/{str(cover[1]).rsplit('.', 1)[0]}_blur.{str(cover[1]).rsplit('.', 1)[1]}",
-                    ]
-                    for cover in volume_covers
-                    if cover[1]
+            covers = [
+                [
+                    cover[0],
+                    f"/media/{str(cover[1])}",
+                    f"/media/{str(cover[1]).rsplit('.', 1)[0]}.webp",
+                    f"/media/{str(cover[1]).rsplit('.', 1)[0]}_blur.{str(cover[1]).rsplit('.', 1)[1]}",
                 ]
-            }
+                for cover in volume_covers
+                if cover[1]
+            ]
             cache.set(f"vol_covers_{series_slug}", covers)
             return HttpResponse(json.dumps(covers), content_type="application/json")
     else:
@@ -292,57 +289,7 @@ def clear_cache(request):
     else:
         return HttpResponse(json.dumps({}), content_type="application/json")
 
-
-@csrf_exempt
-def black_hole_mail(request):
-    if request.method == "POST":
-        text = request.POST["text"]
-        user_ip = get_user_ip(request)
-        user_sent_count = cache.get(f"mail_user_ip_{user_ip}")
-        if not user_sent_count:
-            cache.set(f"mail_user_ip_{user_ip}", 1, 30)
-        else:
-            user_sent_count += 1
-            if user_sent_count > 4:
-                response = HttpResponse(
-                    json.dumps({"error": "Error: sending mail too frequently."}),
-                    content_type="application/json",
-                )
-                return set_cors_headers(response)
-            else:
-                cache.set(f"mail_user_ip_{user_ip}", user_sent_count, 30)
-        if len(text) > 2000:
-            response = HttpResponse(
-                json.dumps(
-                    {"error": "Error: message too long. can only send 2000 characters."}
-                ),
-                content_type="application/json",
-            )
-            return set_cors_headers(response)
-        try:
-            webhook = Webhook.partial(
-                settings.MAIL_DISCORD_WEBHOOK_ID,
-                settings.MAIL_DISCORD_WEBHOOK_TOKEN,
-                adapter=RequestsWebhookAdapter(),
-            )
-            em = Embed(
-                color=0x000000,
-                title="Black Hole",
-                description=f"⚫ You've got guyamail! 📬\n\n{text}",
-                timestamp=datetime.utcnow(),
-            )
-            em.set_footer(
-                text=f"IP hash: {hashlib.md5(user_ip.encode()).hexdigest()[:32]}"
-            )
-            webhook.send(content=None, embed=em, username="Guya.moe")
-        except (AttributeError, NameError):
-            feedback_folder = os.path.join(settings.MEDIA_ROOT, "feedback")
-            os.makedirs(feedback_folder, exist_ok=True)
-            feedback_file = str(int(datetime.utcnow().timestamp()))
-            with open(os.path.join(feedback_folder, f"{feedback_file}.txt"), "w") as f:
-                f.write(text)
-        response = HttpResponse(
-            json.dumps({"success": "Mail successfully crossed the event horizon"}),
-            content_type="application/json",
-        )
-        return set_cors_headers(response)
+def series_data_slug(request):
+    if request.method == "GET":
+        series = ["manga-nam-nhat", "manga-nam-hai"]
+        return HttpResponse(json.dumps(series), content_type="application/json")

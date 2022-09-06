@@ -61,4 +61,7 @@ CACHES = {
 #     }
 # }
 
+STATIC_ROOT = "/tmp/static"
+MEDIA_ROOT = "/tmp/media"
+
 OCR_SCRIPT_PATH = os.path.join(PARENT_DIR, "ocr_tool.sh")
