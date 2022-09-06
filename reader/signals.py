@@ -156,13 +156,13 @@ def save_volume(sender, instance, **kwargs):
             method=6,
         )
         # This line crash on my server and this file does not seem be used at all.
-        # image.save(os.path.join(settings.MEDIA_ROOT, save_dir, f"{filename}.jp2"))
+        image.save(os.path.join(settings.MEDIA_ROOT, save_dir, f"{filename}.jpeg"),"JPEG")
         blur = Image.open(os.path.join(settings.MEDIA_ROOT, save_dir, vol_cover))
         blur = blur.convert("RGB")
         blur.thumbnail((blur.width / 8, blur.height / 8), Image.ANTIALIAS)
         blur = blur.filter(ImageFilter.GaussianBlur(radius=4))
         blur.save(
-            os.path.join(settings.MEDIA_ROOT, save_dir, f"{filename}_blur.{ext}"),
+            os.path.join(settings.MEDIA_ROOT, save_dir, f"{filename}_blur.jpeg"),
             "JPEG",
             quality=100,
             optimize=True,

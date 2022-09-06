@@ -9,6 +9,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['youzitsu.ga','127.0.0.1','localhost']
 
+STATIC_ROOT = os.path.join(BASE_DIR, '../static')
+MEDIA_ROOT = os.path.join(BASE_DIR, '../media')
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, '../db.sqlite3'),
+    }
+}
 
 CACHES = {
     "default": {

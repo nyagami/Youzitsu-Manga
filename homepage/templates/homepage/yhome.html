@@ -4,12 +4,30 @@
 
 <div class="container-fluid big-page">
 	<div class="content row">
-		<div class="card-item col-4" data-ride="carousel">
+		<div id="book-card" class="card-item col-4" data-ride="carousel">
+			<div id = "button-nav" class="d-none">
+				<div class="button-container d-flex justify-content-sm-around">
+					<a id="link-to-read">
+						<div class="button-item">
+							<i class="fa fa-book" aria-hidden="true"></i>
+						</div>
+					</a>
+					<div class="button-item" style="opacity: 0;"></div>
+					<a id="link-full-img" target="_blank">
+						<div class="button-item" style="margin-left: 40%;">
+							<i class="fa fa-expand" aria-hidden="true"></i>
+						</div>
+					</a>
+					<div onclick="escape_model()" class="button-item">
+						<span><i class="fa fa-times" aria-hidden="true"></i></span>
+					</div>
+				</div>
+			</div>
 			<div id="book-container"></div>
-			<a onclick="pre_page()" class="carousel-control-btn carousel-control-prev" role="button" data-slide="prev">
+			<a onclick="change_page(-1)" class="carousel-control-btn carousel-control-prev" role="button" data-slide="prev">
 				<i class="page-nav fa fa-chevron-left fa-2x" aria-hidden="true"></i>
 			</a>
-			<a onclick="next_page()" class="carousel-control-btn carousel-control-next" role="button" data-slide="next">
+			<a onclick="change_page(1)" class="carousel-control-btn carousel-control-next" role="button" data-slide="next">
 				<i class="page-nav fa fa-chevron-right fa-2x" aria-hidden="true"></i>
 			</a>
 			<div class="current-bar">
@@ -19,7 +37,6 @@
 		<div class="card-item col-6 container">
 			<div class="series-item series-title">
 				<div id="title-container">
-
 				</div>
 			</div>
 			<div class="series-item series-content">
@@ -31,56 +48,34 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-nav card-item col">
-			<a onclick="pre_series()" href="#"><i class="item fa fa-angle-double-up fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
-			<div class="item">Up/Down</div>
-			<div class="item">Để</div>
-			<div class="item">Đổi</div>
-			<div class="item">Series</div>
-			<a onclick="next_series()" href="#"><i class="item fa fa-angle-double-down fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
+		<div class="card-nav card-item col-1">
+			<a onclick="change_book(-1)" href="#"><i class="item fa fa-angle-double-up fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
+			<div class="item text">Up/Down</div>
+			<div class="item text">Để</div>
+			<div class="item text">Đổi</div>
+			<div class="item text">Series</div>
+			<a onclick="change_book(1)" href="#"><i class="item fa fa-angle-double-down fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
 		</div>
+		<div class="current-bar-vertical col-sm">
+			<div id="current-pointer-vertical"></div>
+		</div>
+	</div>
+</div>
+<div class="d-none" id="page-model-container">
+	<div id="page-model-background">
+	</div>
+	<div id="page-model" class="card-item col-4" data-ride="carousel">
 	</div>
 </div>
 
 <script>
-	all_covers = []
-	all_series = []
-	current_book = 0
-	current_page = {}
-	fetch(`/api/series_data_slug/`).then(res => res.json()).then(series_slug => {
-		for(let i=0; i<series_slug.length; i++){
-			if(i==0){
-				document.getElementById("book-container").innerHTML = `<div id="page-container-${i}"></div>`
-				document.getElementById("pointer-container").innerHTML = `<div class="current-pointer" id="current-pointer-${i}"></div>`
-			}
-			else{
-				document.getElementById("book-container").innerHTML += `<div class="d-none" id="page-container-${i}"></div>`
-				document.getElementById("pointer-container").innerHTML += `<div class="current-pointer d-none" id="current-pointer-${i}"></div>`
-			}
-			all_covers.push([])
-			current_page[i] = 0
-			fetch(`/api/series/${series_slug[i]}/`).then(res => res.json()).then(series => {
-				all_series.push(series)
-				if(i==0){
-					document.getElementById("title-container").innerHTML=`<h1 class="series-title">${series.title}</h1>`
-					document.getElementById("content-container").innerHTML=`<div class="series-content">${series.description}</div>`
-				}
-				else{
-					document.getElementById("title-container").innerHTML +=`<h1 class="series-title d-none">${series.title}</h1>`
-					document.getElementById("content-container").innerHTML +=`<div class="series-content d-none">${series.description}</div>`
-				}
-			})
-			fetch(`/api/get_volume_covers/${series_slug[i]}/`).then(res => res.json()).then(covers => {
-				document.getElementById(`current-pointer-${i}`).style.width=`${1/covers.length*100}%`
-				for(let j=0; j<covers.length; j++){
-					all_covers[i].push(j)
-					if(j==0) document.getElementById(`page-container-${i}`).innerHTML = `<a href="/read/manga/${series_slug[i]}"><img class="volume-cover" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
-					else document.getElementById(`page-container-${i}`).innerHTML += `<a class="d-none" href="/read/manga/${series_slug[i]}"><img class="volume-cover" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
-				}
-			})
-		}
-	})
+	//define
+	api = 'series_data_slug'
+	series_gender = 'series'
+	get_cover_gender = 'get_volume_covers'
 </script>
+<script src="{% static 'js/query_series.js' %}"></script>
 <script src="{% static 'js/page.js' %}"></script>
+<script src="{% static 'js/model.js' %}"></script>
 
 {% endblock %}
