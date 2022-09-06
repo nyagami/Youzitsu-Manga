@@ -5,13 +5,16 @@
 <div class="container-fluid big-page">
 	<div class="content row">
 		<div class="card-item col-4" data-ride="carousel">
-			<div id="series-container"></div>
+			<div id="book-container"></div>
 			<a onclick="pre_page()" class="carousel-control-btn carousel-control-prev" role="button" data-slide="prev">
 				<i class="page-nav fa fa-chevron-left fa-2x" aria-hidden="true"></i>
 			</a>
 			<a onclick="next_page()" class="carousel-control-btn carousel-control-next" role="button" data-slide="next">
 				<i class="page-nav fa fa-chevron-right fa-2x" aria-hidden="true"></i>
 			</a>
+			<div class="current-bar">
+				<div id="pointer-container"></div>
+			</div>
 		</div>
 		<div class="card-item col-6 container">
 			<div class="series-item series-title">
@@ -21,22 +24,20 @@
 			</div>
 			<div class="series-item series-content">
 				<div id="content-container">
-
 				</div>
 			</div>
 			<div class="series-item series-footer">
 				<div id="footer-container">
-
 				</div>
 			</div>
 		</div>
 		<div class="card-nav card-item col">
-			<i class="item fa fa-angle-double-up fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i>
+			<a onclick="pre_series()" href="#"><i class="item fa fa-angle-double-up fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
 			<div class="item">Up/Down</div>
 			<div class="item">Để</div>
 			<div class="item">Đổi</div>
 			<div class="item">Series</div>
-			<i class="item fa fa-angle-double-down fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i>
+			<a onclick="next_series()" href="#"><i class="item fa fa-angle-double-down fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
 		</div>
 	</div>
 </div>
@@ -44,14 +45,20 @@
 <script>
 	all_covers = []
 	all_series = []
-	current_series = 0
-	current_cover = {}
+	current_book = 0
+	current_page = {}
 	fetch(`/api/series_data_slug/`).then(res => res.json()).then(series_slug => {
 		for(let i=0; i<series_slug.length; i++){
-			if(i==0) document.getElementById("series-container").innerHTML = `<div id="img-container-${i}"></div>`
-			else document.getElementById("series-container").innerHTML += `<div class="d-none" id="img-container-${i}"></div>`
+			if(i==0){
+				document.getElementById("book-container").innerHTML = `<div id="page-container-${i}"></div>`
+				document.getElementById("pointer-container").innerHTML = `<div class="current-pointer" id="current-pointer-${i}"></div>`
+			}
+			else{
+				document.getElementById("book-container").innerHTML += `<div class="d-none" id="page-container-${i}"></div>`
+				document.getElementById("pointer-container").innerHTML += `<div class="current-pointer d-none" id="current-pointer-${i}"></div>`
+			}
 			all_covers.push([])
-			current_cover[i] = 0
+			current_page[i] = 0
 			fetch(`/api/series/${series_slug[i]}/`).then(res => res.json()).then(series => {
 				all_series.push(series)
 				if(i==0){
@@ -64,76 +71,16 @@
 				}
 			})
 			fetch(`/api/get_volume_covers/${series_slug[i]}/`).then(res => res.json()).then(covers => {
+				document.getElementById(`current-pointer-${i}`).style.width=`${1/covers.length*100}%`
 				for(let j=0; j<covers.length; j++){
 					all_covers[i].push(j)
-					if(j==0) document.getElementById(`img-container-${i}`).innerHTML = `<a href="/read/manga/${series_slug[i]}"><img class="volume-cover media media-3x4" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
-					else document.getElementById(`img-container-${i}`).innerHTML += `<a class="d-none" href="/read/manga/${series_slug[i]}"><img class="volume-cover" src="${covers[j][2]}"></a>`
+					if(j==0) document.getElementById(`page-container-${i}`).innerHTML = `<a href="/read/manga/${series_slug[i]}"><img class="volume-cover" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
+					else document.getElementById(`page-container-${i}`).innerHTML += `<a class="d-none" href="/read/manga/${series_slug[i]}"><img class="volume-cover" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
 				}
 			})
 		}
 	})
-
-	function pre_page(){
-		page = document.getElementById(`img-container-${current_series}`).childNodes
-		if(!page[current_cover[current_series]].previousSibling) return
-		page[current_cover[current_series]].classList.add("d-none")
-		page[current_cover[current_series]-1].classList.remove("d-none")
-		current_cover[current_series]-=1
-	}
-
-	function next_page(){
-		page = document.getElementById(`img-container-${current_series}`).childNodes
-		if(!page[current_cover[current_series]].nextSibling) return
-		page[current_cover[current_series]].classList.add("d-none")
-		page[current_cover[current_series]+1].classList.remove("d-none")
-		current_cover[current_series]+=1
-	}
-		
-	function pre_series(){
-		nodes = document.getElementById("series-container").childNodes
-		if(!nodes[current_series].previousSibling) return
-		nodes[current_series].classList.add('d-none')
-		nodes[current_series-1].classList.remove('d-none')
-
-		title_container = document.getElementById("title-container").childNodes
-		title_container[current_series].classList.add('d-none')
-		title_container[current_series-1].classList.remove('d-none')
-
-		content_container = document.getElementById("content-container").childNodes
-		content_container[current_series].classList.add('d-none')
-		content_container[current_series-1].classList.remove('d-none')
-		current_series-=1
-	}
-
-	function next_series(){
-		nodes = document.getElementById("series-container").childNodes
-		if(!nodes[current_series].nextSibling) return
-		nodes[current_series].classList.add('d-none')
-		nodes[current_series+1].classList.remove('d-none')
-
-		title_container = document.getElementById("title-container").childNodes
-		title_container[current_series].classList.add('d-none')
-		title_container[current_series+1].classList.remove('d-none')
-
-		content_container = document.getElementById("content-container").childNodes
-		content_container[current_series].classList.add('d-none')
-		content_container[current_series+1].classList.remove('d-none')
-
-		current_series+=1
-	}
-	
-	document.querySelector('body').addEventListener('keydown', function (e) {
-		if(e.key=="ArrowLeft") pre_page()
-		else if(e.key=="ArrowRight") next_page()
-		else if(e.key=="ArrowUp") pre_series()
-		else if(e.key=="ArrowDown") next_series()
-	}, false);
-
-	setInterval(() => {
-		if(Math.floor(Math.random() * 2)) next_page()
-		else pre_page()
-	},10000)
-	
 </script>
+<script src="{% static 'js/page.js' %}"></script>
 
 {% endblock %}

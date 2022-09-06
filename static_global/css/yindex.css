@@ -83,7 +83,29 @@
 
 .volume-cover {
     width: 90%;
-    border-radius: 2px;
-    border: dashed aqua;
+    border-radius: 5px;
+    border: solid black;
     /* max-height: 520px; */
+}
+.current-bar{
+    position: relative;
+    height: 15px;
+    width: 60%;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-left: 20%;
+    background-color: rgba(240, 248, 255, 0.3);
+}
+
+#pointer-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.current-pointer{
+    position: relative;
+    border-radius: 5px;
+    height: 100%;
+    background-color: white;
 }
