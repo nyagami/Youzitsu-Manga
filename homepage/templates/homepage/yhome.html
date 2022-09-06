@@ -66,7 +66,7 @@
 			fetch(`/api/get_volume_covers/${series_slug[i]}/`).then(res => res.json()).then(covers => {
 				for(let j=0; j<covers.length; j++){
 					all_covers[i].push(j)
-					if(j==0) document.getElementById(`img-container-${i}`).innerHTML = `<a href="/read/manga/${series_slug[i]}"><img class="volume-cover" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
+					if(j==0) document.getElementById(`img-container-${i}`).innerHTML = `<a href="/read/manga/${series_slug[i]}"><img class="volume-cover media media-3x4" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
 					else document.getElementById(`img-container-${i}`).innerHTML += `<a class="d-none" href="/read/manga/${series_slug[i]}"><img class="volume-cover" src="${covers[j][2]}"></a>`
 				}
 			})

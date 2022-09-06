@@ -8,24 +8,25 @@
     width: 90%;
     background-color: rgba(0, 0, 0, 0.3);
 }
-.content.row{
+
+.content.row {
     position: relative;
     height: 100%;
     width: 100%;
 }
 
-.card-item{
+.card-item {
     position: relative;
     text-align: center;
     margin: 10px;
 }
 
-.page-nav{
+.page-nav {
     position: relative;
     color: lightcoral;
 }
 
-.card-nav{
+.card-nav {
     position: relative;
     font-weight: bolder;
     top: 35%;
@@ -33,19 +34,22 @@
     text-align: center;
 }
 
-.card-nav .item{
+.card-nav .item {
     position: relative;
 }
-.carousel-control-btn{
+
+.carousel-control-btn {
     -webkit-text-stroke-width: 0.5px;
     -webkit-text-stroke-color: white;
 }
-.carousel-control-btn:hover{
+
+.carousel-control-btn:hover {
     cursor: pointer;
     -webkit-animation: glow 1s ease-in-out infinite alternate;
     -moz-animation: glow 1s ease-in-out infinite alternate;
     animation: glow 1s ease-in-out infinite alternate
 }
+
 @-webkit-keyframes glow {
     from {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px lightcoral, 0 0 30px lightcoral, 0 0 40px lightcoral, 0 0 50px lightcoral, 0 0 60px lightcoral, 0 0 70px lightcoral;
@@ -56,28 +60,30 @@
     }
 }
 
-.series-item{
+.series-item {
     background-color: #b5acac29;
 }
 
-.series-title{
+.series-title {
     margin-top: 2px;
     position: relative;
     height: 20%;
 }
-.series-content{
+
+.series-content {
     position: relative;
     margin: 10px 0 10px 0;
     height: 70%;
 }
-.series-footer{
+
+.series-footer {
     position: relative;
     height: 5%;
 }
 
-.volume-cover{
+.volume-cover {
     width: 90%;
     border-radius: 2px;
     border: dashed aqua;
-    max-height: 520px;
+    /* max-height: 520px; */
 }
