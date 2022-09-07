@@ -21,11 +21,6 @@
     text-align: center;
 }
 
-/* #book-container{
-    top: 50%;
-    transform: translateY(-50%);
-} */
-
 .page-nav {
     position: relative;
     color: lightcoral;
@@ -34,9 +29,7 @@
 .card-nav {
     position: relative;
     font-weight: bolder;
-    /* top: 35%; */
     color: rgb(225, 237, 237);
-    /* text-align: center; */
 }
 
 .card-nav .item {
@@ -68,6 +61,10 @@
     }
 }
 
+.container{
+    height: 80%;
+}
+
 .series-item {
     border-radius: 10px;
     background-color: #b5acac29;
@@ -87,14 +84,15 @@
     text-align: left;
     padding: 0 5px;
     margin: 10px 0 10px 0;
-    height: 82%;
+    min-height: 50%;
 }
 
 .series-footer {
     padding: 0 5px;
     width: fit-content;
     position: relative;
-    height: 5%;
+    text-align: center;
+    height: 2rem;
 }
 
 .volume-cover {
