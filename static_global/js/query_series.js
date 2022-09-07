@@ -20,7 +20,7 @@ query_series = fetch(`/api/${api}/`).then(res => res.json()).then(series_slug =>
                 document.getElementById("footer-container").innerHTML =`<div><a href="#">${series.author}</a> | <a href="#">${series.artist}</a> | <a href="#">${series.groups[1]}</a></div>`
             }
             else{
-                document.getElementById("title-container").innerHTML +=`<a class="d-none" href="/read/manga/${series.slug}/"><h1 class="series-title">${series.title}</h1></a>`
+                document.getElementById("title-container").innerHTML +=`<a class="d-none text-decoration-none" href="/read/manga/${series.slug}/"><h1 class="series-title">${series.title}</h1></a>`
                 document.getElementById("content-container").innerHTML +=`<div class="series-content d-none">${series.description}</div>`
                 document.getElementById("footer-container").innerHTML +=`<div class="d-none"><a class="d-none" href="#">${series.author}</a> | <a href="#">${series.artist}</a> | <a href="#">${series.groups[1]}</a></div>`
             }
