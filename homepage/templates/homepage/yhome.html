@@ -4,9 +4,12 @@
 
 <div class="big-page">
 	<div class="content row">
+		<div class="current-bar-vertical content-item">
+			<div id="current-pointer-vertical"></div>
+		</div>
 		<div id="book-card" class="card-item col-4" data-ride="carousel">
 			<div id = "button-nav" class="d-none">
-				<div class="button-container d-flex justify-content-sm-around">
+				<div class="button-container d-flex">
 					<a id="link-to-read">
 						<div class="button-item">
 							<i class="fa fa-book" aria-hidden="true"></i>
@@ -34,6 +37,14 @@
 				<div id="pointer-container"></div>
 			</div>
 		</div>
+		<div class="card-nav card-item col-1">
+			<a onclick="change_book(-1)" href="#"><i class="item fa fa-angle-double-up fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
+			<div class="item text">Up/Down</div>
+			<div class="item text">Để</div>
+			<div class="item text">Đổi</div>
+			<div class="item text">Series</div>
+			<a onclick="change_book(1)" href="#"><i class="item fa fa-angle-double-down fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
+		</div>
 		<div class="card-item col-6 container">
 			<div class="series-item series-title">
 				<div id="title-container">
@@ -47,17 +58,6 @@
 				<div id="footer-container">
 				</div>
 			</div>
-		</div>
-		<div class="card-nav card-item col-1">
-			<a onclick="change_book(-1)" href="#"><i class="item fa fa-angle-double-up fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
-			<div class="item text">Up/Down</div>
-			<div class="item text">Để</div>
-			<div class="item text">Đổi</div>
-			<div class="item text">Series</div>
-			<a onclick="change_book(1)" href="#"><i class="item fa fa-angle-double-down fa-beat fa-2x" style="--fa-beat-scale: 1.2;" aria-hidden="true"></i></a>
-		</div>
-		<div class="current-bar-vertical col-sm">
-			<div id="current-pointer-vertical"></div>
 		</div>
 	</div>
 </div>
