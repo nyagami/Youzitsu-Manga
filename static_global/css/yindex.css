@@ -1,8 +1,8 @@
 .big-page {
     left: 5%;
-    position: fixed;
-    height: 77%;
-    padding-bottom: auto;
+    position: relative;
+    height: 100rem;
+    /* padding-bottom: auto; */
     margin-bottom: 70px;
     border-radius: 5px;
     width: 90%;
@@ -14,6 +14,10 @@
     height: 100%;
     width: 100%;
     align-items: center;
+}
+
+#book-card{
+    max-height: 80%;
 }
 
 .card-item {
@@ -84,7 +88,7 @@
     text-align: left;
     padding: 0 5px;
     margin: 10px 0 10px 0;
-    min-height: 50%;
+    height: 80%;
 }
 
 .series-footer {
@@ -100,6 +104,11 @@
     max-height: 500px;
     border-radius: 5px;
     margin-bottom: 10px;
+}
+
+#book-card{
+    max-height: 480px;
+    max-width: 360px;
 }
 
 .current-bar{
@@ -187,16 +196,9 @@
     cursor: pointer;
 }
 
-.fa{
-}
-
 .button-item:hover{
     opacity: 1;
-}
-
-.button-item .fa{
-    /* transform: scale(0.7); */
-}
+}   
 
 @media (max-width: 1201px){
     .current-bar-vertical{
@@ -205,23 +207,62 @@
 }
 
 @media (max-width: 1080px){
-    html{
-        overflow: scroll;
-    }
     .big-page{
-        max-height:2000px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 450px;
+        max-height: 520px;
     }
-    .content.row{
-        
+    .bot{
+        height: 40%;
     }
-    .book-card {
-        min-width: 230px;
-        min-height: 340px;
+    #book-card{
+        min-width: 360px;
+        min-height: 450px;
+        align-content: center;
     }
-    .card-nav {
-        max-block-size: 200pxs;
+    #page-model{
+        min-width: 360px;
     }
-    .card-item{
-        max-height: 500px;
+    .container{
+        display: block;
+        position: absolute;
+        align-items: center;
+        min-width: 100%;
+        transform: translateY(120%);
+    }
+    .bot{
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 768px){
+    .series-footer{
+        height: 4rem;
+    }
+}
+
+@media (max-width: 520px){
+    .card-nav{
+        font-size: x-small;
+    }
+    .item-text{
+        opacity: 0;
+    }
+}
+
+@media (max-width: 446px){
+    .big-page{
+        max-width: 300px;
+        max-height: 350px;
+    }
+    #book-card{
+        max-width: 100%;
+        max-height: 300px;
+        min-height: 180px;
+        min-width: 240px;
+    }
+    .bot{
+        height: 80vh;
     }
 }
