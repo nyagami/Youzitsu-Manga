@@ -34,15 +34,6 @@ function change_book(step){
     }
 }
 
-function dragStart(event) {
-    // event.dataTransfer.setData("Text", event.target.id);
-}
-
-function change_slide(event) {
-    console.log(event)
-    // console.log(document.getElementById(event.target.id).style.left)
-}
-
 function set_background(){
     current_image = document.getElementById(`book-container`).childNodes[current_book].childNodes[current_page[current_book]].firstChild.src.split('.',1)[0]
     document.getElementById("page-model-background").style.backgroundImage = `url(${current_image}_blur.jpeg)`
