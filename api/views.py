@@ -291,5 +291,5 @@ def clear_cache(request):
 
 def series_data_slug(request):
     if request.method == "GET":
-        series = ["manga-nam-nhat", "manga-nam-hai"]
+        series = [series.slug for series in Series.objects.all().order_by("id")]
         return HttpResponse(json.dumps(series), content_type="application/json")

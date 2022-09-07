@@ -175,21 +175,21 @@
 
 .button-container{
     height: 30px;
-    width: 100%;
-    padding: 5px 10% 0 10%;
-    align-content: center;
+    width: 50%;
+    transform: translateX(50%);
+    padding-top: 3px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgba(92, 92, 92, 0.5);
+    margin-bottom: 10px;
 }
 .button-item{
-    background-color: rgba(92, 92, 92, 0.5);
-    border-radius: 4px;
-    height: 2rem;
-    width: 2rem;
     opacity: 0.5;
-    /* text-align: center; */
-    /* margin-bottom: 5px; */
     color: white;
-    /* transform: translateY(-5px); */
     cursor: pointer;
+}
+
+.fa{
 }
 
 .button-item:hover{
