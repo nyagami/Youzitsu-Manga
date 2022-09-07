@@ -6,11 +6,11 @@ query_series = fetch(`/api/${api}/`).then(res => res.json()).then(series_slug =>
     for(let i=0; i<series_slug.length; i++){
         if(i==current_book){
             document.getElementById("book-container").innerHTML = `<div id="page-container-${i}"></div>`
-            document.getElementById("pointer-container").innerHTML = `<div class="current-pointer" id="current-pointer-${i}"></div>`
+            document.getElementById("pointer-container").innerHTML = `<div ondragstart="dragStart(event)" ondrag="change_slide(event)" draggable="true"class="current-pointer" id="current-pointer-${i}"></div>`
         }
         else{
             document.getElementById("book-container").innerHTML += `<div class="d-none" id="page-container-${i}"></div>`
-            document.getElementById("pointer-container").innerHTML += `<div class="current-pointer d-none" id="current-pointer-${i}"></div>`
+            document.getElementById("pointer-container").innerHTML += `<div ondrag=change_slide() class="current-pointer d-none" id="current-pointer-${i}"></div>`
         }
         current_page[i] = 0
         fetch(`/api/${series_gender}/${series_slug[i]}/`).then(res => res.json()).then(series => {

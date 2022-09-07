@@ -1,4 +1,4 @@
-.container-fluid.big-page {
+.big-page {
     left: 5%;
     position: fixed;
     height: 77%;
@@ -8,6 +8,10 @@
     width: 90%;
     background-color: rgba(0, 0, 0, 0.3);
     /* overflow: auto; */
+}
+
+#book-card{
+    position: relative;
 }
 
 .content.row {
@@ -21,6 +25,11 @@
     text-align: center;
     margin: 10px;
 }
+
+/* #book-container{
+    top: 50%;
+    transform: translateY(-50%);
+} */
 
 .page-nav {
     position: relative;
@@ -47,7 +56,7 @@
     -webkit-text-stroke-color: white;
 }
 
-.carousel-control-btn:hover{
+.carousel-control-btn:hover, .carousel-control-btn:active{
     cursor: pointer;
     -webkit-animation: glow 1s ease-in-out infinite alternate;
     -moz-animation: glow 1s ease-in-out infinite alternate;
@@ -94,12 +103,13 @@
 }
 
 .volume-cover {
+    /* position: relative; */
     max-width: 90%;
     max-height: 500px;
     border-radius: 5px;
     margin-bottom: 10px;
-    border: solid black;
 }
+
 .current-bar{
     position: relative;
     height: 15px;
@@ -118,10 +128,15 @@
 }
 
 .current-pointer{
+    z-index: 100;
     position: relative;
     border-radius: 5px;
     height: 100%;
     background-color: white;
+}
+
+.current-pointer:hover{
+    transform: scale(1.2);
 }
 
 .current-bar-vertical{
