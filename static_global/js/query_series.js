@@ -17,19 +17,19 @@ query_series = fetch(`/api/${api}/`).then(res => res.json()).then(series_slug =>
                 if(i==0){
                 document.getElementById("title-container").innerHTML=`<a class="text-decoration-none" href="/read/manga/${series.slug}/"><h1 class="series-title">${series.title}</h1></a>`
                 document.getElementById("content-container").innerHTML=`<div class="series-content">${series.description}</div>`
-                document.getElementById("footer-container").innerHTML =`<div><a href="#">${series.author}</a> | <a href="#">${series.artist}</a></div>`
+                document.getElementById("footer-container").innerHTML =`<div><a>${series.author}</a> | <a>${series.artist}</a></div>`
             }
             else{
                 document.getElementById("title-container").innerHTML +=`<a class="d-none text-decoration-none" href="/read/manga/${series.slug}/"><h1 class="series-title">${series.title}</h1></a>`
                 document.getElementById("content-container").innerHTML +=`<div class="series-content d-none">${series.description}</div>`
-                document.getElementById("footer-container").innerHTML +=`<div class="d-none"><a class="d-none" href="#">${series.author}</a> | <a href="#">${series.artist}</a></div>`
+                document.getElementById("footer-container").innerHTML +=`<div class="d-none"><a class="d-none">${series.author}</a> | <a>${series.artist}</a></div>`
             }
         })
         fetch(`/api/${get_cover_gender}/${series_slug[i]}/`).then(res => res.json()).then(covers => {
             document.getElementById(`current-pointer-${i}`).style.width=`${1/covers.length*100}%`
             for(let j=0; j<covers.length; j++){
-                if(j==current_page[current_book]) document.getElementById(`page-container-${i}`).innerHTML = `<a class="link_to_series" onclick=display_model() href="#"><img class="volume-cover img-fluid" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
-                else document.getElementById(`page-container-${i}`).innerHTML += `<a onclick=display_model() class="d-none link_to_series" href="#"><img class="volume-cover img-fluid" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
+                if(j==current_page[current_book]) document.getElementById(`page-container-${i}`).innerHTML = `<a class="link_to_series" onclick=display_model()><img class="volume-cover img-fluid" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
+                else document.getElementById(`page-container-${i}`).innerHTML += `<a onclick=display_model() class="d-none link_to_series"><img class="volume-cover img-fluid" src="${covers[j][2]}" alt="Ảnh bìa Volume"></a>`
             }
         })
     }

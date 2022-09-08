@@ -35,9 +35,8 @@ function change_book(step){
 }
 
 function set_background(){
-    current_image = document.getElementById(`book-container`).childNodes[current_book].childNodes[current_page[current_book]].firstChild.src.split('.')
-    current_image.pop()
-    document.getElementById("page-model-background").style.backgroundImage = `url(${current_image.join('.')}_blur.jpeg)`
+    current_image = document.getElementById(`book-container`).childNodes[current_book].childNodes[current_page[current_book]].firstChild.src.slice(window.location.href.length).split('.')[0]
+    document.getElementById("page-model-background").style.backgroundImage = `url(${current_image}_blur.jpeg)`
     document.getElementById("link-full-img").setAttribute("href",`${current_image}.jpeg`)
     link_to_read = document.getElementById("title-container").childNodes[current_book].href
     document.getElementById("link-to-read").setAttribute("href",link_to_read)
