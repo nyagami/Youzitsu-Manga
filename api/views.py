@@ -5,7 +5,6 @@ import time
 import zipfile
 from datetime import datetime
 
-from discord import Embed, RequestsWebhookAdapter, Webhook
 from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse, HttpResponseBadRequest
