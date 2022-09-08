@@ -7,3 +7,4 @@ Pillow
 python-memcached==1.59
 requests==2.22.0
 beautifulsoup4==4.8.2
+python-dotenv

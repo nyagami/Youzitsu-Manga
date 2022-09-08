@@ -1,7 +1,8 @@
 import os
 
 from .base import *
-
+from dotenv import load_dotenv
+load_dotenv()
 
 CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
 SECURE_HSTS_SECONDS = 60
