@@ -7,7 +7,7 @@ CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['youzitsu.ga','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['*']
 
 STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 MEDIA_ROOT = os.path.join(BASE_DIR, '../media')
