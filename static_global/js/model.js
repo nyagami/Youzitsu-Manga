@@ -5,7 +5,8 @@ function display_model(){
     page_model = document.getElementById("page-model")
     page_model.innerHTML = book_card_HTML
     query_series
-    links = document.getElementsByClassName("link_to_series")
+    links = document.getElementsByClassName("link-to-series")
+    console.log(links)
     for(let i=0; i<links.length; i++) links[i].removeAttribute("onclick")
     set_background() //from page.js
     document.getElementById("button-nav").classList.remove("d-none")
