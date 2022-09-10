@@ -18,7 +18,7 @@ function escape_model(){
     document.getElementById("page-model-container").classList.add('d-none')
     document.getElementById("page-model").innerHTML = ""
     query_series
-    links = document.getElementsByClassName("link_to_series")
+    links = document.getElementsByClassName("link-to-series")
     for(let i=0; i<links.length; i++) links[i].setAttribute("onclick","display_model()")
     auto_change_cover = setInterval(change_cover, 10000)
 }
