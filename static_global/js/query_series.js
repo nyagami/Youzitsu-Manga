@@ -28,11 +28,11 @@ query_series = fetch(`/api/${api}/`).then(res => res.json()).then(series_slug =>
         fetch(`/api/${get_cover_gender}/${series_slug[i]}/`).then(res => res.json()).then(covers => {
             document.getElementById(`current-pointer-${i}`).style.width=`${1/covers.length*100}%`
             for(let j=0; j<covers.length; j++){
-                if(j==current_page[current_book]) document.getElementById(`page-container-${i}`).innerHTML = `<a class="link_to_series" onclick=display_model()><picture>
+                if(j==current_page[current_book]) document.getElementById(`page-container-${i}`).innerHTML = `<a class="link-to-series" onclick=display_model()><picture>
                 <source type="image/webp" srcset="${covers[j][2]}" class="volume-cover" alt="Ảnh bìa Volume">
                 <img class="volume-cover" src="${covers[j][1]}" alt="Ảnh bìa Volume">
                 </picture></a>`
-                else document.getElementById(`page-container-${i}`).innerHTML += `<a onclick=display_model() class="d-none link_to_series"><picture>
+                else document.getElementById(`page-container-${i}`).innerHTML += `<a onclick=display_model() class="d-none link-to-series"><picture>
                 <source type="image/webp" srcset="${covers[j][2]}" class="volume-cover" alt="Ảnh bìa Volume">
                 <img class="volume-cover" src="${covers[j][1]}" alt="Ảnh bìa Volume">
                 </picture></a>`

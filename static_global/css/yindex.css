@@ -253,9 +253,6 @@
 }
 
 @media (max-width: 446px){
-    .series-footer{
-        font-weight: 100;
-    }
     .big-page{
         max-width: 300px;
         max-height: 350px;
@@ -265,6 +262,13 @@
         max-height: 300px;
         min-height: 180px;
         min-width: 240px;
+    }
+    .link-to-series picture img{
+        height: 220px;
+        width: auto;
+    }
+    .series-footer{
+        font-weight: 100;
     }
     .container{
         min-width: 350px;
