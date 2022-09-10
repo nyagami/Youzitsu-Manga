@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>500 Error Page</title>
+        
+        <style>
+            html,body{
+                background-color: #8e8a8c;
+            height: 100%;
+             margin: 0;
+            }
+            .container{
+                transform: translateY(30%);
+            padding: 0;
+            width: 100%;
+            position: relative;
+            }
+            .side-img {
+             
+                margin-left: 50%;
+                transform: translateX(-50%);
+                
+                width: 225px;
+                height: 225px;
+                background-image: url(/static/img/chibi.png);
+                background-repeat: no-repeat;
+                display: block;
+                
+            }
+            .content{
+                width: 100%;
+               
+                text-align: center;
+                position: absolute;
+                display: block;
+                
+            }
+            .text-danger{
+                text-shadow: 2px 1px 2px #000;
+                margin: 0;
+                margin-bottom: -5px;
+                color: red;
+                font-size: 80px;
+
+            }
+            .description{
+                color: #675656;
+                text-shadow: 2px 1px 2px #675656;
+                font-size: 40px;
+                margin-top: 10px;
+            }
+            .content-list{
+                list-style-type: none;
+                
+            }
+            .warning{
+                display: inline-block;
+
+            }
+            .icon{
+                text-shadow: 2px 1px 2px #000;
+                font-size: 50px;
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="side-img"></div>
+            <div class="content">
+                <ul class ="content-list">
+                <li>
+                    <i class="icon large material-icons">warning</i>
+                    <h1 class="warning text-danger">500</h1>
+                </li>
+                <li><h2 class="description">Internal Server Error</h2></li>
+            <li><h3>  Hãy thử Reload lại trang !!</h3> </li>
+            </ul>
+            </div>
+        
+
+        </div>
+    </body>
+
+</html>
