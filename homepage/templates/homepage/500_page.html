@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>500 Error Page</title>
+    <link rel="stylesheet" href="{% static '/css/style.css' %}{{ version_query }}">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="side-img"></div>
+        <div class="content_500">
+            <ul class="content-list">
+                <li>
+                    <i class="icon large material-icons">warning</i>
+                    <h1 class="warning text-danger">500</h1>
+                </li>
+                <li>
+                    <h2 class="description_500">Internal Server Error</h2>
+                </li>
+                <li>
+                    <h3> Hãy thử Reload lại trang !!</h3>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

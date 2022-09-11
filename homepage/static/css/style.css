@@ -1,0 +1,143 @@
+html,
+body {
+	background-color: #8e8a8c;
+	height: 100%;
+	margin: 0;
+}
+
+/* 400		 */
+.bgr {
+	width: 100%;
+	height: 100%;
+	background: #000;
+}
+
+#main {
+	position: fixed;
+	display: flex;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url("/static/img/bg_artwork.png") no-repeat;
+	background-size: cover;
+}
+
+.content_400 {
+	background: border-box;
+	border-style: solid;
+	border-color: #bd1919;
+	height: 111px;
+	left: 50%;
+	bottom: 50%;
+	transform: translateX(-50%);
+	border-radius: 10px;
+	min-width: 420px;
+	position: fixed;
+}
+
+.h2,
+h2 {
+	font-size: 20px;
+	display: flex;
+	justify-content: center;
+	color: #f22525;
+	text-shadow: 2px 0px 1px;
+}
+
+
+a.button.btn.btn-primary {
+	color: #f0e8f0;
+	border-color: #F0E8EF;
+	transform: translateX(100%);
+	font-weight: 600;
+	border-radius: 10px;
+	text-shadow: 2px 0px 3px #716f73;
+	background-color: rgba(255, 36, 36, 0.4);
+	border: #f0e8f0;
+	border-style: solid !important;
+	margin-top: 10px;
+}
+
+.btn-primary:hover {
+	background-color: rgba(255, 36, 36, 1) !important;
+	border-color: #fff !important;
+	color: #fff;
+	border-style: solid !important;
+
+}
+
+.bgr-content {
+
+	background-color: rgba(0, 0, 0, 0.4);
+	height: 111px;
+
+	left: 50%;
+	bottom: 50%;
+	transform: translateX(-50%);
+
+	border-radius: 10px;
+	min-width: 420px;
+	position: fixed;
+}
+
+
+/* 500 */
+.container {
+	transform: translateY(30%);
+	padding: 0;
+	width: 100%;
+	position: relative;
+}
+
+.side-img {
+
+	margin-left: 50%;
+	transform: translateX(-50%);
+
+	width: 225px;
+	height: 225px;
+	background-image: url("/static/img/chibi.png");
+	background-repeat: no-repeat;
+	display: block;
+
+}
+
+.content_500 {
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	display: block;
+}
+
+.text-danger {
+	text-shadow: 2px 1px 2px #000;
+	margin: 0;
+	margin-bottom: -5px;
+	color: red;
+	font-size: 80px;
+
+}
+
+.description_500 {
+	color: #675656;
+	text-shadow: 2px 1px 2px #675656;
+	font-size: 40px;
+	margin-top: 10px;
+}
+
+.content-list {
+	list-style-type: none;
+
+}
+
+.warning {
+	display: inline-block;
+
+}
+
+.icon {
+	text-shadow: 2px 1px 2px #000;
+	font-size: 50px;
+	color: red;
+}
