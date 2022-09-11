@@ -2,7 +2,6 @@ import os
 
 from .base import *
 
-
 CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
 
 DEBUG = True
