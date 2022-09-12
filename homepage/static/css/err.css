@@ -1,6 +1,6 @@
 html,
 body {
-	background: #ff9393;
+	background: rgb(250 157 157 / 68%);
 	height: 100%;
 	margin: 0;
 }
@@ -94,7 +94,7 @@ a.button.btn.btn-primary {
 .side-img {
 	position: absolute;
 	margin-left: 50%;
-	margin-top: 10%;
+	
 	width: 138px;
 	transform: translate(-50%);
 	height: 182px;
@@ -110,7 +110,6 @@ a.button.btn.btn-primary {
 	align-self: center;
 	justify-content: center;
 	display: flex;
-	margin-top: 25%;
 }
 
 .text-danger {
@@ -149,8 +148,19 @@ a.button.btn.btn-primary {
 	color: #ff1d1d;
 }
 
-@media screen and (max-width :450px) {
-	.description_500 {
+@media screen and (min-width:1024px){
+	.side-img{
+		margin-top: 1%;
+	}
+}
+@media screen and (max-width: 400px){
+	.description_500{
 		font-size: 30px;
 	}
 }
+@media (min-width:401px) and (max-width:1023px) {
+		.side-img{
+			margin-top: 5%;
+		}
+}
+ 
