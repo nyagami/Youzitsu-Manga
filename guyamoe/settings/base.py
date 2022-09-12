@@ -137,9 +137,9 @@ STATIC_VERSION = "?v=" + subprocess.check_output(
 
 MEDIA_URL = "/media/"
 
-IMGUR_CLIENT_ID = os.environ.get("IMGUR_CLIENT_ID", "")
-MAIL_DISCORD_WEBHOOK_ID = int(os.environ.get("MAIL_DISCORD_WEBHOOK_ID", 1))
-MAIL_DISCORD_WEBHOOK_TOKEN = os.environ.get("MAIL_DISCORD_WEBHOOK_TOKEN", "")
+# IMGUR_CLIENT_ID = os.environ.get("IMGUR_CLIENT_ID", "")
+# MAIL_DISCORD_WEBHOOK_ID = int(os.environ.get("MAIL_DISCORD_WEBHOOK_ID", 1))
+# MAIL_DISCORD_WEBHOOK_TOKEN = os.environ.get("MAIL_DISCORD_WEBHOOK_TOKEN", "")
 
 BRANDING_NAME = "Guya.moe"
 BRANDING_DESCRIPTION = "A place to read the entirety of the Kaguya-sama: Love is War manga. No ads. No bad reader. All guya."

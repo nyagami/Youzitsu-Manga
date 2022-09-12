@@ -63,14 +63,14 @@ def about(request):
 @decorator_from_middleware(ForwardParametersMiddleware)
 def main_series_chapter(request, chapter):
     return redirect(
-        "reader-manga-chapter", "Kaguya-Wants-To-Be-Confessed-To", chapter, "1"
+        "reader-manga-chapter", "manga-nam-nhat", chapter, "1"
     )
 
 
 @decorator_from_middleware(ForwardParametersMiddleware)
 def main_series_page(request, chapter, page):
     return redirect(
-        "reader-manga-chapter", "Kaguya-Wants-To-Be-Confessed-To", chapter, page
+        "reader-manga-chapter", "manga-nam-nhat", chapter, page
     )
 
 
@@ -80,12 +80,12 @@ def latest(request):
     if not latest_chap:
         latest_chap = (
             Chapter.objects.order_by("-chapter_number")
-            .filter(series__slug="Kaguya-Wants-To-Be-Confessed-To")[0]
+            .filter(series__slug="manga-nam-nhat")[0]
             .slug_chapter_number()
         )
         cache.set("latest_chap", latest_chap, 3600 * 96)
     return redirect(
-        "reader-manga-chapter", "Kaguya-Wants-To-Be-Confessed-To", latest_chap, "1"
+        "reader-manga-chapter", "manga-nam-nhat", latest_chap, "1"
     )
 
 
@@ -97,14 +97,14 @@ def random(request):
             ch.slug_chapter_number()
             for ch in (
                 Chapter.objects.order_by("-chapter_number").filter(
-                    series__slug="Kaguya-Wants-To-Be-Confessed-To"
+                    series__slug="manga-nam-nhat"
                 )
             )
         ]
         cache.set("random_opts", random_opts, 3600 * 96)
     return redirect(
         "reader-manga-chapter",
-        "Kaguya-Wants-To-Be-Confessed-To",
+        "manga-nam-nhat",
         r.choice(random_opts),
         "1",
     )
