@@ -873,10 +873,10 @@ aside header > .guya {
 	font-variant: small-caps;
 }
 
-.rdr-area .hover-prev .hover-sub:before { content: "prev" }
-.rdr-area .hover-next .hover-sub:before { content: "next" }
-.direction-rtl .rdr-area .hover-prev .hover-sub:before { content: "next" }
-.direction-rtl .rdr-area .hover-next .hover-sub:before { content: "prev" }
+.rdr-area .hover-prev .hover-sub:before { content: "trước" }
+.rdr-area .hover-next .hover-sub:before { content: "sau" }
+.direction-rtl .rdr-area .hover-prev .hover-sub:before { content: "trước" }
+.direction-rtl .rdr-area .hover-next .hover-sub:before { content: "sau" }
 
 #test_element {
 	position: absolute;
@@ -2662,22 +2662,22 @@ _:-webkit-full-screen:not(:root:root), .fit-height_limit .rdr-image-wrap .Reader
 	.IconTab .ico-btn {
 		display: flex !important;
 	}
-	.IconTab[data-name="Reader"] .ico-btn:before {
+	.IconTab[data-name="Trang"] .ico-btn:before {
 		content: "\e936"
 	}
-	.IconTab[data-name="Behavior"] .ico-btn:before {
+	.IconTab[data-name="Kiểm soát"] .ico-btn:before {
 		content: "\e934"
 	}
-	.IconTab[data-name="Layout"] .ico-btn:before {
+	.IconTab[data-name="Giao diện"] .ico-btn:before {
 		content: "\e908"
 	}
-	.IconTab[data-name="Themes"] .ico-btn:before {
+	.IconTab[data-name="Theme"] .ico-btn:before {
 		content: "\e937"
 	}
-	.IconTab[data-name="Advanced"] .ico-btn:before {
+	.IconTab[data-name="Nâng cao"] .ico-btn:before {
 		content: "\e935"
 	}
-	.IconTab[data-name="About"] .ico-btn:before {
+	.IconTab[data-name="Thông tin"] .ico-btn:before {
 		content: "\e903"
 	}
 	

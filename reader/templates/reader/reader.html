@@ -65,7 +65,7 @@
             <button data-bind='vol_next' class="rdr-selector-vol ico-btn prev"
               data-tip="Previous volume"></button>
             <div class="flex-spacer" data-bind='message'></div>
-            <button data-bind="download_chapter" class="ico-btn download"></button>
+            <!-- <button data-bind="download_chapter" class="ico-btn download"></button> -->
             <div class="download-anchor">
               <div class="download-wrapper hidden" data-bind="download_wrapper">
                 <button data-bind="downloading_chapter" class="ico-btn downloading" disabled></button>
@@ -106,7 +106,7 @@
         </section>
         <section class="rdr-previews">
           <div class="header" data-bind="previews_button">
-            <span>Previews</span>
+            <span>Xem trước</span>
             <div class="ico-btn expander"></div>
           </div>
           <div data-bind='previews' class="rdr-previews-gallery">
@@ -165,7 +165,7 @@
 <script type="text/javascript" src="{% static 'js/ResizeSensor.js' %}{{ version_query }}"></script>
 <script type="text/javascript" src="{% static 'js/alg_lib.js' %}{{ version_query }}"></script>
 <script type="text/javascript" src="{% static 'js/UI2.js' %}{{ version_query }}"></script>
-<script type="text/javascript" src="{% static 'js/init.js' %}{{ version_query }}"></script>
+<script type="text/javascript" src="{% static 'js/init.js' %}{{ version_query }}"></script>  
 <script type="text/javascript">
   // History tagging
   tag();

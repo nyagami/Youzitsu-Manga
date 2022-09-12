@@ -421,11 +421,11 @@ function SettingsHandler(){
 	Linkable.call(this);
 
 	this.settings = {
-		lyt: new SettingsCategory('Reader', false),
-		bhv: new SettingsCategory('Behavior', false),
-		apr: new SettingsCategory('Layout', false),
-		thm: new SettingsCategory('Themes', false),
-		adv: new SettingsCategory('Advanced', false),
+		lyt: new SettingsCategory('Trang', false),
+		bhv: new SettingsCategory('Kiểm soát', false),
+		apr: new SettingsCategory('Giao diện', false),
+		thm: new SettingsCategory('Theme', false),
+		adv: new SettingsCategory('Nâng cao', false),
 		misc: new SettingsCategory('Miscellaneous', true),
 	};
 	this.all = {};
@@ -624,7 +624,7 @@ function SettingsHandler(){
 
 	this.newSetting({
 		addr: 'lyt.fit',
-		prettyName: 'Page fit',
+		prettyName: 'Khung trang',
 		options: [
 			'none',
 			'all_limit',
@@ -645,70 +645,70 @@ function SettingsHandler(){
 			'height': 'Images expand to max height.',
 		},
 		help: {
-			'none': 'Images are displayed in natural resolution.',
-			'all_limit': 'Natural image size that does not exceed max width or height.',
-			'width_limit': 'Natural image size that does not exceed max width.',
-			'height_limit': 'Natural image size that does not exceed max height.',
-			'all': 'Images expand to width or height.',
-			'width': 'Images expand to max width.',
-			'height': 'Images expand to max height.',
+			'none': 'Độ phân giải gốc',
+			'all_limit': 'Ảnh sẽ không vượt quá độ cao hoặc độ rộng màn hình.',
+			'width_limit': 'Ảnh sẽ không vượt quá độ rộng màn hình.',
+			'height_limit': 'Ảnh sẽ không vượt quá độ cao màn hình.',
+			'all': 'Ảnh có thể vượt quá độ cao và độ rộng màn hình.',
+			'width': 'Ảnh có thể vượt quá độ rộng màn hình.',
+			'height': 'Ảnh có thể vượt quá độ cao màn hình.',
 		},
 		type: SETTING_MULTI,
 		html: `<div><div class="t-row">
 				<div class="t-1">
-					<div class="ToggleButton" data-bind="none"><div data-bind="icon" class="ico-btn"></div><span>Original size</span></div>
+					<div class="ToggleButton" data-bind="none"><div data-bind="icon" class="ico-btn"></div><span>Kích thước gốc</span></div>
 				</div>
 			</div><div class="t-row">
 				<div class="t-tooltip">
-					Limit
+					Giới hạn
 				</div>
 				<div class="t-1">
-					<div class="ToggleButton" data-bind="all_limit"><div data-bind="icon" class="ico-btn"></div><span>All</span></div>
-					<div class="ToggleButton" data-bind="width_limit"><div data-bind="icon" class="ico-btn"></div><span>Width</span></div>
-					<div class="ToggleButton" data-bind="height_limit"><div data-bind="icon" class="ico-btn"></div><span>Height</span></div>
+					<div class="ToggleButton" data-bind="all_limit"><div data-bind="icon" class="ico-btn"></div><span>Toàn bộ</span></div>
+					<div class="ToggleButton" data-bind="width_limit"><div data-bind="icon" class="ico-btn"></div><span>Độ rộng</span></div>
+					<div class="ToggleButton" data-bind="height_limit"><div data-bind="icon" class="ico-btn"></div><span>Độ cao</span></div>
 				</div>
 			</div><div class="t-row">
 				<div class="t-tooltip">
-					Stretch
+					Mở rộng
 				</div>
 				<div class="t-1">
-					<div class="ToggleButton" data-bind="all"><div data-bind="icon" class="ico-btn"></div><span>All</span></div>
-					<div class="ToggleButton" data-bind="width"><div data-bind="icon" class="ico-btn"></div><span>Width</span></div>
-					<div class="ToggleButton" data-bind="height"><div data-bind="icon" class="ico-btn"></div><span>Height</span></div>
+					<div class="ToggleButton" data-bind="all"><div data-bind="icon" class="ico-btn"></div><span>Toàn bộ</span></div>
+					<div class="ToggleButton" data-bind="width"><div data-bind="icon" class="ico-btn"></div><span>Độ rộng</span></div>
+					<div class="ToggleButton" data-bind="height"><div data-bind="icon" class="ico-btn"></div><span>Độ cao</span></div>
 				</div>
 			</div></div>`
 	})
 	.newSetting({
 		addr: 'lyt.zoom',
-		prettyName: 'Maximum page width',
+		prettyName: 'Độ rộng của ảnh',
 		options: ['10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
 		default: '100',
 		strings: (i) => `${i}%`,
-		help: 'Maximum width the page expands to. Works only in width modes of page fit.',
+		help: 'Độ rộng tối ta của ảnh (chế độ khung trang: Độ rộng)',
 		type: SETTING_VALUE_STEPPED,
 		condition: {'lyt.fit': ['width_limit', 'width']},
 		nomobile: true
 	})
 	.newSetting({
 		addr: 'lyt.direction',
-		prettyName: 'Reader layout',
+		prettyName: 'Hướng đọc',
 		options: ['ltr', 'ttb', 'rtl'],
 		default: 'ltr',
 		strings: {
-			ltr: 'Left-to-right',
-			ttb: 'Top-to-bottom',
-			rtl: 'Right-to-left'
+			ltr: 'Trái qua phải',
+			ttb: 'Trên xuống dưới',
+			rtl: 'Phải qua trái'
 		},
 		help: {
-			ltr: 'Left-to-right reading mode.',
-			ttb: 'Vertical view.',
-			rtl: 'Right-to-left reading mode.'
+			ltr: 'Trái qua phải',
+			ttb: 'Trên xuống dưới',
+			rtl: 'Phải qua trái'
 		},
 		type: SETTING_MULTI
 	})
 	.newSetting({
 		addr: 'lyt.gap',
-		prettyName: 'Remove gaps in vertical view',
+		prettyName: 'Bỏ khoảng trống (Đọc dọc)',
 		default: false,
 		strings: {
 			true: 'Gaps removed',
@@ -721,21 +721,21 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'thm.theme',
-		prettyName: 'Reader Theme',
+		prettyName: 'Theme',
 		options: ['Dark', 'Reaper', 'Zaibatsu', 'Light', 'Custom'],
 		default: 'Dark',
 		strings: {
-			Dark: 'Dark',
+			Dark: 'Tối',
 			Reaper: 'Reaper',
-			Light: 'Light',
+			Light: 'Sáng',
 			Zaibatsu: 'Zaibatsu',
-			Custom: 'Custom...'
+			Custom: 'Tuỳ chỉnh...'
 		},
 		type: SETTING_MULTI_DROPDOWN
 	})
 	.newSetting({
 		addr: 'thm.primaryCol',
-		prettyName: 'Interface Color',
+		prettyName: 'Màu giao diện',
 		default: '#3A3F44',
 		condition: {'thm.theme': ['Custom']},
 		compact: true,
@@ -744,7 +744,7 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'thm.textCol',
-		prettyName: 'Text Color',
+		prettyName: 'Màu chữ',
 		default: '#EEEEEE',
 		condition: {'thm.theme': ['Custom']},
 		compact: true,
@@ -753,7 +753,7 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'thm.accentCol',
-		prettyName: 'Accent Color',
+		prettyName: 'Màu tương tác',
 		default: '#B2DFFB',
 		condition: {'thm.theme': ['Custom']},
 		compact: true,
@@ -762,7 +762,7 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'thm.readerBg',
-		prettyName: 'Reader Background',
+		prettyName: 'Nền trang',
 		default: '#272B30',
 		condition: {'thm.theme': ['Custom']},
 		compact: true,
@@ -780,18 +780,18 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'lyt.spread',
-		prettyName: '2-page spread',
+		prettyName: 'Đọc 2 trang',
 		options: ['1', '2', '2-odd'],
 		default: '1',
 		strings: {
-			'1': '1-page layout',
-			'2': '2-page layout',
-			'2-odd': '2-page layout, odd'
+			'1': '1 trang',
+			'2': '2 trang',
+			'2-odd': '2 trang, lẻ'
 		},
 		help: {
-			'1': 'Single page displayed.',
-			'2': 'Two pages at once.',
-			'2-odd': 'Two pages at once, odd numbering.'
+			'1': 'Đọc 1 trang.',
+			'2': '2 trang cùng lúc.',
+			'2-odd': '2 trang, trang sau là lẻ.'
 		},
 		type: SETTING_MULTI,
 		postUpdate: value => {
@@ -813,11 +813,11 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'adv.spreadCount',
-		prettyName: 'Spread mode custom page count',
+		prettyName: 'Số trang đọc cùng lúc',
 		options: [1,2,3,4,5,6,7,8,9,10],
 		default: 1,
 		strings: i => {
-			return '%ip'.replace('%i', i)
+			return `${i}tr`
 		},
 		postUpdate: () => this.update('adv.spreadOffset'),
 		type: SETTING_VALUE,
@@ -825,13 +825,13 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'adv.spreadOffset',
-		prettyName: 'Spread mode custom page offset',
+		prettyName: 'Số trang bù lại',
 		options: () => {
 			return [...Array(this.get('adv.spreadCount')).keys()]
 		},
 		default: 0,
 		strings: i => {
-			return '%ip'.replace('%i', i)
+			return `${i}tr`
 		},
 		condition: {'adv.spreadCount': ['!1']},
 		type: SETTING_VALUE,
@@ -839,23 +839,23 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'apr.selectorAnchor',
-		prettyName: 'Page selector position',
+		prettyName: 'Vị trí thanh chọn trang',
 		options: ['left', 'bottom'],
 		default: 'left',
 		strings: {
-			'left': 'Left',
-			'bottom': 'Bottom'
+			'left': 'Trái',
+			'bottom': 'Dưới'
 		},
 		help: {
-			'left': 'Page selector is shown near the sidebar.',
-			'bottom': 'Page selector is at the bottom of the page.'	
+			'left': 'Thanh chọn trang nằm ở bên cạnh.',
+			'bottom': 'Thanh chọn trang nằm ở bên dưới trang.'	
 		},
 		type: SETTING_MULTI,
 		nomobile: true
 	})
 	.newSetting({
 		addr: 'apr.selPinned',
-		prettyName: 'Pin page selector',
+		prettyName: 'Ghim thanh chọn trang',
 		default: false,
 		strings: {
 			true: 'Pinned',
@@ -866,7 +866,7 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'apr.selNum',
-		prettyName: 'Page selector: show page number',
+		prettyName: 'Hiện số của trang',
 		default: true,
 		strings: {
 			true: 'Show page number',
@@ -877,7 +877,7 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'apr.hoverinos',
-		prettyName: 'Mouseover reader hints (next, prev)',
+		prettyName: 'Di chuột hiện nút chuyển trang (Trước/Sau)',
 		default: true,
 		strings: {
 			true: 'Visible',
@@ -889,7 +889,7 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'apr.sidebar',
-		prettyName: 'Show sidebar',
+		prettyName: 'Hiện Sidebar',
 		default: true,
 		strings: {
 			true: 'Show sidebar',
@@ -901,7 +901,7 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'apr.previews',
-		prettyName: 'Show previews',
+		prettyName: 'Hiện bản xem trước',
 		default: false,
 		strings: {
 			true: 'Show previews',
@@ -913,7 +913,7 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'bhv.preload',
-		prettyName: 'Page preload',
+		prettyName: 'Tải trước trang',
 		options: [1,2,3,4,5,6,7,8,9,100],
 		default: (IS_MOBILE)?2:3,
 		strings: i => `${i}`.replace('100', '∞'),
@@ -922,7 +922,7 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'bhv.scrollYDelta',
-		prettyName: 'Vertical scroll speed using keyboard arrows',
+		prettyName: 'Tốc độ lướt dọc (Hướng đọc: Trên xuống dưới)',
 		options: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
 		default: 25,
 		strings: i => `${i}px`,
@@ -932,15 +932,15 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'bhv.resetScroll',
-		prettyName: 'Reset page scroll after page flip',
+		prettyName: 'Reset Page Scroll',
 		default: false,
 		strings: {
 			true: 'Reset',
 			false: 'Leave it be',
 		},
 		help: {
-			true: 'On page switch, resets vertical scroll of the previous page.',
-			false: 'Vertical scroll on pages is saved.',
+			true: 'Khi chuyển trang, thanh scroll của page trước được reset.',
+			false: 'Thanh scroll của page trước được lưu lại.',
 		},
 		compact: true,
 		type: SETTING_BOOLEAN,
@@ -948,14 +948,14 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'bhv.clickTurnPage',
-		prettyName: `Turn pages by ${IS_MOBILE ? 'tapping' : 'clicking'}`,
+		prettyName: `Chuyển trang bằng cách ${IS_MOBILE ? 'nhấn' : 'click'}`,
 		strings: {
 			true: 'Turn page',
 			false: 'Disabled',
 		},
 		help: {
-			true: `When ${IS_MOBILE ? 'tapping' : 'clicking'}, the page turns depending on the direction.`,
-			false: `${IS_MOBILE ? 'Tapping' : 'Clicking'} on the page does not turn it.`,
+			true: `Khi ${IS_MOBILE ? 'nhấn' : 'click'}, trang sẽ chuyển dựa vào hướng đã chọn.`,
+			false: `${IS_MOBILE ? 'Nhấn' : 'Click'} vào trang sẽ không đổi.`,
 		},
 		default: true,
 		compact: true,
@@ -963,14 +963,14 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'bhv.swipeGestures',
-		prettyName: `Enable swipe gestures`,
+		prettyName: `Kích hoạt vuốt`,
 		strings: {
 			true: 'Swipe enabled',
 			false: 'Swipe disabled',
 		},
 		help: {
-			true: `Allow using finger drag to turn the pages smoothly.`,
-			false: `Finger drag will do nothing. Tap on the pages or use your keyboard to advance pages.`,
+			true: `Cho phép dùng ngón tay để chuyển trang mượt mà.`,
+			false: `Không cho phép.`,
 		},
 		default: true,
 		compact: true,
@@ -983,22 +983,22 @@ function SettingsHandler(){
 	})
 	.newSetting({
 		addr: 'bhv.historyUpdate',
-		prettyName: 'Browser history/back button behavior',
+		prettyName: 'Kiểm soát lịch sử',
 		options: ['none','replace','chap','jump', 'all'],
 		default: 'replace',
 		strings: {
-			'none': "Don't touch browser history",
-			'replace': "Just change the page title",
-			'chap': "Add every chapter to history",
-			'jump': "Add every chapter and page&nbsp;skips",
-			'all': "Add every move to history"
+			'none': "Không sử dụng lịch sử",
+			'replace': "Chỉ lấy tiêu đề của trang",
+			'chap': "Lấy mọi chapter vào lịch sử",
+			'jump': "Lấy mọi chapter và vị trí đọc",
+			'all': "Lấy toàn bộ hành động"
 		},
 		help: {
-			'none': "Page URL and title won't update at all.",
-			'replace': "When you go to next chapter, page title and URL changes.",
-			'chap': "Remembers chapters in browser history so you can go back with browser buttons.",
-			'jump': "Also adds out-of-order page skips to history in addition to chapters.",
-			'all': "Add every page flip to browser history."
+			'none': "URL của trang và tiêu đề sẽ không được cập nhật.",
+			'replace': "Khi sang chapter mới, URL và tiêu đề sẽ thay đổi.",
+			'chap': "Lưu chapter trước vào lịch sử và có thể quay lại.",
+			'jump': "Cũng lưu chapter trước, thêm vào đó là vị trí đọc.",
+			'all': "Thêm mọi hành động lưu vào lịch sử."
 		},
 		type: SETTING_MULTI,
 		global: false
@@ -1016,7 +1016,7 @@ function SettingsHandler(){
 		options: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
 		default: 5,
 		type: SETTING_VALUE,
-		hidden: false,
+		hidden: true,
 	});
 	this.deserialize();
 	this.sendInit();
@@ -1550,9 +1550,9 @@ function UI_Reader(o) {
 		}
 		navigator.clipboard.writeText(url)
 		.then(function() {
-		  Tooltippy.set('Link copied to clipboard!');
+		  Tooltippy.set('Link đã được copy!');
 		}, function(err) {
-		  Tooltippy.set('Link copy failed ('+url+')');
+		  Tooltippy.set('Link không copy được ('+url+')');
 		});
 	}
 
@@ -1718,8 +1718,8 @@ function UI_Reader(o) {
 	this._.share_button.onmousedown = e => this.copyShortLink(e);
 	this._.search.onclick = e => Loda.display('search');
 	this._.jump.onclick = e => Loda.display('jump');
-	this._.download_chapter.onclick = () => DownloadManagerObj.downloadChapter();
-	this._.download_cancel.onclick = () => DownloadManagerObj.cancelDownload();
+	// this._.download_chapter.onclick = () => DownloadManagerObj.downloadChapter();
+	// this._.download_cancel.onclick = () => DownloadManagerObj.cancelDownload();
 	this._.random_chapter_button.addEventListener('mousedown', e => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -1728,23 +1728,23 @@ function UI_Reader(o) {
 	}, false)
 
 	Tooltippy
-		.attach(this._.chap_prev, 'Previous chapter [[]')
-		.attach(this._.chap_next, 'Next chapter []]')
-		.attach(this._.vol_prev, 'Previous volume [,]')
-		.attach(this._.vol_next, 'Next volume [.]')
-		.attach(this._.preload_button, 'Change preload [L]')
-		.attach(this._.layout_button, 'Change layout direction [D]')
-		.attach(this._.fit_button, 'Change fit mode [F]')
-		.attach(this._.sel_pin_button, 'Pin page selector [N]')
-		.attach(this._.sidebar_button, 'Show/hide sidebar [S]', 'right')
-		.attach(this._.previews_button.querySelector('.expander'), 'Show previews [P]')
-		.attach(this._.share_button, 'Copy short link [R]')
-		.attach(this._.search, 'Search the manga... [Ctrl]+[F]')
-		.attach(this._.jump, 'Jump to chapter... [J]')
-		.attach(this._.spread_button, 'Change two-page mode [Q]')
-		.attach(this._.settings_button, 'Advanced settings... [O]')
-		.attach(this._.download_chapter, 'Download chapter in the background')
-		//.attach(this._.comment_button, 'Go to comments [C]')
+		.attach(this._.chap_prev, 'Chapter trước [[]')
+		.attach(this._.chap_next, 'Chapter kế []]')
+		.attach(this._.vol_prev, 'Volume trước [,]')
+		.attach(this._.vol_next, 'Volume kế [.]')
+		.attach(this._.preload_button, 'Load trước [L]')
+		.attach(this._.layout_button, 'Đổi hướng đọc [D]')
+		.attach(this._.fit_button, 'Đổi khung trang [F]')
+		.attach(this._.sel_pin_button, 'Ghim thanh chọn trang [N]')
+		.attach(this._.sidebar_button, 'Hiện/Ẩn Sidebar [S]', 'right')
+		.attach(this._.previews_button.querySelector('.expander'), 'Xem trước [P]')
+		.attach(this._.share_button, 'Copy link [R]')
+		.attach(this._.search, 'Tìm kiếm... [Ctrl]+[F]')
+		.attach(this._.jump, 'Nhảy tới chapter... [J]')
+		.attach(this._.spread_button, 'Chế độ 2 trang [Q]')
+		.attach(this._.settings_button, 'Cài đặt nâng cao [O]')
+		// .attach(this._.download_chapter, 'Tải chapter')
+		// .attach(this._.comment_button, 'Go to comments [C]')
 		// .attach(this._.fit_none, 'Images are displayed in natural resolution.')
 		// .attach(this._.fit_all, 'Images expand to width or height.')
 		// .attach(this._.fit_width, 'Images expand to max width.')
@@ -2633,19 +2633,19 @@ function URLChanger(o) {
 				document.title = title;
 				break;
 			case 'replace':
-				title = `${SCP.chapter} - ${SCP.chapterName}, Page ${SCP.page + 1} - ${Reader.current.title} | ${this.hostname}`
+				title = `Ch ${SCP.chapter} - Trang ${SCP.page + 1} - ${Reader.current.title} | ${this.hostname}`
 				window.history.replaceState(null, title, pathName);
 				document.title = title;
 				break;
 			case 'chap':
-				title = `${SCP.chapter} - ${SCP.chapterName}, Page ${SCP.page + 1} - ${Reader.current.title} | ${this.hostname}`
+				title = `Ch ${SCP.chapter} - Trang ${SCP.page + 1} - ${Reader.current.title} | ${this.hostname}`
 				window.history.replaceState(null, title, pathName);
 				document.title = title;
 				if(SCP.chapter == this.chapter) return;
 				window.history.pushState({chapter: SCP.chapter, page: SCP.page}, title, pathName);
 				break;
 			case 'jump':
-				title = `${SCP.chapter} - ${SCP.chapterName}, Page ${SCP.page + 1} - ${Reader.current.title} | ${this.hostname}`
+				title = `Ch ${SCP.chapter} - Trang ${SCP.page + 1} - ${Reader.current.title} | ${this.hostname}`
 				if(Math.abs(this.page - SCP.page) > 2 || SCP.chapter != this.chapter) {
 					window.history.pushState({chapter: SCP.chapter, page: SCP.page}, title, pathName);
 				}else{
@@ -2655,7 +2655,7 @@ function URLChanger(o) {
 				break;
 			case 'all':
 				if(this.page != SCP.page || SCP.chapter != this.chapter) {
-					title = `${SCP.chapter} - ${SCP.chapterName}, Page ${SCP.page + 1} - ${Reader.current.title} | ${this.hostname}`
+					title = `Ch ${SCP.chapter} -  Trang ${SCP.page + 1} - ${Reader.current.title} | ${this.hostname}`
 					window.history.pushState({chapter: SCP.chapter, page: SCP.page}, title, pathName);
 					document.title = title;
 				}
@@ -2888,7 +2888,7 @@ function UI_Loda_Search(o) {
 	UI_Loda.call(this, {
 		node: o.node,
 		kind: ['Loda_Search'].concat(o.kind || []),
-		name: 'Search',
+		name: 'Tìm kiếm',
 		html: o.html || `<div class="Loda-window" tabindex="-1"><header data-bind="header"></header><button class="ico-btn close" data-bind="close"></button><content data-bind="content">
 				<input type="text" data-bind="input" placeholder="⌕" />
 				<div class="search-tabs" data-bind="tabs">
@@ -2916,7 +2916,7 @@ function UI_Loda_Search(o) {
 			node: this._.tabs
 		})
 		.add(new UI_Tab({
-			text: 'Title search'
+			text: 'Tiêu đề'
 		}))
 		.S.link(this.container)
 		.S.linkAnonymous('number', num => {
@@ -2966,7 +2966,7 @@ function UI_Loda_Jump(o) {
 		html: o.html || `<div class="Loda-window" tabindex="-1"><header data-bind="header"></header><button class="ico-btn close" data-bind="close"></button><content data-bind="content">
 				<div class="Jump-Wrapper">
 					<input type="tel" data-bind="input_chap" class="UI Input" placeholder="Chapter">
-					<input type="tel" data-bind="input_page" placeholder="Page" class="UI Input">
+					<input type="tel" data-bind="input_page" placeholder="Trang" class="UI Input">
 					<button data-bind="btn" class="Jump-Btn UI Button ico-btn"></button>
 				</div>
 			</content></div>`
@@ -3000,7 +3000,7 @@ function UI_Loda_Jump(o) {
 			Reader.initChapter(chap, page-1);
 		}
 		catch (err) {
-			Tooltippy.set('Please enter valid chapter and page!');
+			Tooltippy.set('Không tồn tại!');
 		}
 	}
 
@@ -3260,7 +3260,7 @@ function UI_Loda_Settings(o) {
 	UI_Loda.call(this, {
 		node: o.node,
 		kind: ['Loda_Settings'].concat(o.kind || []),
-		name: 'Settings',
+		name: 'Cài đặt',
 		html: o.html || `<div class="Loda-window UI Loda Loda_Settings" tabindex="-1">
 			<aside>
 				<button class="ico-btn close" data-bind="close"></button>
@@ -3625,17 +3625,17 @@ function UI_About(o) {
 	UI.call(this, Object.assign(o, {
 		kind: ['About'].concat(o.kind || []),
 		html: `<div>
-			<img src="/static/img/Guya-moe.png">
-			<p class="muted">Version: v2.20.20200820</p>
+			<img src="/static/img/Kei_Shy.png">
+			<p class="muted">Phiên bản: v0.0.1</p>
 			<hr>
-			<p>Design, UX: Algoinde</p>
+			<p>Thiết kế, UX: Algoinde</p>
 			<p>Reader code: Algoinde, funkyhippo, Einlion</p>
 			<p>Backend: appu</p>
+			<a href="https://twitter.com/Kiyoponya" target="_blank"><p style="color: deeppink;">Mượner: Nyagami</p></a>
 			<hr>
 			<a href="https://github.com/appu1232/guyamoe" target="_blank">Github</a>
-			<a href="https://discord.gg/4WPqwSY" target="_blank">Discord</a>
 			<hr>
-			<p class="muted">Powered by</p>
+			<p class="muted">Được tài trợ bởi</p>
 			<div class="cubari" data-bind="cubari"><div></div></div>
 		</div>`
 	}));
@@ -3691,7 +3691,7 @@ Loda = new UI_LodaManager({
 ThemeManager = new themeHandler();
 DownloadManagerObj = new DownloadManager()
 
-Loda.library.settings.createCategory('About', new UI_About());
+Loda.library.settings.createCategory('Thông tin', new UI_About());
 
 API.S.link(Reader);
 Settings.S.link(Reader);
