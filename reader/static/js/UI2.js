@@ -1506,16 +1506,16 @@ function UI_Gallery(o) {
 	this._.next.onclick = () => this.move('right');
 }
 
-var UIs = document.querySelectorAll('*[data-ui]');
-var toUI = [];
-UIs.forEach(node => {
-	toUI.push({node: node, depth: alg.getDepth(node)})
-});
-toUI.sort((a,b) => {
-	return a.depth>b.depth?1:-1;
-})
-toUI.forEach(item => {
-	new window[item.node.getAttribute('data-ui')]({node: item.node})
-});
+// var UIs = document.querySelectorAll('*[data-ui]');
+// var toUI = [];
+// UIs.forEach(node => {
+// 	toUI.push({node: node, depth: alg.getDepth(node)})
+// });
+// toUI.sort((a,b) => {
+// 	return a.depth>b.depth?1:-1;
+// })
+// toUI.forEach(item => {
+// 	new window[item.node.getAttribute('data-ui')]({node: item.node})
+// });
 
 

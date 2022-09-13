@@ -15,9 +15,9 @@ class OnlineNowMiddleware(MiddlewareMixin):
         if not peak_traffic:
             peak_traffic = 0
         if online:
-            online = set([ip for ip in online if cache.get(ip)])
+            online = set((ip for ip in online if cache.get(ip)))
         else:
-            online = set([])
+            online = set(())
         cache.set(user_ip, user_ip, 600)
         online.add(user_ip)
         if len(online) > peak_traffic:

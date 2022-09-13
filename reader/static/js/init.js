@@ -2350,7 +2350,7 @@ const SCROLL_X = 3;
 	this.$.onclick = e => this.mouseHandler(e);
 	this.$.onmouseleave = e => this.mouseHandler(e);
 
-	this.resizeSensor = new ResizeSensor(this.$, this.updateWides);
+	// this.resizeSensor = new ResizeSensor(this.$, this.updateWides);
 
 	// this.S.mapIn({
 	// 	'imageWidth': this.
