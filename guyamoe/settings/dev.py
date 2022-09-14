@@ -8,7 +8,7 @@ dev_domain = os.environ.get("DEV_CANONICAL_ROOT_DOMAIN", "localhost:8000")
 SECRET_KEY = os.environ.get("DEV_SECRET_KEY", "o kawaii koto")
 CANONICAL_ROOT_DOMAIN = dev_domain
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [dev_domain]
 

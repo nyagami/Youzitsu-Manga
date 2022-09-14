@@ -1,41 +1,217 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block head %}
-    <style>
-        body {
-            background-image: none !important;
-            background-color: #272B30 !important;
-      	}
-    </style>
+<style>
+    body {
+	position: relative;
+	background-attachment: fixed;
+	background-size: cover;
+	background-image: url('/static/img/bg_artwork.png');
+	background-repeat: no-repeat;
+	padding-top: 5em;
+}
+    .container{
+        position: relative !important;
+    }
+    .h-100 {
+        height: 50px !important;
+    }
+
+    .row{
+        margin:0 !important;
+    }
+    p {
+        margin-top: 0;
+        color: #fff !important;
+        margin-bottom: 1rem;
+        font-size: 15px;
+    }
+
+
+    #quote {
+        display: none !important;
+    }
+
+    #overview {
+        
+        height: auto;
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    #reasons {
+        height: auto;
+        width: 100%;
+        padding: 10px;
+    }
+
+    #support {
+        height: auto;
+        width: 100%;
+        padding-bottom: 60px;
+    }
+
+    .manga_img{      
+     width: auto;
+    height: 300px;
+    padding: 0 8px;
+    border: 2px;
+    border-style: solid !important;
+    }
+    .box_img{
+        display: flex;
+        justify-content: center;
+      
+    }
+   .h1,h1{
+    color: #fff;
+   margin: 0 !important;
+   }
+   .about_content {
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    
+    }
+    .big-box {
+    left: 5%;
+    position: absolute;
+    height: 1000px;
+    margin-bottom: 70px;
+    border-radius: 5px;
+    width: 90%;
+    background-color: rgb(0,0,0,0.3);
+}
+.vl {
+    border-top: 3px solid yellow;
+    height: 2px;
+    padding: 10px 20%;
+    position: relative;
+    visibility: visible;
+    padding-bottom: 20 px;
+    transition: padding 0.5s;
+}
+ .vl:hover{
+    padding: 10px 40%;
+}
+ .square-bg{
+    background : url(/static/img/bg_box.png) center/contain no-repeat;
+
+ }
+ @media screen and (min-width:1081px) {
+    .container{
+        margin-top: 20px;
+    }
+ }
+@media screen and (max-width: 1080px) {
+    .container {
+    margin-top: -940px;
+    }
+}
+@media screen and (max-width:760px) {
+    .h1,h1{
+        font-size:24px !important;
+    }
+    .big-box{
+        left:0% !important;
+        width: 100% !important;
+    }
+    .manga_img {
+    width: auto;
+    height: 220px;
+    border: 1px;
+    border-style: solid !important;
+}
+}
+
+@media screen and (max-width: 576px){
+    .container{
+        margin-top: -1400px;
+    }
+    .big-box{
+        height: 1500px !important;
+    }
+}
+
+
+</style>
 {% endblock %}
 {% block body %}
-    <div class="container-fluid ">
-        <div class="row d-flex justify-content-center" style="font-size: 1rem">
-            <div class="col-lg-9 col-md-10 mt-3">
-                <h3>What is guya.moe?</h3>
-                <p>This is a site that exclusively hosts english scanlated (quality) chapters of the manga <i>Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen.</i> The official english title is <i>Kaguya-sama: Love is War</i> and the unofficial beloved english fan translated title is <i>Kaguya Wants To Be Confessed To</i></p>
-                <p>Furthermore, this site aims to be the best in terms of speed and providing a great reader. We will also never sell ads or ask for money.</p>
-                <p>All chapters are updated automatically through the use of scrapers so this site should be up to date pretty much whenever you visit.</p>
-            </div>
-            <div class="col-lg-9 col-md-10 mt-3">
-                <h3>Why Did You Guys Make This?</h3>
-                <p>We are big fans of the Kaguya-sama series and want people to enjoy reading this series as conveniently as possible. Currently, besides officially licensed releases (which aren't available for purchase everywhere anyway), the alternatives are sites that only have some of the chapters, sites that are littered with ads, and sites that that have a clunky/slow reader with no customizability options. We went about fixing all of those issues with this one site, but more than anything, we want to help people enjoy reading this manga.</p>
-                <p>This project was done for fun by members of the Kaguya-sama Discord (listed above) and will continue to stay up for the foreseeable future.</p>
-            </div>
-            <div class="col-lg-9 col-md-10 mt-3">
-                <h3>How Can I Support guya.moe?</h3>
-                <p>Tell your friends to read Kaguya and tell them to read it here. :D If you run into issues or have suggestions, feel free to contact us on either Reddit or Discord (Appu or Algoinde, check the credits above) so we can try to make this site better.</p>
-                <p>If you feel like donating to us, please don't. We aren't doing this for money nor do we need it to support this site. If you have money to spare, please consider supporting the author and buying legal copies of the Kaguya-sama series. <a target="_blank" href="https://www.amazon.com/gp/bookseries/B0778N11ZV">English</a> volumes and <a target="_blank" href="https://www.amazon.co.jp/gp/product/B074CH3Z3M">JP</a> volumes.</p>
-            </div>
-            <div class="col-lg-9 col-md-10 mt-3">
-                <h3>Some Handy Not-So-Obvious Features</h3>
-                <p>- You can literally search for any word in the entirety of the main series. Yes, really. Hit the search icon (or ctrl/cmd + F) when viewing a chapter, input some text (e.g. how cute), hit enter, and you'll get results for every instance of the words in the manga! Pretty useful for finding that one line you loved but forgot what chapter it was in or just to experiment with it and find out cool callbacks and foreshadowing moments in this manga.</p>
-                <p>- There's shorturls to any chapter or page of the main series. Example: <a href="https://guya.moe/5">https://guya.moe/5</a> for chapter 5. <a href="https://guya.moe/14/16">https://guya.moe/14/16</a> for chapter 14 page 16.</p>
-                <p>- View the latest chapter with the shorturl: <a href="https://guya.moe/latest">https://guya.moe/latest</a></p>
-                <p>- We have a load of customizability options so you can easily find the sweet spot view/look and feel when reading a chapter. There's a variety of options to let you fit the manga pages however you want on the screen, preload settings, layout direction (left to right, right to left, vertical), and more. Hover over the sidebar options to see tooltips for all the customization options. The sidebar is hideable as well. We spent considerable time planning out and fitting in a lot of customizabilty without falling behind on speed and snappiness of the reading experience.</p>
-		<p>- We have proxies for mangadex (replace `mangadex.org` in the url with `guya.moe` for whatever manga you're reading), nh (same way as md), and all sites that use the foolslide comic reader (jaiminisbox, helveticascans, a certain nsfw cafe, and more). For foolslide sites, add `guya.moe/fs/` before the entire link (e.g. https://guya.moe/fs/https://helveticascans.com/r/series/mousou-telepathy/).</p>
-                <p>If you would like to suggest any features or provide some feedback about the site, don't hesitate to drop by the <a href="https://discordapp.com/invite/gAUAkzr">Discord Server</a> and ping Appu or Algoinde with your thoughts. We're always eager to make this site better!</p>
-            </div>
+<div class="big-box">
+<div class="container">
+    <div id="overview" class="row">
+        <div class="col-sm-4 box_img square-bg">
+            <div class="box_img">
+            <img class="manga_img" src="/static/img/kei-blush.png" alt="">
         </div>
     </div>
+    <div class="col-sm-8 about_content ">   
+        <div class="heading">    
+         <h1>Youzitsu.ga là gì</h1>
+        </div> 
+        <div class="vl"></div>
+        <div class="para_content">
+         <p>    Đây là trang web duy nhất ở Việt Nam đăng tải đầy đủ bộ truyện
+            đình đám có tên là <i>Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e</i>
+            hay còn gọi là <i>Chào mừng đến với lớp học đề cao thực lực</i> ở Việt Nam.
+            Bản dịch tiếng Việt được Team <i></i> phụ trách năm nhất và
+            Team <i></i> phụ tách năm thứ 2.</p>
+        </div>
+    </div>
+    </div>
+    
+    <div id="reasons" class="row">
+    <div class="col-sm-8 about_content">
+        <div class="heading"> 
+        <h1>
+            Mục đích của website
+        </h1>
+        </div>
+        <div class="vl"></div>
+        <div class="para_content">
+        <p> Chúng mình là fan cứng của bộ truyện Youzitsu và muốn các bạn fan khác
+            được có trải nghiệm khi đọc bộ truyện này theo một cách thoải mái nhất.
+            <br>
+            Công cụ đọc truyện được phát triển
+            dựa trên mã nguồn mở của <a href="guya.moe">guya.moe</a> để có thể giúp mọi người
+            có trải nghiệm tốt hơn khi thưởng thức bộ manga Youzitsu.
+        </p>
+        </div>
+    </div>
+
+        <div class="col-sm-4 box_img square-bg order-first order-sm-last  ">
+            <img class="manga_img" src="/static/img/kiyo-kei.png" alt="">
+
+    </div>
+</div>
+
+
+<div id="support" class="row">
+    <div class="col-sm-4 box_img square-bg">
+            <img class="manga_img" src="/static/img/kei-phone.png" alt="">
+    </div>
+    <div class="col-sm-8 about_content">
+        <div class="heading"> 
+        <h1>Hỗ trợ tác giả</h1>
+    </div>
+        <div class="vl"></div>
+        <div class="para_content">
+        <p>
+            Vì đây là một dự án không lợi nhuận nên chỉ cần các bạn có trải nghiệm tốt
+            và lan tỏa trang web này cho nhiều người biết hơn là đã trở thành một nguồn
+            động lực rất lớn cho những người phát triển rồi.
+            <br>
+            Nếu bạn cảm thấy muốn donate cho chúng mình thì hãy dùng tiền để mua Light Novel
+            đang được xuất bản bởi IPM.
+        </p>
+        </div>
+        
+    </div>
+</div>
+</div>
+</div>
+
 {% endblock %}
