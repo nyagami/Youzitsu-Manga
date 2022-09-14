@@ -63,10 +63,16 @@
         justify-content: center;
       
     }
-   .h1,h1{
+       .heading{
+        display: flex;
+    flex-direction: column;
+       }
+       .h1, h1 {
     color: #fff;
-   margin: 0 !important;
-   }
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+}
    .about_content {
     text-align: justify;
     display: flex;
@@ -85,7 +91,40 @@
     width: 90%;
     background-color: rgb(0,0,0,0.3);
 }
-.vl {
+.vl-content {
+    width: 0px  ;
+    border-top: 3px solid yellow;
+    height: 2px;
+    padding: 10px 35%;
+    position: relative;
+    visibility: visible;
+    padding-bottom: 20 px;
+    transition: padding 0.5s;
+    align-self: flex-start;
+    margin-top: 2px;
+}
+ .about_content:hover .vl-content,.about_content.hover .vl-content{
+    padding: 10px 50%;
+}
+.vl-reasons {
+    width: 0px  ;
+    border-top: 3px solid yellow;
+    height: 2px;
+    padding: 10px 18%;
+    position: relative;
+    visibility: visible;
+    padding-bottom: 20 px;
+    transition: padding 0.5s;
+    align-self: flex-end;
+margin-top: 2px;
+
+}
+ .about_content:hover .vl-reasons,.about_content.hover .vl-reasons{
+    padding: 10px 50%;
+}
+
+.vl-support {
+    width: 0px  ;
     border-top: 3px solid yellow;
     height: 2px;
     padding: 10px 20%;
@@ -93,12 +132,14 @@
     visibility: visible;
     padding-bottom: 20 px;
     transition: padding 0.5s;
+    align-self: center  ;
+    margin-top: 2px;
 }
- .vl:hover{
-    padding: 10px 40%;
+ .about_content:hover .vl-support,.about_content.hover .vl-support{
+    padding: 10px 50%;
 }
  .square-bg{
-    background : url(/static/img/bg_box.png) center/contain no-repeat;
+    background : url(/static/img/bg_box_cuss.png) center/contain no-repeat;
 
  }
  @media screen and (min-width:1081px) {
@@ -114,6 +155,7 @@
 @media screen and (max-width:760px) {
     .h1,h1{
         font-size:24px !important;
+        
     }
     .big-box{
         left:0% !important;
@@ -134,7 +176,7 @@
     .big-box{
         height: 1500px !important;
     }
-    .vl{
+    .vl-reasons, .vl-support, .vl-content{
         display: none;
     }
 }
@@ -153,9 +195,10 @@
     </div>
     <div class="col-sm-8 about_content ">   
         <div class="heading">    
-         <h1>Youzitsu.ga là gì</h1>
+         <h1>Youzitsu.ga là gì
+        </h1>
+        <div class="vl-content"></div>
         </div> 
-        <div class="vl"></div>
         <div class="para_content">
          <p>    Đây là trang web duy nhất ở Việt Nam chuyên đăng tải về bộ truyện
             đình đám có tên là <i>Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e</i>
@@ -171,9 +214,9 @@
         <div class="heading"> 
         <h1>
             Mục đích của website
+            <div class="vl-reasons"></div>
         </h1>
         </div>
-        <div class="vl"></div>
         <div class="para_content">
         <p> Chúng mình là fan cứng của bộ truyện Youzitsu và muốn các bạn fan khác
             được có trải nghiệm khi đọc bộ truyện này theo một cách thoải mái nhất.
@@ -198,9 +241,10 @@
     </div>
     <div class="col-sm-8 about_content">
         <div class="heading"> 
-        <h1>Hỗ trợ</h1>
+        <h1>Hỗ trợ
+        <div class="vl-support"></div>
+    </h1>
     </div>
-        <div class="vl"></div>
         <div class="para_content">
         <p>
            
