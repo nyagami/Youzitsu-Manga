@@ -17,13 +17,26 @@ class HitCount(models.Model):
     object_id = models.PositiveIntegerField()
     hits = models.PositiveIntegerField(("Hits"), default=0)
 
+def avatar_file_path(self, filename):
+    ext = filename.split('.')[-1]
+    return os.path.join('avatar',self.name + '.' + ext)
 
 class Person(models.Model):
     name = models.CharField(max_length=200)
+    japan_name = models.CharField(max_length=200, default=None, null=True, blank=True)
+    birth_day = models.CharField(default=None,max_length=20, blank=True, null=True)
+    height = models.CharField(default=None, max_length=20, blank=True, null=True)
+    url = models.CharField(default=None, max_length=200, blank=True, null=True) 
+    hobby = models.CharField(default=None, max_length=200, blank=True, null=True)
+    zodiac = models.CharField(default=None, max_length=200, blank=True, null=True)
+    description = models.TextField(default=None, blank=True, null=True)
+    avatar = models.ImageField(upload_to=avatar_file_path, default=None, null=True, blank=True)
 
     def __str__(self):
         return self.name
-
+    def get_avatar(self):
+        if self.avatar: return f"/media/avatar/{self.avatar}"
+        else: return ""
 
 class Group(models.Model):
     name = models.CharField(max_length=200)
@@ -228,3 +241,54 @@ def path_file_name(instance, filename):
         str(instance.volume_number),
         filename,
     )
+
+#custom inherit
+class Creator(Person):
+    pass
+class Classroom(models.Model):
+    class_name = models.CharField(max_length=50)
+
+    class RankChoices(models.Choices):
+        S = 'Graduated at A class'
+        A = 'A'
+        B = 'B'
+        C = 'C'
+        D = 'D'
+
+    rank = models.CharField(
+        max_length=25,
+        choices=RankChoices.choices,
+        default=RankChoices.D,
+    )
+    class_point = models.PositiveIntegerField(default=1000)
+    rank_updated_on = models.DateField(default=None)
+
+    def __str__(self):
+        return self.class_name
+
+class Teacher(Person):
+    classroom = models.ForeignKey(Classroom, null=True, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=100, default=None, blank=True, null=True)
+class Student(Person):
+    class AbilityChoices(models.Choices):
+        A_PLUS= 'A+'
+        A = 'A'
+        A_MINUS = 'A-'
+        B_PLUS = 'B+'
+        B = 'B'
+        B_MINUS = 'B-'
+        C_PLUS = 'C+'
+        C = 'C'
+        C_MINUS = 'C-'
+        D_PLUS = 'D+'
+        D = 'D'
+        D_MINUS = 'D-'
+
+    classroom = models.ForeignKey(Classroom, null=True, on_delete=models.CASCADE ,related_name='class_room')
+
+    academic = models.CharField(max_length=5, choices=AbilityChoices.choices, default=AbilityChoices.D, verbose_name='Học lực')
+    prediction = models.CharField(max_length=5, choices=AbilityChoices.choices, default=AbilityChoices.D, verbose_name='Phán đoán')
+    physic = models.CharField(max_length=5, choices=AbilityChoices.choices, default=AbilityChoices.D, verbose_name='Thể chất')
+    social_contribute = models.CharField(max_length=5, choices=AbilityChoices.choices, default=AbilityChoices.D, verbose_name='Đóng góp xã hội')
+    color = models.CharField(default=None, max_length=50, null=True, blank=True)
+    studying = models.BooleanField(default=True)

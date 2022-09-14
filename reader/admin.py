@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from django.contrib import admin
 
 from .forms import ChapterForm, SeriesForm
-from .models import Chapter, Group, HitCount, Person, Series, Volume
+from .models import Chapter, Group, HitCount, Series, Volume, Creator, Classroom, Teacher, Student
 
 
 # Register your models here.
@@ -26,8 +26,11 @@ class HitCountAdmin(admin.ModelAdmin):
 
 
 admin.site.register(HitCount, HitCountAdmin)
-admin.site.register(Person)
+admin.site.register(Creator)
 
+admin.site.register(Classroom)
+admin.site.register(Teacher)
+admin.site.register(Student)
 
 class GroupAdmin(admin.ModelAdmin):
     list_display = (
