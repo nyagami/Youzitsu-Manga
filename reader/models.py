@@ -6,6 +6,8 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.contrib import admin
+from django.utils.html import format_html
 
 MANGADEX = "MD"
 SCRAPING_SOURCES = ((MANGADEX, "MangaDex"),)
@@ -17,9 +19,19 @@ class HitCount(models.Model):
     object_id = models.PositiveIntegerField()
     hits = models.PositiveIntegerField(("Hits"), default=0)
 
-def avatar_file_path(self, filename):
-    ext = filename.split('.')[-1]
-    return os.path.join('avatar',self.name + '.' + ext)
+def thumb_file_path(self, filename):
+    _, ext = os.path.splitext(filename)
+    return os.path.join('thumb', self.name + ext)
+class Imageset(models.Model):
+    name = models.CharField(max_length=50, blank=True)
+    thumb = models.ImageField(blank=True, null=True, upload_to=thumb_file_path)
+    folder = models.CharField(max_length=100, blank=True)
+
+    def __str__(self) -> str:
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = 'Bộ sưu tập'
 
 class Person(models.Model):
     name = models.CharField(max_length=200)
@@ -30,13 +42,10 @@ class Person(models.Model):
     hobby = models.CharField(default=None, max_length=200, blank=True, null=True)
     zodiac = models.CharField(default=None, max_length=200, blank=True, null=True)
     description = models.TextField(default=None, blank=True, null=True)
-    avatar = models.ImageField(upload_to=avatar_file_path, default=None, null=True, blank=True)
+    images = models.OneToOneField(Imageset, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return self.name
-    def get_avatar(self):
-        if self.avatar: return f"/media/avatar/{self.avatar}"
-        else: return ""
 
 class Group(models.Model):
     name = models.CharField(max_length=200)
@@ -60,19 +69,21 @@ def new_volume_path_file_name(instance, filename):
     new_filename = str(randint(10000, 99999)) + ext
     return os.path.join(new_volume_folder(instance), new_filename,)
 
+class Creator(Person):
+    pass
 
 class Series(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(unique=True, max_length=200)
     author = models.ForeignKey(
-        Person,
+        Creator,
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
         related_name="series_author",
     )
     artist = models.ForeignKey(
-        Person,
+        Creator,
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -130,11 +141,11 @@ class Series(models.Model):
 
     class Meta:
         ordering = ("name",)
-        verbose_name_plural = "series"
+        verbose_name_plural = "Tác phẩm"
 
 
 class Volume(models.Model):
-    volume_number = models.PositiveIntegerField(blank=False, null=False, db_index=True)
+    volume_number = models.FloatField(blank=False, null=False, db_index=True)
     series = models.ForeignKey(
         Series, blank=False, null=False, on_delete=models.CASCADE
     )
@@ -243,8 +254,6 @@ def path_file_name(instance, filename):
     )
 
 #custom inherit
-class Creator(Person):
-    pass
 class Classroom(models.Model):
     class_name = models.CharField(max_length=50)
 
@@ -292,3 +301,29 @@ class Student(Person):
     social_contribute = models.CharField(max_length=5, choices=AbilityChoices.choices, default=AbilityChoices.D, verbose_name='Đóng góp xã hội')
     color = models.CharField(default=None, max_length=50, null=True, blank=True)
     studying = models.BooleanField(default=True)
+
+def illus_path(self, filename):
+    _, ext = os.path.splitext(filename)
+    folder = str(self.cate.all().first().folder)
+    return os.path.join('illustration', folder, self.title + ext)
+
+class Illustration(models.Model):
+    title = models.CharField(default=None, max_length=100, blank=True)
+    cate = models.ManyToManyField(Imageset,verbose_name='Nhân vật/Thể loại', help_text='Nên cho nhóm chính là nhóm đầu |')
+    is_color = models.BooleanField(verbose_name='Có màu?',default=False)
+    description = models.TextField(default=None, blank=True)
+    volume_number = models.FloatField(blank=False, null=False, db_index=True)
+    img = models.ImageField(blank=True, upload_to=illus_path)
+    
+    @admin.display
+    def category(self):
+        span = ' | '.join([str(cate) for cate in self.cate.all()])
+        return format_html(
+            f'<span>{span}</span>'
+        )
+
+    def __str__(self) -> str:
+        return self.title
+    class Meta:
+        ordering = ['is_color','volume_number']
+        verbose_name_plural = 'Minh hoạ'

@@ -9,7 +9,7 @@ from django.dispatch import receiver
 from PIL import Image, ImageFilter
 
 from api.api import clear_pages_cache, chapter_post_process, delete_chapter_pages_if_exists
-from reader.models import Chapter, HitCount, Series, Volume, new_volume_folder
+from reader.models import Chapter, HitCount, Imageset, Series, Volume, new_volume_folder, Illustration
 
 
 @receiver(post_delete, sender=Series)
@@ -59,7 +59,6 @@ def delete_volume_folder(sender, instance, **kwargs):
             str(instance.volume_number),
         )
         shutil.rmtree(folder_path, ignore_errors=True)
-
 
 @receiver(pre_save, sender=Chapter)
 def pre_save_chapter(sender, instance, **kwargs):
@@ -168,3 +167,47 @@ def save_volume(sender, instance, **kwargs):
             optimize=True,
             progressive=True,
         )
+
+def remove_file(file_name):
+    file_path = os.path.join(settings.MEDIA_ROOT, file_name)
+    os.remove(file_path)
+
+@receiver(post_delete, sender=Imageset)
+def delete_image_set(sender, instance, **kwargs):
+    if instance.thumb: remove_file(str(instance.thumb))
+    if instance.folder !="":
+        folder_path = os.path.join(settings.MEDIA_ROOT, 'imageset', instance.folder)
+        if os.path.exists(folder_path): shutil.rmtree(folder_path)
+
+def post_init_image_set(sender, instance, **kwargs):
+    instance.old_thumb = str(instance.thumb) if instance.thumb else None
+post_init.connect(post_init_image_set, sender=Imageset)
+
+def pre_save_image_set(sender, instance, **kwargs):
+    if instance.folder == "": instance.folder = instance.name
+    if instance.thumb:
+        if instance.old_thumb is not None:
+            remove_file(instance.old_thumb)
+        instance.old_thumb = str(instance.thumb)
+    elif instance.old_thumb is not None: 
+        remove_file(instance.old_thumb)
+        instance.old_thumb = None
+pre_save.connect(pre_save_image_set, sender=Imageset)
+
+@receiver(post_delete, sender=Illustration)
+def post_delete_illus(sender, instance, **kwwargs):
+    if instance.img: remove_file(str(instance.img))
+
+def post_init_illus(sender, instance, **kwargs):
+    instance.old_img = str(instance.img) if instance.img else None
+post_init.connect(post_init_illus, sender=Illustration)
+
+def pre_save_illus(sender, instance, **kwargs):
+    if instance.img:
+        if instance.old_img is not None:
+            remove_file(instance.old_img)
+        instance.old_img = str(instance.img)
+    elif instance.old_img is not None: 
+        remove_file(instance.old_img)
+        instance.old_img = None
+pre_save.connect(pre_save_illus, sender=Illustration)

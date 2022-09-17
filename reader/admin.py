@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from django.contrib import admin
 
 from .forms import ChapterForm, SeriesForm
-from .models import Chapter, Group, HitCount, Series, Volume, Creator, Classroom, Teacher, Student
+from .models import Chapter, Group, HitCount, Series, Volume, Creator, Classroom, Teacher, Student, Imageset, Illustration
 
 
 # Register your models here.
@@ -32,6 +32,32 @@ admin.site.register(Classroom)
 admin.site.register(Teacher)
 admin.site.register(Student)
 
+class ImagesetAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'thumb'
+    )
+    readonly_fields = ('folder',)
+    
+admin.site.register(Imageset, ImagesetAdmin)
+
+class IllustrationAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'volume_number',
+        'category',
+    )
+    filter_horizontal = ('cate',)
+    search_fields = ("title", "is_color",'volume_number',)
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return ()
+        else:
+            return ("img",)
+
+admin.site.register(Illustration, IllustrationAdmin)
 class GroupAdmin(admin.ModelAdmin):
     list_display = (
         "id",
@@ -46,7 +72,6 @@ class SeriesAdmin(admin.ModelAdmin):
     form = SeriesForm
     # readonly_fields = ("slug",)
     list_display = ("name",)
-
 
 admin.site.register(Series, SeriesAdmin)
 

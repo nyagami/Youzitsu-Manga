@@ -18,6 +18,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 PARENT_DIR = BASE_DIR.parent
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 SECRET_KEY = os.environ.get("SECRET_KEY", "oxrdiDDsuMtd8SIsgAy7i+aJzSGCWt3Xl1IXeMyfCbA=")
 
 CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
@@ -33,6 +35,8 @@ INSTALLED_APPS = [
     "reader.apps.ReaderConfig",
     "homepage.apps.HomepageConfig",
     "misc.apps.MiscConfig",
+    'admin_interface',
+    'colorfield',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -41,7 +45,6 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_extensions",
 ]
 
 
