@@ -121,12 +121,12 @@ def series_page_data(request, series_slug):
             "cover_vol_url": cover_vol_url,
             "cover_vol_url_webp": cover_vol_url_webp,
             "metadata": [
-                ["Author", series.author.name],
-                ["Artist", series.artist.name],
-                ["Views", hit.hits + 1],
+                ["Tác giả", series.author.name],
+                ["Minh hoạ  ", series.artist.name],
+                ["Lượt xem", hit.hits + 1],
                 [
-                    "Last Updated",
-                    f"Ch. {latest_chapter.clean_chapter_number() if latest_chapter else ''} - {datetime.utcfromtimestamp(latest_chapter.uploaded_on.timestamp()).strftime('%Y-%m-%d') if latest_chapter else ''}",
+                    "Cập nhật",
+                    f"Chương {latest_chapter.clean_chapter_number() if latest_chapter else ''} | {datetime.utcfromtimestamp(latest_chapter.uploaded_on.timestamp()).strftime('%d-%m-%Y') if latest_chapter else ''}",
                 ],
             ],
             "synopsis": series.synopsis,
@@ -135,7 +135,7 @@ def series_page_data(request, series_slug):
             "volume_list": sorted(volume_list, key=lambda m: m[0], reverse=True),
             "root_domain": settings.CANONICAL_ROOT_DOMAIN,
             "canonical_url": f"https://{settings.CANONICAL_ROOT_DOMAIN}{series.get_absolute_url()}",
-            "relative_url": f"read/manga/{series.slug}/",
+            "relative_url": f"read/series/{series.slug}/",
             "available_features": [
                 "detailed",
                 # "compact",
@@ -143,7 +143,7 @@ def series_page_data(request, series_slug):
                 # "rss",
                 # "download",
             ],
-            "reader_modifier": "read/manga",
+            "reader_modifier": "read/series",
             "embed_image": request.build_absolute_uri(series.get_embed_image_path()),
         }
         cache.set(f"series_page_dt_{series_slug}", series_page_dt, 3600 * 12)
@@ -217,6 +217,6 @@ def reader(request, series_slug, chapter, page=None):
             data[chapter]["embed_image"] = data["embed_image"]
             return render(request, "reader/reader.html", data[chapter])
         else:
-            return render(request, "homepage/how_cute_404.html", status=404)
+            return render(request, "homepage/404_page.html", status=404)
     else:
         return redirect("reader-manga-chapter", series_slug, chapter, "1")

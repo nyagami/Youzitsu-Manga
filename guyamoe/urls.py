@@ -39,7 +39,7 @@ sitemaps = {
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("homepage.urls")),
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}),
+    # path("sitemap.xml", sitemap, {"sitemaps": sitemaps}),
     path("reader/", include("reader.urls")),
     path("read/", include("reader.urls")),
     path("api/", include("api.urls")),

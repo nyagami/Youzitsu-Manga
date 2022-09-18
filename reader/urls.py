@@ -50,18 +50,18 @@ urlpatterns = [
         name="reader-manga-canonical",
     ),
     re_path(r"^update_view_count/", views.hit_count, name="reader-view-count"),
-    re_path(
-        r"^other/rss/all$",
-        cache_control(
-            public=True, max_age=600, s_maxage=600
-        )(  # Cache control for CF, etag for RSS readers
-            condition(etag_func=all_chapter_data_etag)(AllChaptersFeed())
-        ),
-    ),
-    path(
-        r"other/rss/<str:series_slug>",
-        cache_control(public=True, max_age=600, s_maxage=600)(
-            condition(etag_func=chapter_data_etag)(SeriesChaptersFeed())
-        ),
-    ),
+    # re_path(
+    #     r"^other/rss/all$",
+    #     cache_control(
+    #         public=True, max_age=600, s_maxage=600
+    #     )(  # Cache control for CF, etag for RSS readers
+    #         condition(etag_func=all_chapter_data_etag)(AllChaptersFeed())
+    #     ),
+    # ),
+    # path(
+    #     r"other/rss/<str:series_slug>",
+    #     cache_control(public=True, max_age=600, s_maxage=600)(
+    #         condition(etag_func=chapter_data_etag)(SeriesChaptersFeed())
+    #     ),
+    # ),
 ]

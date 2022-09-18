@@ -40,7 +40,7 @@ class Person(models.Model):
     height = models.CharField(default=None, max_length=20, blank=True, null=True)
     url = models.CharField(default=None, max_length=200, blank=True, null=True) 
     hobby = models.CharField(default=None, max_length=200, blank=True, null=True)
-    zodiac = models.CharField(default=None, max_length=200, blank=True, null=True)
+    zodiac = models.CharField(default=None, max_length=200, blank=True, null=True, verbose_name='Cung hoàng đạo')
     description = models.TextField(default=None, blank=True, null=True)
     images = models.OneToOneField(Imageset, on_delete=models.SET_NULL, blank=True, null=True)
 
@@ -52,6 +52,9 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Nhóm dịch/scan'
 
 
 def embed_image_path(instance, filename):
@@ -89,7 +92,7 @@ class Series(models.Model):
         on_delete=models.SET_NULL,
         related_name="series_artist",
     )
-    synopsis = models.TextField(blank=True, null=True)
+    synopsis = models.TextField(blank=True, null=True,verbose_name='Tóm tắt')
     alternative_titles = models.TextField(blank=True, null=True)
     next_release_page = models.BooleanField(default=False)
     next_release_time = models.DateTimeField(
@@ -117,9 +120,9 @@ class Series(models.Model):
 
     def get_absolute_url(self):
         if self.canonical_series_url_filler:
-            return f"/read/manga/{self.canonical_series_url_filler}/{self.slug}/"
+            return f"/read/series/{self.canonical_series_url_filler}/{self.slug}/"
         else:
-            return f"/read/manga/{self.slug}/"
+            return f"/read/series/{self.slug}/"
 
     def get_latest_volume_cover_path(self):
         vols = Volume.objects.filter(series=self).order_by("-volume_number")
@@ -151,6 +154,12 @@ class Volume(models.Model):
     )
     volume_cover = models.ImageField(blank=True, upload_to=new_volume_path_file_name)
 
+    def clean_volume_number(self):
+        return (
+            str(int(self.volume_number))
+            if self.volume_number % 1 == 0
+            else str(self.volume_number)
+        )
     class Meta:
         unique_together = (
             "volume_number",
@@ -216,10 +225,10 @@ class Chapter(models.Model):
         return upload_date
 
     def __str__(self):
-        return f"{self.chapter_number} - {self.title} | {self.group}"
+        return f"{self.chapter_number} - {self.title}"
 
     def get_absolute_url(self):
-        return f"/read/manga/{self.series.slug}/{Chapter.slug_chapter_number(self)}/1"
+        return f"/read/series/{self.series.slug}/{Chapter.slug_chapter_number(self)}/1"
 
     class Meta:
         ordering = ("chapter_number",)
