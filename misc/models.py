@@ -6,7 +6,7 @@ from django.db import models
 # Create your models here.
 class Variable(models.Model):
     key = models.CharField(max_length=30)
-    value = models.CharField(max_length=300)
+    value = models.CharField(max_length=255)
 
     def __str__(self):
         return self.key
@@ -21,9 +21,9 @@ class Page(models.Model):
     preview = models.TextField(blank=True, null=True)
     standalone = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
-    page_title = models.CharField(max_length=300, blank=False, null=False, unique=True)
-    page_url = models.CharField(max_length=300, blank=False, null=False, unique=True)
-    cover_image_url = models.CharField(max_length=512, blank=True, null=True)
+    page_title = models.CharField(max_length=255, blank=False, null=False, unique=True)
+    page_url = models.CharField(max_length=255, blank=False, null=False, unique=True)
+    cover_image_url = models.CharField(max_length=255, blank=True, null=True)
     date = models.DateTimeField(default=None, blank=True, null=True, db_index=True)
     variable = models.ManyToManyField(Variable, blank=True)
 
