@@ -146,7 +146,6 @@ class Series(models.Model):
         ordering = ("name",)
         verbose_name_plural = "Tác phẩm"
 
-
 class Volume(models.Model):
     volume_number = models.FloatField(blank=False, null=False, db_index=True)
     series = models.ForeignKey(
@@ -165,7 +164,6 @@ class Volume(models.Model):
             "volume_number",
             "series",
         )
-
 
 class Chapter(models.Model):
     series = models.ForeignKey(Series, on_delete=models.CASCADE)
