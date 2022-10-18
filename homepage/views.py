@@ -34,7 +34,7 @@ def admin_home(request):
 def home(request):
     return render(
         request,
-        "homepage/yhome.html",
+        "homepage/homepage.html",
         {
             "abs_url": request.build_absolute_uri(),
             "relative_url": "",
@@ -108,18 +108,6 @@ def random(request):
         r.choice(random_opts),
         "1",
     )
-
-
-# def latest_releases(request):
-#     latest_releases = cache.get("latest_releases")
-#     if not latest_releases:
-#         latest_releases = Chapter.objects.order_by('-uploaded_on')
-#         latest_list = []
-#         #for _ in range(0, 10):
-
-#         cache.set("latest_chap", latest_chap, 3600 * 96)
-#     return redirect('reader-manga-chapter', "Kaguya-Wants-To-Be-Confessed-To", latest_chap, "1")
-
 
 def handle404(request, exception):
     return render(request, "homepage/404_page.html", status=404)
