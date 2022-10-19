@@ -7,6 +7,30 @@
 	font-style: normal;
 }
 
+:root {
+	--readerBg: #272b30;
+	--sidebarCol: #3a3f44;
+	--accentCol: #b2dffb;
+	--icoCol: #eee;
+	--textCol: #ddd;
+	--sidebarColDark: #2b2f33;
+	--sidebarColDarkA: #2b2f3300;
+	--prevCol: #34393d;
+	--accentSelected: #ffffff;
+	--accentSelectedInvert: #333333;
+	--sidebarColFocus: rgba(0, 0, 0, 0.3);
+	--borderColor: rgba(0,0,0,0.7);
+	--blackFlag: rgba(0,0,0,0.7);
+	--blackLight: rgba(0,0,0,0.2);
+	--focusCol: hotpink;
+	/* One time use */
+	--rdrBorderL: 1px;
+	--rdr-wb: 2px;
+	--rdrAncBottomWhite: rgba(255,255,255,0.35);
+	--rescueShade: unset;
+	--background-img: url('/static/img/bg_artwork.png');
+	}
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -31,14 +55,14 @@ body {
 	position: relative;
 	background-attachment: fixed;
 	background-size: cover;
-	background-image: url('/static/img/bg_artwork.png');
+	background-image: var(--background-img);
 	background-repeat: no-repeat;
 	padding-top: 5em;
 }
 
 
 header {
-	background: linear-gradient(0deg,rgba(0,0,0,0) 0%, rgba(0, 0, 0, 0.8) 100%);
+	background: linear-gradient(0deg,rgba(0,0,0,0) 0%, rgba(0, 0, 0, 1) 100%);
 	position: fixed;
 	top: 0;
 	z-index: 300;
@@ -129,24 +153,53 @@ a {
 	font-size: unset;
 }
 
-.search-tool{
+.widgets-wrapper{
+	align-items: center;
+	align-self: center;
+}
+
+.search-wrapper{
 	padding: 0 2em;
 	align-items: center;
 	display: inline-flex;
 }
 
 .search-input{
-	text-align: right;
 	font-family: inherit;
 	background-color: rgba(17, 17, 17, 0.468);
-	color: white;
+	color: var(--textCol);
 	font-size: medium;
-	border-radius: 10px;
+	border-radius: 20px;
+	outline-color: invert;
 }
 
-.extend{
+.search-input:focus{
+	outline: none;
+	border-color: var(--accentCol);
+}
+
+.search-button{
+	background-color: transparent;
+	position: relative;
+	border: none;
+	border-radius: 20px;
+	color: var(--textCol);
+	font-size: medium;
+	transform: translateX(-5em);
+}
+
+.search-button:focus{
+	outline: none;
+}
+
+.search-button:hover{
+	background-color: var(--rdrAncBottomWhite);
+}
+
+.extend-wrapper{
 	align-items: center;
 	display: inline-flex;
+	margin-left: 1em;
 }
 
 @media (max-width: 992px) {
@@ -272,6 +325,7 @@ a {
 	align-items: stretch;
 	position: relative;
 	white-space: nowrap;
+	margin: 0 1em;
 }
 .navbar .nav-item textarea {
 	background: black;
@@ -372,7 +426,7 @@ a {
 	opacity: 1;
 	background: none !important;
 	border: none;
-	color: pink;
+	color: var(--accentCol);
 	box-shadow: 0px -39px 20px -40px rgb(230, 230, 230) inset;
 	border-bottom: 1px solid rgb(241, 241, 241);
 	transition: box-shadow 0.1s ease;
@@ -381,7 +435,7 @@ a {
 	background: none !important;
 	border-bottom: 1px solid #bbb;
 	box-shadow: 0px -38px 20px -40px #bbb inset;
-	color: hotpink;
+	color: var(--focusCol);
 }
 
 .navbar a {

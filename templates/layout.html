@@ -94,10 +94,15 @@
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-				<div class="search-tool">
-					<input class="search-input form-control-sm" type="text" placeholder="Tìm kiếm">
+				<div class="widgets-wrapper">
+					<div class="search-wrapper">
+						<input class="search-input form-control-sm" type="text" placeholder="Tìm kiếm">
+					</div>
+					<button type="submit" class="search-button">
+						<i class="fa fa-search" aria-hidden="true"></i>
+					</button>
+					<button data-bind='settings_button' class="ico-btn"></button>
 				</div>
-				<div class="extend">Thêm</div>
 			</div>
 		</nav>
 	</header>
@@ -145,12 +150,6 @@
 					}
 				}
 			}
-		}
-		changeQuote()
-		setInterval(changeQuote, 60000);
-		function changeQuote(){
-			let quoteNumb = Math.floor(Math.random() * 9)+1;
-			document.getElementById("quote-block").innerHTML = `<img id="quote" class="img-fluid mx-auto d-block" src="{% static 'img/' %}quote${quoteNumb}.png" style="max-height: 70px">`;
 		}
 	</script>
 </body>

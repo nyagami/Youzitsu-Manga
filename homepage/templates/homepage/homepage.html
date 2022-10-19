@@ -1,7 +1,32 @@
 {% extends "layout.html" %}
 {% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'external/css/pickr.nano@1-8-1.css' %}{{ version_query }}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}{{ version_query }}">
+{% endblock %}
 {% block body %}
+<script>
+    // Seed the values from the template for the reader API calls
+    const BASE_API_PATH = "{{ api_path }}";
+    const IS_FIRST_PARTY = {{ first_party|yesno:"true,false,false" }};
+    const IS_INDEXED = {{ indexed|yesno:"true,false,false" }};
+    const IMAGE_PROXY_URL = "{{ image_proxy_url }}";
+  </script>
+
+<main id="home">
+    <div class="series-container">
+        
+    </div>
+</main>
 
 
-
+<script type="text/javascript" src="{%static 'external/js/jszip@3-1-5.min.js'%}{{ version_query }}"></script>
+<script type="text/javascript" src="{%static 'external/js/pickr@1-8-1.min.js'%}{{ version_query }}"></script>
+<script type="text/javascript" src="{% static 'js/UI.js' %}{{ version_query }}"></script>
+<script type="text/javascript" src="{% static 'js/init_UI.js' %}{{ version_query }}"></script>
+<script type="text/javascript" src="{% static 'js/home.js' %}{{ version_query }}"></script>
+<script type="text/javascript">
+    // History tagging
+    tag();
+  </script>
 {% endblock %}
