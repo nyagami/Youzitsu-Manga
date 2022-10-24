@@ -1,0 +1,55 @@
+.body-container{
+    width: 100%;
+}
+
+.all-series-wrapper{
+    width: 100%;
+}
+
+.divider-element{
+    display: inline-flex;
+    font-size: large;
+    color: white;
+}
+
+
+.series-container{
+    width: 100%;
+}
+
+.series-wrapper{
+    height: 200px;
+}
+
+.color-theme{
+    display: inline-block;
+    height: 200px;
+    width: 30px;
+    background-color: red;
+}
+
+.image-card{
+    display: inline-block;
+    max-height: 200px;
+    max-width: 100%;
+}
+
+.image-card img{
+    vertical-align: baseline;
+    max-height: 200px;
+}
+
+.volumes-wrapper{
+    display: block;
+}
+
+.volumes-wrapper ul{
+    width: 100%;
+}
+
+.volume-item{
+    background-color: darkgray;
+    display: flex;
+    color: white;
+    font-size: large;
+}
