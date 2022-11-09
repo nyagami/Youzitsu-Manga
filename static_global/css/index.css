@@ -158,6 +158,15 @@ a {
 	align-self: center;
 }
 
+.widgets-wrapper button{
+	background-color: transparent;
+	border: none;
+	color: var(--textCol);
+	height: 28px;
+	width: 28px;
+	border-radius: 50%;
+}
+
 .search-wrapper{
 	padding: 0 2em;
 	align-items: center;
@@ -179,20 +188,16 @@ a {
 }
 
 .search-button{
-	background-color: transparent;
 	position: relative;
-	border: none;
-	border-radius: 20px;
-	color: var(--textCol);
 	font-size: medium;
 	transform: translateX(-5em);
 }
 
-.search-button:focus{
+.widgets-wrapper button:focus{
 	outline: none;
 }
 
-.search-button:hover{
+.widgets-wrapper button:hover{
 	background-color: var(--rdrAncBottomWhite);
 }
 

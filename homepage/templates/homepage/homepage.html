@@ -5,22 +5,22 @@
 <link rel="stylesheet" href="{% static 'css/home.css' %}{{ version_query }}">
 {% endblock %}
 {% block body %}
-<script>
+<!-- <script>
     // Seed the values from the template for the reader API calls
     const BASE_API_PATH = "{{ api_path }}";
     const IS_FIRST_PARTY = {{ first_party|yesno:"true,false,false" }};
     const IS_INDEXED = {{ indexed|yesno:"true,false,false" }};
     const IMAGE_PROXY_URL = "{{ image_proxy_url }}";
-  </script>
+  </script> -->
 
 <main id="home">
   <div class="body-container">
     <div class="all-series-wrapper">
       <div class="series-container">
         <div class="divider-wrapper">
-          <div class="line divider-element">------------------------</div>
-          <div class="series-type divider-element">Manga</div>
-          <div class="line divider-element">------------------------</div>
+          <div class="line divider-element"></div>
+          <div class="series-type divider-element text-uppercase">Manga</div>
+          <div class="line divider-element"></div>
         </div>
         <div class="series-wrapper series-1-1">
           <div class="color-theme"></div>
@@ -29,10 +29,10 @@
           </div>
           <div class="volumes-wrapper">
             <ul class="d-flex justify-content-around">
-              <li class="volume-item">vol 1</li>
-              <li class="volume-item">vol 2</li>
-              <li class="volume-item">vol 3</li>
-              <li class="volume-item">vol 4</li>
+              <li class="volume-item text-uppercase text-center">vol &#10;&#13;1</li>
+              <li class="volume-item text-uppercase text-center">vol &#10;&#13;2</li>
+              <li class="volume-item text-uppercase text-center">vol &#10;&#13;3</li>
+              <li class="volume-item text-uppercase text-center">vol &#10;&#13;4</li>
             </ul>
           </div>
         </div>
