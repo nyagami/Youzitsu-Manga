@@ -201,13 +201,10 @@ a {
 	background-color: var(--rdrAncBottomWhite);
 }
 
-.extend-wrapper{
-	align-items: center;
-	display: inline-flex;
-	margin-left: 1em;
-}
-
 @media (max-width: 992px) {
+	body{
+		padding-top: 7em;
+	}
 	#quote-block{
 		display: none;
 	}
@@ -232,6 +229,11 @@ a {
 	}
 	.navbar .navbar-toggler {
 		position: relative;
+	}
+
+	.navbar .widgets-wrapper {
+		width: 100%;
+		text-align: center;
 	}
 
 	.navbar .nav-link.s {
@@ -503,7 +505,7 @@ a {
 }
 
 .home .navbar-brand-logo img {
-	max-height: 2.7rem;
+	max-height: 4rem;
 }
 
 .home .navbar-collapse {

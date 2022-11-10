@@ -3,7 +3,6 @@ from django.urls import path, re_path
 from api import views
 
 urlpatterns = [
-    path("series_data_slug/", views.series_data_slug, name="api-series-slug"),
     re_path(
         r"^series/(?P<series_slug>[\w-]+)/$",
         views.get_series_data,

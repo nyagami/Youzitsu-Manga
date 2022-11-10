@@ -4,17 +4,23 @@
     /* padding: 0; */
 }
 
+main {
+	width: fit-content;
+}
+
+
 .body-container{
     width: 100%;
 }
 
 .all-series-wrapper{
-    width: 100%;
+    width: fit-content;
 }
 
 .series-container{
     width: 100%;
     text-align: center;
+    margin-bottom: 5;
 }
 
 .divider-wrapper{
@@ -24,7 +30,7 @@
 .line{
     width: 35%;
     height: 0.5px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     margin: 0.5rem 0.5rem 0.5rem 10px;
     align-self: center;
 }
@@ -43,29 +49,22 @@
 
 .series-wrapper{
     height: 180px;
+    margin-bottom: 6em;
 }
-
-/* .color-theme{
-    position: relative;
-    display: inline-flex;
-    height: 100%;
-    width: 30px;
-    background-color: red;
-} */
 
 .image-card{
     position: relative;
     display: inline-flex;
-    height: 100%;
-    width: fit-content;
+    height: fit-content;
     background-color: rgb(218, 29, 29);
-    padding-left: 30px;
 }
 
 .image-card img{
     position: relative;
     vertical-align: baseline;
-    height: 100%;
+    max-width: 1000px;
+    height: auto;
+    box-shadow: 0 5px 3px rgba(0,0,0,0.3);
 }
 
 .volumes-wrapper{
@@ -80,7 +79,7 @@
 }
 
 .volume-item{
-    background-color: rgb(255, 105, 105);
+    background-color: rgb(189, 11, 11);
     display: flex;
     color: white;
     font-size: large;
@@ -91,5 +90,8 @@
     line-height: 1.3em;
     padding: 0.3em 0.3em 0 0.3em;
     border-radius: 5px 5px 0 0;
+    border: solid 3px rgb(10, 9, 9);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
+    margin-left: 20px;
+    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.5);
 }
