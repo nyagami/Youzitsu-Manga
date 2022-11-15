@@ -222,9 +222,9 @@ def get_volume_covers(request, series_slug):
                 if cover[1]
             ]
             cache.set(f"vol_covers_{series_slug}", covers)
-            return HttpResponse(json.dumps(covers), content_type="application/json")
+            return HttpResponse(json.dumps({"covers": covers}), content_type="application/json")
     else:
-        return HttpResponse(json.dumps(covers), content_type="application/json")
+        return HttpResponse(json.dumps({"covers": covers}), content_type="application/json")
     return HttpResponse(json.dumps({}), content_type="application/json", status="204")
 
 

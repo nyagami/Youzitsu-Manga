@@ -140,7 +140,7 @@ def series_page_data(request, series_slug):
             "available_features": [
                 "detailed",
                 # "compact",
-                # "volumeCovers",
+                "volumeCovers",
                 # "rss",
                 # "download",
             ],
