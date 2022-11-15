@@ -64,10 +64,10 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav">
 						<li class="nav-item dropdown">
-							<a href="/" class="nav-link">Home</a>
+							<a href="/home" class="nav-link">Home</a>
 						</li>
 						<li class="nav-item dropdown">
-							<a href="/manga" class="nav-link">Manga</a>
+							<a href="/read/series/manga-nam-hai" class="nav-link">Manga</a>
 							<div class="dropdown-menu" aria-labelledby="readManga">
 								<a class="dropdown-item" href="">Manga năm nhất</a>
 								<div class="dropdown-divider"></div>
@@ -75,7 +75,7 @@
 							</div>
 						</li>
 						<li class="nav-item dropdown">
-							<a href="/ln" class="nav-link">Light Novel</a>
+							<a href="#" class="nav-link">Light Novel</a>
 							<div class="dropdown-menu" aria-labelledby="readLN">
 								<a href="#" class="dropdown-item">Light novel năm nhất</a>
 								<div class="dropdown-divider"></div>
@@ -108,35 +108,36 @@
 			</div>
 		</nav>
 	</header>
-	<footer class="container-fluid footer mt-auto" style="position: fixed; bottom: 0;height:70px;">
-	</footer>
 	<script>
+		var links = document.querySelectorAll('header .nav-link');
+		[].forEach.call(links, link => {
+			if (link.classList.contains('dropdown-toggle')) {
+				var items;
+				if (link.nextElementSibling)
+					items = link.nextElementSibling.children;
+				else
+					return;
+				for (var i = 0; i < items.length; i++) {
+					if (document.location.href.indexOf(items[i].href) > -1) {
+						link.classList.add('s');
+					}
+				}
+			} else {
+				if (document.location.href.indexOf(link.href) > -1)
+					link.classList.add('s')
+			}
+		});
+
 		function autosize() {
 			var el = this;
-			setTimeout(function () {
+			setTimeout(function() {
 				el.style.height = "";
 				el.style.height = Math.min(el.scrollHeight, 500) + "px";
 				el.nextElementSibling.style.top = Math.min(el.scrollHeight, 500) + "px";
 			}, 0);
 		}
-		const dropdown = document.querySelectorAll(".nav-item.dropdown");
-		dropdown.forEach(dropdown => {
-			dropdown.addEventListener("mouseover", () => {
-				dropdown.lastElementChild.classList.add("show");
-			})
-			dropdown.addEventListener("mouseleave", () => {
-				dropdown.lastElementChild.classList.remove("show");
-			})
-		})
-		okey = true
-		document.querySelectorAll('a.nav-link').forEach(link => {
-			if(window.location.href.indexOf(link.getAttribute("href"))>-1){
-				link.classList.add('s')
-				okey = false
-			}
-		})
-		if(okey) document.getElementById("homepage").classList.add('s')
-		</script>
+
+	</script>
 	{% endcache %} {% block body %} {% endblock %}
 	<script>
 		isiOSAux = (window.navigator.standalone == true);

@@ -63,6 +63,7 @@ def series_page_data(request, series_slug):
         )
         latest_chapter = chapters.latest("uploaded_on") if chapters else None
         cover_vol_url, cover_vol_url_webp = series.get_latest_volume_cover_path()
+        if not cover_vol_url: cover_vol_url = series.get_embed_image_path()
         content_series = ContentType.objects.get(app_label="reader", model="series")
         hit, _ = HitCount.objects.get_or_create(
             content_type=content_series, object_id=series.id
