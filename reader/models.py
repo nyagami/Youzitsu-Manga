@@ -1,13 +1,12 @@
 import os
 from datetime import datetime, timezone
 from random import randint
+from colorfield.fields import ColorField
 
-from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.contrib import admin
-from django.utils.html import format_html
+
 
 MANGADEX = "MD"
 SCRAPING_SOURCES = ((MANGADEX, "MangaDex"),)
@@ -127,6 +126,7 @@ class Volume(models.Model):
     series = models.ForeignKey(
         Series, blank=False, null=False, on_delete=models.CASCADE
     )
+    color_theme = ColorField(default='#FF0000')
     volume_cover = models.ImageField(blank=True, upload_to=new_volume_path_file_name)
 
     def clean_volume_number(self):
@@ -187,15 +187,15 @@ class Chapter(models.Model):
         upload_time %= 60
         seconds = int(upload_time)
         if days == 0 and hours == 0 and minutes == 0:
-            upload_date = f"{seconds} second{'s' if seconds != 1 else ''} ago"
+            upload_date = f"{seconds} giây trước"
         elif days == 0 and hours == 0:
-            upload_date = f"{minutes} min{'s' if minutes != 1 else ''} ago"
+            upload_date = f"{minutes} phút trước"
         elif days == 0:
-            upload_date = f"{hours} hour{'s' if hours != 1 else ''} ago"
+            upload_date = f"{hours} giờ trước"
         elif days < 7:
-            upload_date = f"{days} day{'s' if days != 1 else ''} ago"
+            upload_date = f"{days} ngày trước"
         else:
-            upload_date = upload_date.strftime("%Y-%m-%d")
+            upload_date = upload_date.strftime("%d-%m-%Y")
         return upload_date
 
     def __str__(self):

@@ -300,7 +300,7 @@ var reading_button = null;
 			}
 			else if (days < 7 && days > 0) {
 				updaters.forEach(e => {
-					e[idx].textContent = `${days} day${days === 1 ? "" : "s"} trước`;
+					e[idx].textContent = `${days} ngày trước`;
 					e[idx].classList.add('text-muted');
 				});
 			}
@@ -645,7 +645,7 @@ var reading_button = null;
 					<table id="chapters" class="table table-hover">
 						<thead>
 							<tr>
-								<th scope="col" class="read-icon" onclick="markAll(this)"></th>
+								<th scope="col" class="read-icon d-none" onclick="markAll(this)"></th>
 								<th scope="col">
 									Tiêu đề&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control-sm" id="chapterTitleSearch"
 										type="text" placeholder="⌕ Tìm kiếm" />
@@ -660,9 +660,9 @@ var reading_button = null;
 							</tr>
 						</thead>
 						<tbody id="chapterTable">
-							{% for chapter_list_value, chapter, title, ch_slug, group, upload_date, volume in chapter_list %}
-							<tr class="table-default" data-chapter="{{ chapter }}">
-								<td scope="row" class="read-icon" onclick="updateRead('{{ chapter }}')"></td>
+							{% for chapter_list_value, chapter, title, ch_slug, group, upload_date, volume, color_theme in chapter_list %}
+							<tr class="table-default" style="border: solid 1.1px {{color_theme}};" data-chapter="{{ chapter }}">
+								<td scope="row" class="read-icon d-none" onclick="updateRead('{{ chapter }}')"></td>
 								<td scope="row" class="chapter-title">
 									<a href="/{{ reader_modifier }}/{{ slug }}/{{ ch_slug }}/1/">
 										<span class="spoiler-free-title">

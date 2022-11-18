@@ -83,6 +83,7 @@ def series_page_data(request, series_slug):
         for ch in chapter_dict:
             chapter, multiple_groups = chapter_dict[ch]
             u = chapter.uploaded_on
+            color_theme = Volume.objects.get(volume_number=chapter.volume).color_theme or 'white'
             chapter_list.append(
                 [
                     chapter.clean_chapter_number(),
@@ -92,6 +93,7 @@ def series_page_data(request, series_slug):
                     chapter.group.name if not multiple_groups else "Multiple Groups",
                     [u.year, u.month - 1, u.day, u.hour, u.minute, u.second],
                     chapter.volume or "null",
+                    color_theme,
                 ]
             )
             volume_dict[chapter.volume].append(
