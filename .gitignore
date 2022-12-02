@@ -25,4 +25,4 @@ db.sqlite3
 #django migrations
 migrations/
 media/
-static/
+/static

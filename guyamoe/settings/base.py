@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "user.apps.UserConfig",
     'admin_interface',
     'colorfield',
+    "registration",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -46,7 +47,6 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_registration",
 ]
 
 
@@ -111,15 +111,13 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 # Registration
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
-
 REGISTRATION_OPEN = False
+INCLUDE_REGISTER_URL = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

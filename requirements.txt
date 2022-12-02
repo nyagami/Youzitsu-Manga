@@ -9,5 +9,5 @@ beautifulsoup4==4.8.2
 django-admin-interface==0.20.0
 psycopg2
 django-colorfield
-django-registration
+django-registration-redux
 python-dotenv

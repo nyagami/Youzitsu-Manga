@@ -1,26 +1,21 @@
-from django.shortcuts import render
+from django.contrib.auth.views import LoginView as OldLoginView, LogoutView as OldLogOutView
+from django.core.exceptions import ValidationError
+from django.http import HttpResponseRedirect
 
-from django.contrib.auth.models import User
+from registration.backends.simple.views import RegistrationView as OldRegistrationView
 
-from django import forms
-from django_registration.backends.one_step.views import RegistrationView as OldRegistrationView
-from django_registration.forms import RegistrationForm as OldRegistrationForm
+from .form import RegistrationForm
+
+from utils.pw_valid import PwnedPasswordsValidator
+
 
 # Create your views here.
 
-class RegistrationForm(OldRegistrationForm):
-    username = forms.RegexField(regex=r'^\w+$', max_length=30, label="Tên người dùng",
-                                error_messages={'Không hợp lệ': "Tên người dùng chỉ có kí tự hoặc số hoặc _"})
-
-    def clean_email(self):
-        if User.objects.filter(email=self.cleaned_data['email']).exists():
-            raise forms.ValidationError(('Địa chỉ "%s" đã được sử dụng!.') % self.cleaned_data['email'])
-        return self.cleaned_data['email']
-
-
+#Registration
 class RegistrationView(OldRegistrationView):
     title = "Đăng kí"
     form_class = RegistrationForm
+    success_url = '/user/register/complete'
 
     def get_context_data(self, **kwargs):
         if 'page_title' not in kwargs:
@@ -31,3 +26,29 @@ class RegistrationView(OldRegistrationView):
     def register(self, form):
         user = super(RegistrationView, self).register(form)
         return user
+
+# Login
+class LoginView(OldLoginView):
+    template_name = "log/login.html"
+    extra_context = {
+        "page_title": "Đăng nhập",
+    }
+    redirect_authenticated_user = True
+
+    def form_valid(self, form):
+        password = form.cleaned_data['password']
+        validator = PwnedPasswordsValidator()
+        try:
+            validator.validate(password)
+        except ValidationError:
+            self.request.session['password_pwned'] = True
+        else:
+            self.request.session['password_pwned'] = False
+        return super().form_valid(form)
+
+
+class LogoutView(OldLogOutView):
+    template_name = 'log/logout.html'
+    extra_context = {
+        "page_title": "Đăng xuất",
+    }
