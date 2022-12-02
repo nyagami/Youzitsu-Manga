@@ -9,3 +9,4 @@ beautifulsoup4==4.8.2
 django-admin-interface==0.20.0
 psycopg2
 python-dotenv
+django-colorfield
