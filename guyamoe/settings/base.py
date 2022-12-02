@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "reader.apps.ReaderConfig",
     "homepage.apps.HomepageConfig",
     "misc.apps.MiscConfig",
+    "user.apps.UserConfig",
     'admin_interface',
     'colorfield',
     "django.contrib.admin",
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_registration",
 ]
 
 
@@ -113,6 +115,11 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
+# Registration
+
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
+
+REGISTRATION_OPEN = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

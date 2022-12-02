@@ -24,7 +24,8 @@ from .users_cache_lib import get_user_ip
 def hit_count(request):
     if request.method == "POST":
         user_ip = get_user_ip(request)
-        page_id = f"url_{request.POST['series']}/{request.POST['chapter'] if 'chapter' in request.POST else ''}{user_ip}"
+        page_id = f"""url_{request.POST['series']}/{request.POST['chapter']
+                   if 'chapter' in request.POST else ''}{user_ip}"""
         if not cache.get(page_id):
             cache.set(page_id, page_id, 60)
             series_slug = request.POST["series"]
@@ -63,7 +64,8 @@ def series_page_data(request, series_slug):
         )
         latest_chapter = chapters.latest("uploaded_on") if chapters else None
         cover_vol_url, cover_vol_url_webp = series.get_latest_volume_cover_path()
-        if not cover_vol_url: cover_vol_url = series.get_embed_image_path()
+        if not cover_vol_url:
+            cover_vol_url = series.get_embed_image_path()
         content_series = ContentType.objects.get(app_label="reader", model="series")
         hit, _ = HitCount.objects.get_or_create(
             content_type=content_series, object_id=series.id
@@ -129,7 +131,9 @@ def series_page_data(request, series_slug):
                 ["Lượt xem", hit.hits + 1],
                 [
                     "Cập nhật",
-                    f"Chương {latest_chapter.clean_chapter_number() if latest_chapter else ''} | {datetime.utcfromtimestamp(latest_chapter.uploaded_on.timestamp()).strftime('%d-%m-%Y') if latest_chapter else ''}",
+                    f"""Chương {latest_chapter.clean_chapter_number() if latest_chapter else ''} |
+                    {datetime.utcfromtimestamp(latest_chapter.uploaded_on.timestamp()).strftime('%d-%m-%Y')
+                    if latest_chapter else ''}""",
                 ],
             ],
             "synopsis": series.synopsis,
@@ -212,7 +216,7 @@ def reader(request, series_slug, chapter, page=None):
         data = get_all_metadata(request, series_slug)
         if chapter in data:
             data[chapter]["relative_url"] = f"read/manga/{series_slug}/{chapter}/1"
-            data[chapter]["api_path"] = f"/api/series/"
+            data[chapter]["api_path"] = "/api/series/"
             data[chapter]["image_proxy_url"] = settings.IMAGE_PROXY_URL
             data[chapter]["version_query"] = settings.STATIC_VERSION
             data[chapter]["first_party"] = True

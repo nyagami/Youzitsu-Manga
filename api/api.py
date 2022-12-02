@@ -139,7 +139,6 @@ def random_chars():
 
 
 def delete_chapter_pages_if_exists(folder_path, clean_chapter_number, group_folder):
-    group_id = str(group_folder)
     shutil.rmtree(os.path.join(folder_path, group_folder), ignore_errors=True)
     shutil.rmtree(os.path.join(folder_path, f"{group_folder}_shrunk"), ignore_errors=True)
     shutil.rmtree(
@@ -147,7 +146,6 @@ def delete_chapter_pages_if_exists(folder_path, clean_chapter_number, group_fold
     )
     if os.path.exists(os.path.join(folder_path, f"{group_folder}_{clean_chapter_number}.zip")):
         os.remove(os.path.join(folder_path, f"{group_folder}_{clean_chapter_number}.zip"))
-
 
 
 def create_chapter_obj(
@@ -286,7 +284,6 @@ def index_chapter(chapter):
                 if ch.group != chapter.group
             ]
 
-            # if chapter by other group(s) exists, check if the new chapter has a higher priority on the preferred_sort list. only index if it is.
             index_to_beat = len(preferred_sort)
             if all_chap_groups:
                 for group in all_chap_groups:
@@ -313,7 +310,9 @@ def index_chapter(chapter):
             chapter.folder,
         )
         subprocess.Popen(
-            f"bash {settings.OCR_SCRIPT_PATH} {chapter_folder}/{group_folder} {chapter.clean_chapter_number()} {chapter.clean_chapter_number()}_{chapter.series.id} {chapter.series.slug}".split()
+            f"""bash {settings.OCR_SCRIPT_PATH} {chapter_folder}/{group_folder}
+                {chapter.clean_chapter_number()} {chapter.clean_chapter_number()}_{chapter.series.id}
+                {chapter.series.slug}""".split()
         )
 
 

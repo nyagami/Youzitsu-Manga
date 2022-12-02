@@ -5,6 +5,7 @@ from django.conf import settings
 
 import os
 
+
 def is_a_not_empty_folder(path):
     if not os.path.exists(path):
         raise RuntimeError(f"'{path}' does not exist")
@@ -12,6 +13,7 @@ def is_a_not_empty_folder(path):
         raise RuntimeError(f"'{path}' is not a dir")
     if len(os.listdir(path)) == 0:
         raise RuntimeError(f"'{path}' is empty.")
+
 
 class Command(BaseCommand):
     help = "Check that the file for every chapter do exist at the correct location"

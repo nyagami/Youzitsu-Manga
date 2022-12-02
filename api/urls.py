@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import re_path
 
 from api import views
 
@@ -18,7 +18,6 @@ urlpatterns = [
         r"^get_groups/(?P<series_slug>[\w-]+)/", views.get_groups, name="api-groups"
     ),
     re_path(r"^get_all_groups/", views.get_all_groups, name="api-all-groups"),
-    # re_path(r'^download_volume/(?P<series_slug>[\w-]+)/(?P<volume>[\d]{1,9})', views.download_volume, name='api-volume-chapters-download'),
     re_path(
         r"^download_chapter/(?P<series_slug>[\w-]+)/(?P<chapter>[\d-]{1,9})/$",
         views.download_chapter,

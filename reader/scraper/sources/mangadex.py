@@ -123,15 +123,14 @@ class MangaDex(BaseScraper):
             for md_chapter_id, md_chapter_metadata in md_chapters_by_group:
                 md_group = md_chapter_metadata["group_name"]
                 if specific_chapters and (
-                    chapter_number not in specific_chapters
-                    or md_group not in specific_chapters[chapter_number]
+                    chapter_number not in specific_chapters or
+                    md_group not in specific_chapters[chapter_number]
                 ):
                     continue
                 group = self.is_valid_group(md_group)
                 if (
-                    group
-                    and specific_chapters
-                    or (
+                    group and specific_chapters or
+                    (
                         self.is_valid_source_chapter(
                             series, md_chapter_id, md_chapter_metadata, md_group
                         )
@@ -179,7 +178,8 @@ class MangaDex(BaseScraper):
             md_chapter_pages = md_chapter_data["pages"]
         if not md_chapter_pages:
             print(
-                f"Failed to get chapter pages of md chapter {chapter_number} with id: {md_chapter_id} on MangaDex for {series.slug}.",
+                f"""Failed to get chapter pages of md chapter {chapter_number} with id: {md_chapter_id}'
+                 on MangaDex for {series.slug}.""",
                 group.name,
             )
             return
@@ -229,11 +229,12 @@ class MangaDex(BaseScraper):
         ) in self.get_valid_source_chapters(
             self.series, md_chapters, specific_chapters=specific_chapters,
         ):
-            # if checking updates and not getting missing chapters only, skip exisitng chapters from groups if there isn't a newer version of it on the source
+            # if checking updates and not getting missing chapters only,
+            # skip exisitng chapters from groups if there isn't a newer version of it on the source
             md_chapter_data = None
             if not specific_chapters and (
-                chapter_number in downloaded_chapters
-                and group.name in downloaded_chapters[chapter_number]
+                chapter_number in downloaded_chapters and
+                group.name in downloaded_chapters[chapter_number]
             ):
                 if not check_updates:
                     continue

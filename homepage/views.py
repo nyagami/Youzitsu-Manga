@@ -38,7 +38,7 @@ def home(request):
         {
             "abs_url": request.build_absolute_uri(),
             "relative_url": "",
-            "page_title":"Chào mừng đến lớp học đề cao thực lực",
+            "page_title": "Chào mừng đến lớp học đề cao thực lực",
             "template": "home",
             "version_query": settings.STATIC_VERSION,
         },
@@ -109,8 +109,10 @@ def random(request):
         "1",
     )
 
+
 def handle404(request, exception):
     return render(request, "homepage/404_page.html", status=404)
+
 
 def handle500(request):
     return render(request, "homepage/500_page.html", status=500)

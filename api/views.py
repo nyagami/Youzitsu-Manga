@@ -1,4 +1,3 @@
-import hashlib
 import json
 import os
 import time
@@ -13,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from reader.models import Chapter, ChapterIndex, Group, Series, Volume
 from reader.views import series_page_data
-from reader.users_cache_lib import get_user_ip
+
 
 from .api import (
     all_groups,
@@ -24,11 +23,10 @@ from .api import (
     get_chapter_preferred_sort,
     series_data_cache,
     zip_chapter,
-    set_cors_headers,
 )
 
 
-@cache_control(public=True, max_age=30, s_maxage=30)    
+@cache_control(public=True, max_age=30, s_maxage=30)
 def get_series_data(request, series_slug):
     series_api_data = cache.get(f"series_api_data_{series_slug}")
     if not series_api_data:
@@ -45,6 +43,7 @@ def get_series_page_data_req(request, series_slug):
 
 @cache_control(public=True, max_age=900, s_maxage=900)
 def get_all_series(request):
+    all_series_data = cache.get('all-series-data')
     if not all_series_data:
         all_series = Series.objects.all().select_related("author", "artist")
         all_series_data = {}
@@ -242,7 +241,8 @@ def get_volume_cover(request, series_slug, volume_number):
                     volume.volume_number,
                     f"/media/{str(volume.volume_cover)}",
                     f"/media/{str(volume.volume_cover).rsplit('.', 1)[0]}.webp",
-                    f"/media/{str(volume.volume_cover).rsplit('.', 1)[0]}_blur.{str(volume.volume_cover).rsplit('.', 1)[1]}",
+                    f"""/media/{str(volume.volume_cover).rsplit('.', 1)[0]}_blur.{
+                        str(volume.volume_cover).rsplit('.', 1)[1]}""",
                 ]
                 cache.set(f"vol_cover{volume_number}_{series_slug}", cover)
                 return HttpResponse(json.dumps(cover), content_type="application/json")
@@ -287,6 +287,7 @@ def clear_cache(request):
         )
     else:
         return HttpResponse(json.dumps({}), content_type="application/json")
+
 
 def series_data_slug(request):
     if request.method == "GET":

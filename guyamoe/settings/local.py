@@ -24,3 +24,7 @@ CACHES = {
         "LOCATION": "unique-snowflake",
     }
 }
+
+#Registration
+
+REGISTRATION_OPEN = True

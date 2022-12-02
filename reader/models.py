@@ -18,12 +18,14 @@ class HitCount(models.Model):
     object_id = models.PositiveIntegerField()
     hits = models.PositiveIntegerField(("Hits"), default=0)
 
+
 class Person(models.Model):
     name = models.CharField(max_length=200)
     japan_name = models.CharField(max_length=200, default=None, null=True, blank=True)
-    
+
     def __str__(self):
         return self.name
+
 
 class Group(models.Model):
     name = models.CharField(max_length=200)
@@ -50,6 +52,7 @@ def new_volume_path_file_name(instance, filename):
     new_filename = str(randint(10000, 99999)) + ext
     return os.path.join(new_volume_folder(instance), new_filename,)
 
+
 class Series(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(unique=True, max_length=200)
@@ -67,7 +70,7 @@ class Series(models.Model):
         on_delete=models.SET_NULL,
         related_name="series_artist",
     )
-    synopsis = models.TextField(blank=True, null=True,verbose_name='Tóm tắt')
+    synopsis = models.TextField(blank=True, null=True, verbose_name='Tóm tắt')
     alternative_titles = models.TextField(blank=True, null=True)
     next_release_page = models.BooleanField(default=False)
     next_release_time = models.DateTimeField(
@@ -87,7 +90,8 @@ class Series(models.Model):
         max_length=24,
         blank=True,
         null=True,
-        help_text="Adds this text to the canonical url of the series' series page. Useful to avoid blacklists of... many varieties.",
+        help_text="""Adds this text to the canonical url of the series' series page.
+                     Useful to avoid blacklists of... many varieties.""",
     )
 
     def __str__(self):
@@ -121,6 +125,7 @@ class Series(models.Model):
         ordering = ("name",)
         verbose_name_plural = "Tác phẩm"
 
+
 class Volume(models.Model):
     volume_number = models.FloatField(blank=False, null=False, db_index=True)
     series = models.ForeignKey(
@@ -135,11 +140,13 @@ class Volume(models.Model):
             if self.volume_number % 1 == 0
             else str(self.volume_number)
         )
+
     class Meta:
         unique_together = (
             "volume_number",
             "series",
         )
+
 
 class Chapter(models.Model):
     series = models.ForeignKey(Series, on_delete=models.CASCADE)
@@ -161,7 +168,9 @@ class Chapter(models.Model):
     scraper_hash = models.CharField(max_length=32, blank=True)
     reprocess_metadata = models.BooleanField(
         default=False,
-        help_text="Check this and save to recreate/reprocess other chapter data (preview versions of the chapter and chapter index). This field will automatically uncheck on save. Chapter reindexing will be kicked off in the background.",
+        help_text="""Check this and save to recreate/reprocess other chapter data
+                     (preview versions of the chapter and chapter index). This field will automatically uncheck on save.
+                     Chapter reindexing will be kicked off in the background.""",
     )
 
     def clean_chapter_number(self):
@@ -226,6 +235,7 @@ class ChapterIndex(models.Model):
             "word",
             "series",
         )
+
 
 def path_file_name(instance, filename):
     return os.path.join(
