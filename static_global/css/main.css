@@ -7,34 +7,6 @@
 	font-style: normal;
 }
 
-:root {
-	--readerBg: #272b30;
-	--sidebarCol: #3a3f44;
-	--accentCol: #b2dffb;
-	--icoCol: #eee;
-	--textCol: #ddd;
-	--sidebarColDark: #2b2f33;
-	--sidebarColDarkA: #2b2f3300;
-	--prevCol: #34393d;
-	--accentSelected: #ffffff;
-	--accentSelectedInvert: #333333;
-	--sidebarColFocus: rgba(0, 0, 0, 0.3);
-	--borderColor: rgba(0,0,0,0.7);
-	--blackFlag: rgba(0,0,0,0.7);
-	--blackLight: rgba(0,0,0,0.2);
-	--focusCol: hotpink;
-	/* One time use */
-	--rdrBorderL: 1px;
-	--rdr-wb: 2px;
-	--rdrAncBottomWhite: rgba(255,255,255,0.35);
-	--rescueShade: unset;
-	--background-img: url('/static/img/bg_img.png');
-	}
-
-::-webkit-scrollbar {
-    display: none;
-}
-
 .ico-btn {
 	font-family: 'guya' !important;
 	speak: none;
@@ -53,27 +25,21 @@ html {
 
 body {
 	background-attachment: fixed;
-	background-position: center top;
-	background-image: var(--background-img);
-	background-color: var(--readerBg);
-	background-repeat: no-repeat;
+	background-position: 50% 10%;
+	background-size: 1500px;
+	background-image: url('/static/img/bg_box.png');
+	background-color:black;
 	padding-top: 5em;
 }
 
 
 header {
-	/* background: linear-gradient(0deg,rgba(0,0,0,0) 0%, rgba(0, 0, 0, 1) 100%); */
-	background-color: var(--readerBg);
+	background: linear-gradient(0deg,rgba(0,0,0,0.65) 0%, rgb(0, 0, 0) 100%);
 	position: fixed;
 	top: 0;
 	z-index: 300;
 	width: 100%;
-}
 
-a {
-	font-weight: bold;
-	font-size: medium;
-	cursor: pointer;
 }
 
 .navbar {
@@ -104,12 +70,15 @@ a {
 
 .navbar-brand-logo {
 	align-self: center;
+	text-align: center;
 	outline: none;
 }
 
-.navbar-brand-logo :hover{
-	transform: scale(105%);
+.navbar-brand-logo img {
+	max-height: 2.3rem;
+	max-width: 100%;
 }
+
 
 .navbar-toggler {
 	outline: none !important;
@@ -119,66 +88,38 @@ a {
 	background-image: url(/static/img/dots-vertical.svg)
 }
 
+.rs-widget {
+	transform: translateY(-5px);
+}
+
+@media (max-width: 1400px) {
+	.rs-widget {
+		transform: translateY(-10px);
+	}
+}
+
+.rs-state-initial {
+	max-height: 3rem;
+	background-color: rgba(0,0,0,0) !important;
+}
+
+.rs-state-initial .rs-sub-headline {
+	display: none !important;
+}
+
+.rs-state-initial .rs-small-headline {
+	transform: translateY(6px);
+	color: #ffffff !important;
+}
+
+.rs-state-sign-in {
+	background-color: #ffffff !important;
+}
+
 .dropdown-menu {
 	font-size: unset;
 }
-
-.widgets-wrapper{
-	align-items: center;
-	align-self: center;
-}
-
-.widgets-wrapper button{
-	background-color: transparent;
-	border: none;
-	color: var(--textCol);
-	height: 28px;
-	width: 28px;
-	border-radius: 50%;
-}
-
-.search-wrapper{
-	padding: 0 2em;
-	align-items: center;
-	display: inline-flex;
-}
-
-.search-input{
-	font-family: inherit;
-	background-color: rgba(17, 17, 17, 0.468);
-	color: var(--textCol);
-	font-size: medium;
-	border-radius: 20px;
-	outline-color: invert;
-}
-
-.search-input:focus{
-	outline: none;
-	border-color: var(--accentCol);
-}
-
-.search-button{
-	position: relative;
-	font-size: medium;
-	transform: translateX(-5em);
-}
-
-.widgets-wrapper button:focus{
-	outline: none;
-}
-
-.widgets-wrapper button:hover{
-	background-color: var(--rdrAncBottomWhite);
-}
-
 @media (max-width: 992px) {
-	body{
-		padding-top: 7em;
-	}
-	#quote-block{
-		display: none;
-	}
-
 	html:not(.home) .navbar .container-fluid {
 		max-width: 83.222222%;
 	}
@@ -186,6 +127,12 @@ a {
 	.home .navbar {
 		padding-right: 2.6% !important;
 		padding-left: 2.6% !important;
+	}
+
+	.navbar-brand-logo {
+		width: auto;
+		margin: 0 auto !important;
+		padding-left: 4rem !important;
 	}
 
 	.navbar-toggler {
@@ -291,7 +238,6 @@ a {
 	align-items: stretch;
 	position: relative;
 	white-space: nowrap;
-	margin: 0 1em;
 }
 .navbar .nav-item textarea {
 	background: black;
@@ -381,7 +327,6 @@ a {
 }
 
 .navbar .nav-link {
-	opacity: 0.8;
 	border: none;
 	padding: 0 1em !important;
 	display: inline-flex;
@@ -389,19 +334,18 @@ a {
 }
 
 .navbar .nav-link:hover, .navbar .nav-link:focus  {
-	opacity: 1;
 	background: none !important;
 	border: none;
-	color: var(--accentCol);
-	box-shadow: 0px -39px 20px -40px rgb(230, 230, 230) inset;
-	border-bottom: 1px solid rgb(241, 241, 241);
+	color: white;
+	box-shadow: 0px -39px 20px -40px #666 inset;
+	border-bottom: 1px solid #666;
 	transition: box-shadow 0.1s ease;
 }
 .navbar .nav-link.s, .navbar .nav-item.show .nav-link {
 	background: none !important;
 	border-bottom: 1px solid #bbb;
 	box-shadow: 0px -38px 20px -40px #bbb inset;
-	color: var(--focusCol);
+	color: white;
 }
 
 .navbar a {
@@ -429,9 +373,9 @@ a {
 	transition: top 0.1s ease;
 }
 
-/* .dropdown-toggle:after {
+/*.dropdown-toggle:after {
 	transform: translateY(4px) scaleY(-1) rotate(45deg);
-} */
+}*/
 
 .navbar .dropdown-menu {
 	background: #1e1e1e;
@@ -458,8 +402,13 @@ a {
 	justify-content: center;
 }
 
+.home .navbar-brand-logo {
+	margin-right: 2rem;
+	padding-left: 1rem;
+}
+
 .home .navbar-brand-logo img {
-	max-height: 4rem;
+	max-height: 2.7rem;
 }
 
 .home .navbar-collapse {
@@ -468,11 +417,10 @@ a {
 	padding-right: 1rem;
 }
 .home .navbar.navbar-expand-lg {
-	height: 4em;
+	height: 5em;
 	max-width: 85em;
 	flex-basis: 85em;
 	padding: 0.7rem 0;
-	border-bottom: solid var(--borderColor);
 }
 
 main {
@@ -495,10 +443,11 @@ main a {
 .manga-card {
 	display: block;
 	border-radius: 5px;
-	background: rgba(0, 0, 0, 0.5);
-	box-shadow: 0px 2px 10px rgba(0,0,0,0.7);
+	background: #141414;
+	box-shadow: 0px 2px 10px rgba(0,0,0,0.5);
 	overflow: hidden;
-	color: deeppink;
+	margin: 0rem 0 1rem 0;
+	color: #eee;
 	background-size: cover;
 	background-repeat: no-repeat;
 	position: relative;
@@ -508,24 +457,17 @@ main a {
 }
 
 .manga-card.bigg {
-	position: relative;
-	min-height: 25em;
+	min-height: 30em;
 	background-attachment: fixed;
 	background-position: 50% 0;
+	background-size: 1500px;
 	background-position: 50% 10%;
 }
 
 .manga-card.bigg picture img,
 .manga-card.bigg > .picture {
-	border-radius: 5px;
-	box-shadow: inset;
     height:30em;
     width:20.4em;
-}
-
-picture{
-	position: relative;
-	left: 0;
 }
 
 @media (max-width: 768px) {
@@ -587,7 +529,6 @@ picture{
 	padding-left: 1em;
 	padding-bottom: 1em;
 	flex-direction: column;
-	max-width: 1000px;
 }
 
 .manga-card article h1 {
@@ -605,7 +546,6 @@ picture{
 	font-weight: normal;
 	line-height: 1.5;
 	margin-top: 0.5em;
-	width: 1;
 }
 .manga-card article p {
 	margin: 0.4em 0 0 0;
@@ -615,7 +555,7 @@ picture{
 
 .manga-card .manga-links {
 	margin: 0.5em 0 1em 0;
-	display: block;
+	display: inline-flex;
 	flex-direction: column;
 	max-width: 100%;
 	min-width: 19em;
@@ -628,6 +568,9 @@ picture{
 	margin-right: 0;
 }
 
+.manga-card.bigg .manga-links.shill {
+	color: #ddd;
+}
 .manga-card.bigg:before {
 	content: unset;
 }
@@ -655,6 +598,16 @@ picture{
 	height: 1em;
 }
 
+.season-selector {
+	display: inline-block;
+}
+
+.manga-link.season {
+	padding: 0.4em 0.8em 0.4em 1em;
+	margin-top: 5px; /* For mobile */
+	cursor: default;
+}
+
 .manga-link:hover {
 	filter: brightness(1.3);
 	background-color: #ffffff08;
@@ -671,6 +624,32 @@ picture{
 
 .hidden {
 	display: none;
+}
+
+.manga-link.full {
+	flex-grow: 1;
+	flex-shrink: 1;
+	width: 100%;
+}
+.manga-link.guya:before,
+.manga-link.tachiyom:before,
+.manga-link.after-anime:before,
+.manga-link.viz:before,
+.manga-link.ama:before,
+.manga-link.gp:before,
+.manga-link.yj:before,
+.manga-link.shu:before {
+	content: "";
+	display: inline-block;
+	width: 1.2em;
+	height: 1.2em;
+	background-size: contain;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	margin-right: 0.75em;
+	position: relative;
+	top: -1px;
 }
 
 .manga-link.guya {
@@ -758,9 +737,31 @@ picture{
 	text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black; 
 }
 
+.manga-link.guya:before {
+	background-image: url('../logo_small.png');
+}
+.manga-link.after-anime:before {
+	background-image: url('../img/where-to-start-the-manga.png');
+}
+.manga-link.tachiyom:before {
+	background-image: url('//raw.githubusercontent.com/inorichi/tachiyomi/master/.github/readme-images/app-icon.png');
+}
 .manga-link.viz:before {
 	background-image: url('../img/viz.png');
 }
+.manga-link.ama:before {
+	background-image: url('../img/ama.png');
+}
+.manga-link.gp:before {
+	background-image: url('../img/gp.png');
+}
+.manga-link.yj:before {
+	background-image: url('../img/yj.png');
+}
+.manga-link.shu:before {
+	background-image: url('../img/shu.png');
+}
+
 
 .chapter-listing-expander {
 	border-top: 1px solid rgba(255,255,255,0.5);
@@ -976,6 +977,12 @@ picture{
 .manga-card.smol article {
 	padding-top: 0.5em;
 	padding-right: 1em;
+}
+
+.manga-card.full {
+	flex-basis: 100%;
+	flex-shrink: 1;
+	max-width: 100%;
 }
 
 .spiel {
@@ -1375,15 +1382,23 @@ picture{
 
 @media (max-width: 768px) {
 	.manga-card {
+		
 		flex-direction: column;
 	}
 	.manga-card.bigg picture img {
-		height: 100%;
+		height: 11em;
 		width: auto;
 		border-bottom-right-radius: 0.5em;
 	}
 	.manga-card.bigg .manga-links {
 		min-width: 100%;	
+	}
+	.manga-card.bigg .manga-links.shill span {
+			display: flex;
+			flex-wrap: wrap;
+	}
+	.manga-card.bigg .manga-links.shill span * {
+			flex-grow: 1;
 	}
 
 	.manga-card.smol {
@@ -1391,9 +1406,17 @@ picture{
 		margin-right: 0;
 		margin-left: 0;
 	}
+	.manga-link.tachiyom,
+	.manga-link.after-anime {
+		font-size: 0.8em;
+		padding-top: 0.6em;
+	}
+	.chapter-listing {
+		font-size: 0.9em;
+	}
 	.page-series article picture {
 		display: inline-block;
-		
+
 	}
 	.page-series article table {
 		max-width: 10em;
@@ -1779,9 +1802,6 @@ picture{
 		height: auto;
 		margin-bottom: 0.75rem;
 		border-top-right-radius: 6px;
-	}
-	a {
-		font-size: large;
 	}
 }
 

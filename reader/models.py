@@ -52,9 +52,20 @@ def new_volume_path_file_name(instance, filename):
     new_filename = str(randint(10000, 99999)) + ext
     return os.path.join(new_volume_folder(instance), new_filename,)
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+    index = models.PositiveSmallIntegerField(default=1)
+
+    def __str__(self) -> str:
+        return self.name
+    class Meta:
+        verbose_name_plural = "Thể loại"
+        ordering = ("index",)
 
 class Series(models.Model):
     name = models.CharField(max_length=200, db_index=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True, related_name='category')
     slug = models.SlugField(unique=True, max_length=200)
     author = models.ForeignKey(
         Person,
@@ -129,7 +140,7 @@ class Series(models.Model):
 class Volume(models.Model):
     volume_number = models.FloatField(blank=False, null=False, db_index=True)
     series = models.ForeignKey(
-        Series, blank=False, null=False, on_delete=models.CASCADE
+        Series, blank=False, null=False, on_delete=models.CASCADE, related_name="series",
     )
     color_theme = ColorField(default='#FF0000')
     volume_cover = models.ImageField(blank=True, upload_to=new_volume_path_file_name)

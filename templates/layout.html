@@ -5,12 +5,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link defer rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link defer rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}{{ version_query }}">
 	<link rel="stylesheet" href="{% static 'css/index.css' %}{{ version_query }}">
-	<script src="https://kit.fontawesome.com/75d6000ca7.js" crossorigin="anonymous"></script>
-	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="https://kit.fontawesome.com/75d6000ca7.js{{ version_query }}" crossorigin="anonymous"></script>
+	<script src="{% static 'js/jquery.min.js' %}{{ version_query }}"></script>
 	<script src="{% static 'js/alg_lib.js' %}{{ version_query }}"></script>
-	<script defer src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script defer src="{% static 'js/bootstrap.min.js' %}{{ version_query }}"></script>
 	{% if canonical_url %}
 	<link rel="canonical" href="{{ canonical_url }}" />
 	{% else %}
@@ -61,6 +61,14 @@
 	<header>
 		<nav class="navbar navbar-expand-lg">
 			<div class="container-fluid">
+				<a class="navbar-brand-logo" href="/" rel="home">
+					<img src="{% static 'img/logo/logo.png' %}" alt="Youzitsu">
+				</a>
+				<button style="border: none;" class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav">
 						<li class="nav-item dropdown">
@@ -81,17 +89,8 @@
 						</li>
 					</ul>
 				</div>
-				<div class="pusher"></div>
-				<a class="navbar-brand-logo" href="/" rel="home">
-					<img src="{% static 'img/logo/logo.png' %}" alt="Youzitsu">
-				</a>
-				<div class="pusher"></div>
-				<button style="border: none;" class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="widgets-wrapper">
+
+				<!-- <div class="widgets-wrapper">
 					<div class="search-wrapper">
 						<input class="search-input form-control-sm" type="text" placeholder="Tìm kiếm">
 					</div>
@@ -101,7 +100,7 @@
 					<button data-bind='settings_button' class="ico-btn">
 						<i class="fa fa-cog" aria-hidden="true"></i>
 					</button>
-				</div>
+				</div> -->
 			</div>
 		</nav>
 	</header>

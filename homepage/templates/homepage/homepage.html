@@ -5,111 +5,46 @@
 <link rel="stylesheet" href="{% static 'css/home.css' %}{{ version_query }}">
 {% endblock %}
 {% block body %}
-<!-- <script>
-    // Seed the values from the template for the reader API calls
-    const BASE_API_PATH = "{{ api_path }}";
-    const IS_FIRST_PARTY = {{ first_party|yesno:"true,false,false" }};
-    const IS_INDEXED = {{ indexed|yesno:"true,false,false" }};
-    const IMAGE_PROXY_URL = "{{ image_proxy_url }}";
-  </script> -->
+<script>
+  // Seed the values from the template for the reader API calls
+  const BASE_API_PATH = "{{ api_path }}";
+  // const IS_FIRST_PARTY = {{ first_party|yesno:"true,false,false" }};
+  // const IS_INDEXED = {{ indexed|yesno:"true,false,false" }};
+  // const IMAGE_PROXY_URL = "{{ image_proxy_url }}";
+</script>
 
 <main id="home">
-  <div class="body-container">
-    <div class="all-series-wrapper">
+  <div class="all-series-container">
+    {% for cate, group_series in all_series %}
       <div class="series-container">
         <div class="divider-wrapper">
           <div class="line divider-element"></div>
-          <div class="series-type divider-element text-uppercase">Manga</div>
+          <div class="series-type divider-element text-uppercase">{{ cate }}</div>
           <div class="line divider-element"></div>
         </div>
-        <div class="series-wrapper series-1-1">
-          <div class="image-card">
-            <img src="{% static 'img/series-card.jpg' %}" alt="series card">
+        {% for series in group_series %}
+          <div class="series-wrapper">
+            <div class="manga-card">
+              <picture>
+                <img src="{{media_url}}/{{ series.embed_image }}" alt="series embed_image">
+              </picture>
+            </div>
+            <div class="volumes-wrapper" title="{{series.slug}}">
+            </div>
           </div>
-          <div class="volumes-wrapper">
-            <ul class="d-flex">
-              <li class="volume-item read text-uppercase text-center">vol &#10;&#13;1</li>
-              <li class="volume-item read text-uppercase text-center">vol &#10;&#13;2</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;3</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;4</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;4.5</li>
-              <li class="volume-item read text-uppercase text-center">vol &#10;&#13;6</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;7</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;7.5</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;8</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;9</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;10</li>
-            </ul>
-          </div>
-        </div>
-        <div class="series-wrapper series-1-1">
-          <div class="image-card">
-            <img src="{% static 'img/bnr.jpg' %}" alt="series card">
-          </div>
-          <div class="volumes-wrapper">
-            <ul class="d-flex">
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;1</li>
-            </ul>
-          </div>
-        </div>
+        {% endfor %}
       </div>
-      <div class="series-container">
-        <div class="divider-wrapper">
-          <div class="line divider-element"></div>
-          <div class="series-type divider-element text-uppercase">Light Novel</div>
-          <div class="line divider-element"></div>
-        </div>
-        <div class="series-wrapper series-1-1">
-          <div class="image-card">
-            <img src="{% static 'img/bnr37.jpg' %}" alt="series card">
-          </div>
-          <div class="volumes-wrapper">
-            <ul class="d-flex">
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;1</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;2</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;3</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;4</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;4.5</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;6</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;7</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;7.5</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;8</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;9</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;10</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;11</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;11.5</li>
-            </ul>
-          </div>
-        </div>
-        <div class="series-wrapper series-1-1">
-          <div class="image-card">
-            <img src="{% static 'img/bnr58.jpg' %}" alt="series card">
-          </div>
-          <div class="volumes-wrapper">
-            <ul class="d-flex">
-              <li class="volume-item read text-uppercase text-center">vol &#10;&#13;1</li>
-              <li class="volume-item read text-uppercase text-center">vol &#10;&#13;2</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;3</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;4</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;4.5</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;6</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;7</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;7.5</li>
-              <li class="volume-item text-uppercase text-center">vol &#10;&#13;8</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
   </div>
+
 </main>
 
 
 <!-- <script type="text/javascript" src="{%static 'external/js/jszip@3-1-5.min.js'%}{{ version_query }}"></script>
 <script type="text/javascript" src="{%static 'external/js/pickr@1-8-1.min.js'%}{{ version_query }}"></script>
 <script type="text/javascript" src="{% static 'js/UI.js' %}{{ version_query }}"></script>
-<script type="text/javascript" src="{% static 'js/init_UI.js' %}{{ version_query }}"></script>
-<script type="text/javascript" src="{% static 'js/home.js' %}{{ version_query }}"></script> -->
+<script type="text/javascript" src="{% static 'js/init_UI.js' %}{{ version_query }}"></script> -->
+<script type="text/javascript" src="{% static 'js/home.js' %}{{ version_query }}"></script>
 <script type="text/javascript">
     // History tagging
     tag();

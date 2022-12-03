@@ -9,7 +9,7 @@ from django.views.decorators.cache import cache_control
 
 from homepage.middleware import ForwardParametersMiddleware
 from reader.middleware import OnlineNowMiddleware
-from reader.models import Chapter
+from reader.models import Category, Series, Chapter
 
 
 @staff_member_required
@@ -32,16 +32,22 @@ def admin_home(request):
 @cache_control(public=True, max_age=300, s_maxage=300)
 @decorator_from_middleware(OnlineNowMiddleware)
 def home(request):
+    categories = Category.objects.all()
+    all_series = [(category.name, Series.objects.filter(category = category)) for category in categories]
     return render(
         request,
         "homepage/homepage.html",
         {
             "abs_url": request.build_absolute_uri(),
+            "api_path": "/api",
             "relative_url": "",
+            "canonical_url": settings.CANONICAL_ROOT_DOMAIN + "/",
             "page_title": "Chào mừng đến lớp học đề cao thực lực",
             "template": "home",
             "version_query": settings.STATIC_VERSION,
             "user": request.user,
+            "all_series": all_series,
+            "media_url": settings.MEDIA_URL,
         },
     )
 

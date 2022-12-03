@@ -29,6 +29,11 @@ urlpatterns = [
         name="api-chapter-upload",
     ),
     re_path(
+        r"^get_all_volumes_by_series_slug/(?P<series_slug>[\w-]+)/$",
+        views.get_volumes_by_series_slug,
+        name="api-get-volumes-by-series-slug",
+    ),
+    re_path(
         r"^get_volume_covers/(?P<series_slug>[\w-]+)/",
         views.get_volume_covers,
         name="api-get-volume-covers",
