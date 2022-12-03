@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "user.apps.UserConfig",
     'admin_interface',
     'colorfield',
+    'clearcache',
     "registration",
     "django.contrib.admin",
     "django.contrib.auth",

@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'external/css/pickr.nano@1-8-1.css' %}{{ version_query }}">
-<link rel="stylesheet" href="{% static 'css/home.css' %}{{ version_query }}">
+<!-- <link rel="stylesheet" href="{% static 'external/css/pickr.nano@1-8-1.css' %}{{ version_query }}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}{{ version_query }}"> -->
 {% endblock %}
 {% block body %}
 <script>
@@ -13,7 +13,7 @@
   // const IMAGE_PROXY_URL = "{{ image_proxy_url }}";
 </script>
 
-<main id="home">
+<!-- <main id="home">
   <div class="all-series-container">
     {% for cate, group_series in all_series %}
       <div class="series-container">
@@ -37,16 +37,16 @@
     {% endfor %}
   </div>
 
-</main>
+</main> -->
 
 
 <!-- <script type="text/javascript" src="{%static 'external/js/jszip@3-1-5.min.js'%}{{ version_query }}"></script>
 <script type="text/javascript" src="{%static 'external/js/pickr@1-8-1.min.js'%}{{ version_query }}"></script>
 <script type="text/javascript" src="{% static 'js/UI.js' %}{{ version_query }}"></script>
 <script type="text/javascript" src="{% static 'js/init_UI.js' %}{{ version_query }}"></script> -->
-<script type="text/javascript" src="{% static 'js/home.js' %}{{ version_query }}"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript" src="{% static 'js/home.js' %}{{ version_query }}"></script> -->
+<!-- <script type="text/javascript">
     // History tagging
     tag();
-  </script>
+  </script> -->
 {% endblock %}

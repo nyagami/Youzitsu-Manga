@@ -1,4 +1,4 @@
-from django.urls import re_path
+from django.urls import re_path, path
 
 from api import views
 
@@ -48,4 +48,9 @@ urlpatterns = [
         views.search_index,
         name="api-search-index",
     ),
+    
+
+    # user info
+
+    path("get_user_info/", views.get_user_info, name="api-get-user-info"),
 ]

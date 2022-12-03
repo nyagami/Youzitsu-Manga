@@ -298,3 +298,10 @@ def series_data_slug(request):
     if request.method == "GET":
         series = [series.slug for series in Series.objects.all().order_by("id")]
         return HttpResponse(json.dumps(series), content_type="application/json")
+
+def get_user_info(request):
+    context = {
+        "is_authenticated": request.user.is_authenticated,
+        "username": request.user.username,
+    }
+    return HttpResponse(json.dumps(context), content_type="application/json")
