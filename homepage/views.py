@@ -41,6 +41,7 @@ def home(request):
             "page_title": "Chào mừng đến lớp học đề cao thực lực",
             "template": "home",
             "version_query": settings.STATIC_VERSION,
+            "user": request.user,
         },
     )
 
