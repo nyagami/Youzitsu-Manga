@@ -65,20 +65,17 @@ body{
     color: var(--accentCol);
 }   
 
-.navbar-right-top .nav-item {
+/* .navbar-right-top .nav-item {
     border-right: 1px solid #e6e6f2;
-}
-
-.navbar-right-top .nav-item:last-child {
-    border: none;
-}
+} */
 
 .navbar-right-top .nav-item .nav-link {
     border: none;
     border-radius: 10px;
     margin-top: 5px;
-    padding: 13px 20px;
+    width: 4rem;
     font-size: 16px;
+    text-align: center;
     line-height: 2;
     color: var(--textCol);
 }
@@ -271,8 +268,8 @@ body{
 }
 
 .connection-item:hover {
-    background-color: #fff;
-    border: 1px solid #e6e6f2;
+    background-color: var(--accentCol);
+    border: 1px solid var(--accentCol);
 }
 
 .connection-item span {
@@ -296,7 +293,7 @@ body{
 .nav-user-name {}
 
 .nav-user-info {
-    background-color: #5969ff;
+    background-color: var(--accentCol);
     line-height: 1.4;
     padding: 12px;
     color: #fff;
@@ -317,11 +314,11 @@ body{
     width: 100%;
     padding: 12px 22px 15px;
     clear: both;
-    font-weight: 400;
-    color: #686972;
+    font-weight: 500;
+    color: var(--textCol);
     text-align: inherit;
     white-space: nowrap;
-    background-color: transparent;
+    background-color: var(--blackLight);
     border: 0;
     font-size: 13px;
     line-height: 0.4;
@@ -366,10 +363,10 @@ body{
 
 
 .avatar {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
-    border: 2px solid #F7F9FA;
+    /* border: 2px solid #F7F9FA; */
     background: #F7F9FA;
     color: #fff;
 }
