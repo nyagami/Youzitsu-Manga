@@ -60,7 +60,9 @@
 	{% load cache %} {% cache 1 sidebar %}
 	<div class="dashboard-header">
 		<nav class="navbar navbar-expand-lg fixed-top">
-			<a class="navbar-brand" href="/">Youzitsu</a>
+			<a class="navbar-brand" href="/">
+				<img src="{% static 'img/logo/logo.png' %}" alt="Youzitsu">
+			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -74,6 +76,9 @@
 					<li class="nav-item dropdown connection">
 						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
 						<ul class="dropdown-menu dropdown-menu-right connection-dropdown">
+							<li>
+								<div class="dropdown-menu-title"><a href="#">Tác phẩm</a></div>
+							</li>
 							<li class="connection-list">
 								<div class="row">
 									<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
@@ -98,16 +103,14 @@
 									</div>
 								</div>
 							</li>
-							<li>
-								<div class="conntection-footer"><a href="#">More</a></div>
-							</li>
+							
 						</ul>
 					</li>
 					<li class="nav-item dropdown notification">
 						<a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
 						<ul class="dropdown-menu dropdown-menu-right notification-dropdown">
 							<li>
-								<div class="notification-title"> Thông báo </div>
+								<div class="dropdown-menu-title"> Thông báo </div>
 								<div class="notification-list">
 									<div class="list-group">
 										<a href="#" class="list-group-item list-group-item-action active">
@@ -146,20 +149,22 @@
 					<li class="nav-item dropdown nav-user">
 						<div id="is-not-authenticated">
 							<a class="nav-link login-button" style="width: 8rem;" role="button" href="/user/login">
-								<i class='fas fa-user fa' style='color:#1d1f20'></i>&nbsp;
+								<i class='fas fa-user fa'></i>&nbsp;
 								Đăng nhập
 							</a>
 						</div>
 						<div id="is-authenticated" class="d-none">
-							<a class="nav-link nav-user-img-sm" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle"></a>
+							<a class="nav-link" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle">
+							</a>
 							<div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
 								<div class="nav-user-info">
-									<h5 class="mb-0 text-white nav-user-name">Nyagami</h5>
-									<span class="status"></span><span class="ml-2">Available</span>
+									<h5 class="mb-0 text-white nav-user-name" id="display_name">Noname</h5>
+									<span id="username"></span>
 								</div>
-								<a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-								<a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-								<a class="dropdown-item" href="/user/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
+								<a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Tài khoản</a>
+								<a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Cài đặt</a>
+								<a class="dropdown-item" href="/user/logout"><i class="fas fa-power-off mr-2"></i>Đăng xuất</a>
 							</div>
 						</div>
 					</li>
@@ -215,10 +220,15 @@
 		}
 	</script>
 	<script type="text/javascript">
+		function getProfile(data){
+			$("#display_name").text(data['display_name']);
+			$("#username").text('@'+data["username"]);
+		}
 		fetch("/api/get_user_info").then(req => req.json()).then(data => {
 			if(data["is_authenticated"]){
 				document.getElementById("is-authenticated").classList.remove("d-none");
 				document.getElementById("is-not-authenticated").classList.add("d-none");
+				getProfile(data);
 			}else{
 				document.getElementById("is-authenticated").classList.add("d-none");
 				document.getElementById("is-not-authenticated").classList.remove("d-none");

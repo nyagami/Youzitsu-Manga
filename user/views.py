@@ -5,6 +5,7 @@ from django.contrib.auth.views import (
 from registration.backends.simple.views import RegistrationView as OldRegistrationView
 
 from .form import RegistrationForm
+from .models import Profile
 
 
 #Registration
@@ -20,6 +21,10 @@ class RegistrationView(OldRegistrationView):
 
     def register(self, form):
         user = super(RegistrationView, self).register(form)
+        profile, _ = Profile.objects.get_or_create(user=user)
+        cleaned_data = form.cleaned_data
+        profile.display_name = cleaned_data.get('display_name') or user.username
+        profile.save()
         return user
 
 # Login

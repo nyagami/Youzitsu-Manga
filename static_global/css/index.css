@@ -49,7 +49,7 @@ body{
 
 
 
-.navbar-brand {
+/* .navbar-brand{
     display: inline-block;
     margin-right: 1rem;
     line-height: inherit;
@@ -60,10 +60,25 @@ body{
     font-weight: 700;
     color: var(--textCol);
     background-color: var(--readerBg);
+    border: none;
 }
 .navbar-brand:hover{
     color: var(--accentCol);
-}   
+}    */
+
+.navbar-brand{
+    border: none;
+}
+
+.navbar-brand img{
+    display: inline-block;
+    height: 60px;
+    border: none;
+}
+
+.navbar-brand img:hover{
+    
+}
 
 /* .navbar-right-top .nav-item {
     border-right: 1px solid #e6e6f2;
@@ -74,6 +89,7 @@ body{
     border-radius: 10px;
     margin-top: 5px;
     width: 4rem;
+    height: 4rem;
     font-size: 16px;
     text-align: center;
     line-height: 2;
@@ -88,6 +104,7 @@ body{
 
 .dropdown-menu{
     background-color: var(--sidebarColDark);
+    border-radius: 2px 2px 0 0;
 }
 
 
@@ -115,16 +132,16 @@ body{
     margin: 0px;
 }
 
-.notification-title {
+.dropdown-menu-title{
     font-size: 14px;
     color: var(--textCol);
     text-align: center;
     font-weight: 700;
     font-size: large;
-    padding: 8px 0px;
-    border-bottom: 1px solid var(--borderColor);
     line-height: 1.5;
+    border-bottom: 1px solid var(--borderColor);
     background-color: var(--accentCol);
+    padding: 8px 0px;
 }
 
 .notification-list {}
@@ -135,18 +152,17 @@ body{
     margin-top: -1px;
     border-left: transparent;
     border-right: transparent;
-    background-color: var(--blackLight);
+    background-color: var(--blackFlag);
 }
 
 .notification-list .list-group-item.active {
     z-index: 2;
     color: #acacac;
-    background-color: var(--blackFlag);
+    background-color: var(--blackLight);
 }
 
 .notification-list .list-group-item-action:focus,
 .list-group-item-action:hover {
-    font-weight: 600;
     text-decoration: none;
     background-color: var(--accentCol) !important;
 }
@@ -249,7 +265,7 @@ body{
 .connection-list {
     width: 300px;
     padding: 20px;
-    background-color: var(--blackLight);
+    background-color: var(--blackFlag);
 }
 
 .connection-item {
@@ -318,14 +334,14 @@ body{
     color: var(--textCol);
     text-align: inherit;
     white-space: nowrap;
-    background-color: var(--blackLight);
+    background-color: var(--blackFlag);
     border: 0;
     font-size: 13px;
     line-height: 0.4;
 }
 
 .nav-user-dropdown .dropdown-item:hover {
-    background-color: #f7f7fb;
+    background-color: var(--accentCol);
 }
 
 /*---- User icon sizes ---*/

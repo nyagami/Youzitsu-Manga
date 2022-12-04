@@ -16,6 +16,13 @@
                 <div>{{ form.username.errors }}</div>
             {% endif %}
             <div class="form-group">
+                <div>Tên hiển thị:</div>
+                <span>{{ form.display_name }}</span>
+            </div>
+            {% if form.display_name.errors %}
+                <div>{{ form.display_name.errors }}</div>
+            {% endif %}
+            <div class="form-group">
                 <div>Email:</div>
                 <span>{{ form.email }}</span>
             </div>

@@ -10,6 +10,7 @@ def valid_email(email):
 
 class RegistrationForm(OldRegistrationForm):
     username = forms.RegexField(regex=r'^\w+$', min_length=2, max_length=30, label="Tên người dùng")
+    display_name = forms.CharField(max_length=50, required=False)
 
     def clean_username(self):
         username = self.cleaned_data['username']
