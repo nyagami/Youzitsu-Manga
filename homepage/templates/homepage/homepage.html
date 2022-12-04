@@ -1,52 +1,57 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block head %}
-<!-- <link rel="stylesheet" href="{% static 'external/css/pickr.nano@1-8-1.css' %}{{ version_query }}">
-<link rel="stylesheet" href="{% static 'css/home.css' %}{{ version_query }}"> -->
+<link rel="stylesheet" href="{% static 'css/home.css' %}{{ version_query }}">
 {% endblock %}
 {% block body %}
-<script>
-  // Seed the values from the template for the reader API calls
-  const BASE_API_PATH = "{{ api_path }}";
-  // const IS_FIRST_PARTY = {{ first_party|yesno:"true,false,false" }};
-  // const IS_INDEXED = {{ indexed|yesno:"true,false,false" }};
-  // const IMAGE_PROXY_URL = "{{ image_proxy_url }}";
-</script>
 
-<!-- <main id="home">
+<main id="home">
   <div class="all-series-container">
     {% for cate, group_series in all_series %}
-      <div class="series-container">
-        <div class="divider-wrapper">
+      <div class="group_series-container">
+        <div class="d-flex flex-row justify-content-center">
           <div class="line divider-element"></div>
           <div class="series-type divider-element text-uppercase">{{ cate }}</div>
           <div class="line divider-element"></div>
         </div>
-        {% for series in group_series %}
-          <div class="series-wrapper">
-            <div class="manga-card">
-              <picture>
-                <img src="{{media_url}}/{{ series.embed_image }}" alt="series embed_image">
-              </picture>
+        <div class="pair-series d-flex">
+          {% for series in group_series %}
+            <div class="series-container">
+              <div class="series-card">
+                <picture class="d-block">
+                  <img src="{{media_url}}/{{ series.embed_image }}" alt="series embed_image">
+                </picture>
+                <div class="btn-group btn">
+                  <a href="/read/{{cate}}/{{series.slug}}">Đọc ngay ››</a>
+                </div class="button">
+                <div class="btn-group justify-content-around">
+                  <div class="react">
+                    <span><i class="fas fa-heart"></i></span>
+                  </div>
+                  <div class="react">
+                    <span><i class="fas fa-share-square"></i></span>
+                  </div>
+                  <div class="react">
+                    <span><i class="fas fa-award"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="series-content">
+                <div class="series-title"><b>{{ series.name }}</b></div>
+                <div class="volumes-container" title="{{series.slug}}">
+                </div>
+              </div>
             </div>
-            <div class="volumes-wrapper" title="{{series.slug}}">
-            </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     {% endfor %}
   </div>
+</main>
 
-</main> -->
-
-
-<!-- <script type="text/javascript" src="{%static 'external/js/jszip@3-1-5.min.js'%}{{ version_query }}"></script>
-<script type="text/javascript" src="{%static 'external/js/pickr@1-8-1.min.js'%}{{ version_query }}"></script>
-<script type="text/javascript" src="{% static 'js/UI.js' %}{{ version_query }}"></script>
-<script type="text/javascript" src="{% static 'js/init_UI.js' %}{{ version_query }}"></script> -->
-<!-- <script type="text/javascript" src="{% static 'js/home.js' %}{{ version_query }}"></script> -->
-<!-- <script type="text/javascript">
+<script type="text/javascript" src="{% static 'js/home.js' %}{{ version_query }}"></script>
+<script type="text/javascript">
     // History tagging
     tag();
-  </script> -->
+  </script>
 {% endblock %}

@@ -202,7 +202,12 @@ def upload_new_chapter(request, series_slug):
 def get_volumes_by_series_slug(request, series_slug):
     series = Series.objects.filter(slug = series_slug).first()
     volumes = Volume.objects.filter(series = series)
-    volumes_list = [volume.volume_number for volume in volumes]
+    volumes_list = [
+        {
+            "number": volume.volume_number,
+            "color": volume.color_theme,
+        } for volume in volumes
+    ]
     return HttpResponse(json.dumps({"volumes_list": volumes_list}), content_type="application/json",status="200")
 
 @csrf_exempt

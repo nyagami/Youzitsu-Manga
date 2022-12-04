@@ -17,6 +17,7 @@
 {% endblock %}
 
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/series.css' %}{{version_query}}">
 <script defer>
 var reading_button = null;
 
@@ -416,20 +417,6 @@ var reading_button = null;
 		color: #dedede;
 	}
 
-	html,
-	html.h-100 {
-		background-attachment: fixed;
-		background-position: 50% 10%;
-		background-size: 1500px;
-		background-image: url("/static/img/bg_box.png");
-		background-color: black !important;
-	}
-
-	body {
-		background: none !important;
-		background-color: none !important;
-	}
-
 	.table.spoiler .spoiler-free-title {
 		display: none;
 	}
@@ -441,7 +428,8 @@ var reading_button = null;
 		visibility: hidden;
 	}
 </style>
-<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<main>
+	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -705,6 +693,7 @@ var reading_button = null;
 		</div>
 	</div>
 </div>
+</main>
 <script>
 	// History tagging
 	tag();

@@ -1,5 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Vollkorn:400,400i,600&display=swap&subset=latin-ext');
+@font-face {
+	font-family: 'guya';
+	src:
+	url('../fonts/guya.woff?bss2') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
 :root {
-    --readerBg: #272b30;
+    --readerBg: black;
     --sidebarCol: #3a3f44;
     --accentCol: #ce2e51aa;
     --icoCol: #eee;
@@ -11,7 +21,7 @@
     --sidebarColFocus: rgba(0, 0, 0, 0.3);
     --borderColor: rgba(0, 0, 0, 0.7);
     --shadowBoxColor: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
-    --blackFlag: rgba(0, 0, 0, 0.3);
+    --blackFlag: rgb(28, 28, 28);
     --blackLight: rgb(52, 52, 52);
     /* One time use */
     --rdrBorderL: 1px;
@@ -20,10 +30,37 @@
     --rescueShade: unset;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body{
     /* background: #ffffff; */
     background: var(--readerBg);
+    -webkit-overflow-scrolling: none;
 } 
+
+/* --------------- Scroll bar ------------------ */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--blackFlag);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--accentCol);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accentSelected);
+}
+
 
 .form-control{
     background: transparent;
@@ -37,34 +74,18 @@ body{
     box-shadow: none !important;
 }
 
+/* --------------- Nav Bar -------------------- */
+
 
 .dashboard-header .navbar {
     padding: 0px;
-    border-bottom: 1px solid var(--borderColor);
+    background: var(--readerBg);
+    border-bottom: 1px solid var(--accentCol);
     -webkit-box-shadow: var(--shadowBoxColor);
     box-shadow: var(--shadowBoxColor);
     -webkit-transition: all 0.3s ease;
     min-height: 60px;
 }
-
-
-
-/* .navbar-brand{
-    display: inline-block;
-    margin-right: 1rem;
-    line-height: inherit;
-    white-space: nowrap;
-    padding: 11px 20px;
-    font-size: 30px;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--textCol);
-    background-color: var(--readerBg);
-    border: none;
-}
-.navbar-brand:hover{
-    color: var(--accentCol);
-}    */
 
 .navbar-brand{
     border: none;
@@ -102,9 +123,109 @@ body{
     background-image: none;
 }
 
+.navbar-toggler,
+.navbar-toggler:hover,
+.navbar-toggler:focus{
+    border: none;
+    outline: none;
+}
+
+.navbar-toggler-icon{
+    background-image:url(/static/img/dots-vertical.svg);
+}
+
 .dropdown-menu{
     background-color: var(--sidebarColDark);
     border-radius: 2px 2px 0 0;
+    font-size: unset;
+}
+
+@media (max-width: 992px) {
+	html:not(.home) .navbar .container-fluid {
+		max-width: 83.222222%;
+	}
+
+	.home .navbar {
+		padding-right: 2.6% !important;
+		padding-left: 2.6% !important;
+	}
+
+	.navbar-brand-logo {
+		width: auto;
+		margin: 0 auto !important;
+		padding-left: 4rem !important;
+	}
+
+	.navbar-toggler {
+		width: 4rem;	
+	}
+	.navbar .navbar-toggler {
+		position: relative;
+	}
+	
+	.collasping {
+		 transition: height 0.3s ease-out;
+	}
+
+	.navbar-collapse.collapsing,
+	.navbar-collapse.collapse.show {
+		top: 4rem;
+		right: 17px;
+		position: fixed;
+		max-height: calc(90vh - 5rem);
+		z-index: 200;
+		width: auto;
+		min-width: 10rem;
+		background: #1e1e1e;
+		box-shadow: 0px 7px 17px -5px black;
+		border-radius: 3px;
+		overflow: auto;
+		padding-right: 0;
+	}
+
+	.navbar-collapse.collapsing > ul > li a,
+	.navbar-collapse.collapse.show > ul > li a {
+		padding: 0.65em 1em !important;
+		flex-grow: 1;
+	}
+
+	.navbar-collapse.collapsing > ul > li a,
+	.navbar-collapse.collapse.show > ul > li a {
+		box-shadow: none !important;
+	}
+
+	.navbar-collapse.collapsing .dropdown-toggle,
+	.navbar-collapse.collapse.show .dropdown-toggle {
+		display: none;
+	}
+	.navbar-collapse.collapsing .dropdown-menu,
+	.navbar-collapse.collapse.show .dropdown-menu {
+		display: block;
+		box-shadow: none;
+		width: 100%;
+		background: none;
+	}
+
+	.navbar-collapse.collapsing .dropdown-divider,
+	.navbar-collapse.collapse.show .dropdown-divider {
+		display: none;
+	}
+
+	.navbar-collapse.collapsing .dropdown-menu a,
+	.navbar-collapse.collapse.show .dropdown-menu a {
+		color: white;
+	}
+
+	.navbar-collapse.collapsing .dropdown-menu,
+	.navbar-collapse.collapse.show .dropdown-menu {
+		padding: 0;
+		border: 0;
+	}
+
+	.enter-key {
+		top: -0.8rem !important;
+	}
+
 }
 
 
