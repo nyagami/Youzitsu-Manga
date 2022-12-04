@@ -1,14 +1,40 @@
-body{
+:root {
+    --readerBg: #272b30;
+    --sidebarCol: #3a3f44;
+    --accentCol: #ce2e51aa;
+    --icoCol: #eee;
+    --textCol: rgb(255, 255, 255);
+    --sidebarColDark: #2b2f33;
+    --prevCol: #34393d;
+    --accentSelected: #ca4360;
+    --accentSelectedInvert: hsl(186, 79%, 66%);
+    --sidebarColFocus: rgba(0, 0, 0, 0.3);
+    --borderColor: rgba(0, 0, 0, 0.7);
+    --shadowBoxColor: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    --blackFlag: rgba(0, 0, 0, 0.3);
+    --blackLight: rgb(52, 52, 52);
+    /* One time use */
+    --rdrBorderL: 1px;
+    --rdr-wb: 2px;
+    --rdrAncBottomWhite: rgba(255, 255, 255, 0.35);
+    --rescueShade: unset;
+}
 
-    background: #ffffff;
+body{
+    /* background: #ffffff; */
+    background: var(--readerBg);
 } 
 
+.form-control{
+    background: transparent;
+}
+
 .form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
+    color: var(--textCol);
+    background: transparent;
+    border-color: var(--accentCol);
     outline: 0;
-     box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 main{
@@ -17,9 +43,9 @@ main{
 
 .dashboard-header .navbar {
     padding: 0px;
-    border-bottom: 1px solid #e6e6f2;
-    -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
-    box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    border-bottom: 1px solid var(--borderColor);
+    -webkit-box-shadow: var(--shadowBoxColor);
+    box-shadow: var(--shadowBoxColor);
     -webkit-transition: all 0.3s ease;
     min-height: 60px;
 }
@@ -35,10 +61,11 @@ main{
     font-size: 30px;
     text-transform: uppercase;
     font-weight: 700;
-    color: #007bff;
+    color: var(--textCol);
+    background-color: var(--readerBg);
 }
 .navbar-brand:hover{
-    color: #007bff;
+    color: var(--accentCol);
 }   
 
 .navbar-right-top .nav-item {
@@ -56,16 +83,17 @@ main{
     padding: 13px 20px;
     font-size: 16px;
     line-height: 2;
-    color: #82849f;
+    color: var(--textCol);
 }
 
-.navbar-right-top .nav-item .nav-link:hover {
-    background-color: #cecece !important;
+.navbar-right-top .nav-item .nav-link:hover,
+.navbar-right-top .nav-item .nav-link:focus {
+    background-color: var(--accentCol) !important;
     background-image: none;
 }
 
 .dropdown-menu{
-    background-color: #d9d9d9;
+    background-color: var(--sidebarColDark);
 }
 
 
@@ -95,12 +123,14 @@ main{
 
 .notification-title {
     font-size: 14px;
-    color: #3d405c;
+    color: var(--textCol);
     text-align: center;
+    font-weight: 700;
+    font-size: large;
     padding: 8px 0px;
-    border-bottom: 1px solid #e3e3e3;
+    border-bottom: 1px solid var(--borderColor);
     line-height: 1.5;
-    background-color: #fffffe;
+    background-color: var(--accentCol);
 }
 
 .notification-list {}
@@ -111,21 +141,20 @@ main{
     margin-top: -1px;
     border-left: transparent;
     border-right: transparent;
-    background-color: rgb(99, 99, 99);
+    background-color: var(--blackLight);
 }
 
 .notification-list .list-group-item.active {
     z-index: 2;
     color: #acacac;
-    background-color: #f7f7fb;
-    border-color: #e1e1e7;
+    background-color: var(--blackFlag);
 }
 
 .notification-list .list-group-item-action:focus,
 .list-group-item-action:hover {
-    color: #b3b3b3;
+    font-weight: 600;
     text-decoration: none;
-    background-color: #f7f7fb !important;
+    background-color: var(--accentCol) !important;
 }
 
 .notification-list .list-group-item:last-child {}
@@ -134,10 +163,11 @@ main{
 
 .notification-info .notification-date {
     display: block;
-    font-size: 11px;
+    font-size: small;
+    font-weight: 500;
     margin-top: 4px;
     text-transform: uppercase;
-    color: #71748d;
+    color: var(--accentSelectedInvert);
 }
 
 .notification .dropdown-toggle::after,
@@ -163,7 +193,8 @@ main{
 }
 
 .notification-list-user-name {
-    color: #5969ff;
+    color: var(--accentSelected);
+    font-weight: 500;
     font-size: 14px;
     margin-right: 8px;
 }
@@ -171,25 +202,16 @@ main{
 .list-footer,
 .conntection-footer {
     font-size: 14px;
-    color: #fff;
+    color: var(--textCol);
     text-align: center;
     padding: 10px 0px;
     line-height: 1.5;
     font-weight: 700;
-    background-color: #5969ff;
+    background-color: var(--accentCol);
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
 }
 
-.list-footer a,
-.conntection-footer a {
-    color: #fff;
-}
-
-.list-footer a:hover,
-.conntection-footer a:hover {
-    color: #fff;
-}
 
 .indicator {
     content: '';
@@ -200,7 +222,7 @@ main{
     width: 7px;
     height: 7px;
     border-radius: 100%;
-    background-color: #ef172c;
+    background-color: var(--accentSelectedInvert);
     animation: .9s infinite beatHeart;
     transform-origin: center;
 }
@@ -233,6 +255,7 @@ main{
 .connection-list {
     width: 300px;
     padding: 20px;
+    background-color: var(--blackLight);
 }
 
 .connection-item {
@@ -242,7 +265,7 @@ main{
     padding: 12px 7px 4px;
     display: block;
     border: 1px solid transparent;
-    color: #3d405c;
+    color: var(--textCol);
     font-size: 12px;
 }
 

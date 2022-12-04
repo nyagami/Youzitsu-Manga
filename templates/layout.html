@@ -59,8 +59,8 @@
 	{% include "tracking.html" %}
 	{% load cache %} {% cache 1 sidebar %}
 	<div class="dashboard-header">
-		<nav class="navbar navbar-expand-lg bg-white fixed-top">
-			<a class="navbar-brand" href="#">Youzitsu</a>
+		<nav class="navbar navbar-expand-lg fixed-top">
+			<a class="navbar-brand" href="/">Youzitsu</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -70,46 +70,6 @@
 						<div id="custom-search" class="top-search-bar">
 							<input class="form-control" type="text" placeholder="Search..">
 						</div>
-					</li>
-					<li class="nav-item dropdown notification">
-						<a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
-						<ul class="dropdown-menu dropdown-menu-right notification-dropdown">
-							<li>
-								<div class="notification-title"> Notification</div>
-								<div class="notification-list">
-									<div class="list-group">
-										<a href="#" class="list-group-item list-group-item-action active">
-											<div class="notification-info">
-												<div class="notification-list-user-img"><img src="https://img.icons8.com/office/100/000000/administrator-female.png" alt="" class="user-avatar-md rounded-circle"></div>
-												<div class="notification-list-user-block"><span class="notification-list-user-name">Jeremy Hukonah</span>accepted your invitation to join the team.
-													<div class="notification-date">2 min ago</div>
-												</div>
-											</div>
-										</a>
-										<a href="#" class="list-group-item list-group-item-action">
-											<div class="notification-info">
-												<div class="notification-list-user-img"><img src="https://img.icons8.com/color/48/000000/administrator-female.png" alt="" class="user-avatar-md rounded-circle"></div>
-												<div class="notification-list-user-block"><span class="notification-list-user-name">John Sammy</span>updated the email address
-													<div class="notification-date">2 days ago</div>
-												</div>
-											</div>
-										</a>
-										<a href="#" class="list-group-item list-group-item-action">
-											<div class="notification-info">
-												<div class="notification-list-user-img"><img src="https://img.icons8.com/color/100/000000/name.png" alt="" class="user-avatar-md rounded-circle"></div>
-												<div class="notification-list-user-block"><span class="notification-list-user-name">Kioh Samso</span> is watching your main repository
-													<div class="notification-date">2 min ago</div>
-												</div>
-											</div>
-										</a>
-									   
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="list-footer"> <a href="#">View all notifications</a></div>
-							</li>
-						</ul>
 					</li>
 					<li class="nav-item dropdown connection">
 						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
@@ -143,10 +103,50 @@
 							</li>
 						</ul>
 					</li>
+					<li class="nav-item dropdown notification">
+						<a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
+						<ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+							<li>
+								<div class="notification-title"> Thông báo </div>
+								<div class="notification-list">
+									<div class="list-group">
+										<a href="#" class="list-group-item list-group-item-action active">
+											<div class="notification-info">
+												<div class="notification-list-user-img"><img src="https://img.icons8.com/office/100/000000/administrator-female.png" alt="" class="user-avatar-md rounded-circle"></div>
+												<div class="notification-list-user-block"><span class="notification-list-user-name">Kikyou</span>accepted your invitation to join the team.
+													<div class="notification-date">2 min ago</div>
+												</div>
+											</div>
+										</a>
+										<a href="#" class="list-group-item list-group-item-action">
+											<div class="notification-info">
+												<div class="notification-list-user-img"><img src="https://img.icons8.com/color/48/000000/administrator-female.png" alt="" class="user-avatar-md rounded-circle"></div>
+												<div class="notification-list-user-block"><span class="notification-list-user-name">Kei</span>updated the email address
+													<div class="notification-date">2 days ago</div>
+												</div>
+											</div>
+										</a>
+										<a href="#" class="list-group-item list-group-item-action">
+											<div class="notification-info">
+												<div class="notification-list-user-img"><img src="https://img.icons8.com/color/100/000000/name.png" alt="" class="user-avatar-md rounded-circle"></div>
+												<div class="notification-list-user-block"><span class="notification-list-user-name">Nyagami</span> is watching your main repository
+													<div class="notification-date">2 min ago</div>
+												</div>
+											</div>
+										</a>
+									   
+									</div>
+								</div>
+							</li>
+							<li>
+								<!-- <div class="list-footer"> <a href="#">View all notifications</a></div> -->
+							</li>
+						</ul>
+					</li>
 					<li class="nav-item dropdown nav-user">
 						<div id="is-not-authenticated">
 							<a class="nav-link login-button" role="button" href="/user/login">
-								<i class='fas fa-user fa' style='color:#1d1f20'></i>
+								<i class='fas fa-user fa' style='color:#1d1f20'></i>&nbsp;
 								Đăng nhập
 							</a>
 						</div>
