@@ -295,7 +295,7 @@ var reading_button = null;
 
 			if (days >= 7) {
 				updaters.forEach(e => {
-					e[idx].textContent = `${chapterDate.getFullYear()}-${zpad(chapterDate.getMonth() + 1)}-${zpad(chapterDate.getDate())}`;
+					e[idx].textContent = `${zpad(chapterDate.getDate())}-${zpad(chapterDate.getMonth() + 1)}-${chapterDate.getFullYear()}`;
 					e[idx].classList.add('text-muted');
 				});
 			}
@@ -330,8 +330,14 @@ var reading_button = null;
 		let chapterTable = document.getElementById("chapterTable");
 		document.getElementById("chapterTitleSearch").addEventListener("keyup", (e) => {
 			let val = e.target.value.toLowerCase();
-			chapterTable.childNodes.forEach(e => {
-				e.style = (val && !e.textContent.toLowerCase().includes(val)) ? "display:none" : undefined;
+			chapterTable.childNodes.forEach((chap) => {
+				if(chap.classList){
+					if(val && !chap.childNodes[3].textContent.toLowerCase().includes(val)){
+						chap.classList.add("d-none");
+					}else{
+						chap.classList.remove("d-none");
+					}
+				}
 			});
 		});
 	}
