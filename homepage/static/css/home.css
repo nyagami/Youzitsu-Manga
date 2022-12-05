@@ -58,7 +58,7 @@ main {
 .series-container{
     margin-bottom: 6em;
     height: 450px;
-    width: calc(50% - 5px);
+    width: calc(50% - 20px);
     display: flex;
     background-color: var(--blackFlag);
     border-left: solid 5px var(--accentCol);
@@ -88,9 +88,6 @@ main {
     background-color: var(--accentCol); 
 }
 
-.series-container:first-child{
-    margin-right: 10px;
-}
 
 .series-card picture img{
     height: 320px;
@@ -114,13 +111,14 @@ main {
     background-color: #c608082e;
 }
 
-.series-card .btn-group.btn a{
+.series-card .btn-group.btn span{
     font-size: 1.18em;
     display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 0 1em;
     width: 100%;
+    color: var(--textCol);
 	text-decoration: none;
     flex-grow: 1;
     flex-shrink: 1;
@@ -132,7 +130,7 @@ main {
     cursor: pointer;
 }
 
-.series-card .btn-group.btn a:hover{
+.series-card .btn-group.btn span:hover{
     color: var(--textCol);
 }
 
@@ -142,23 +140,30 @@ main {
 
 .volumes-container ul{
     position: relative;
+    display: flex;
+    flex-flow: row wrap;
     max-height: 50px;
-    margin-top: 10px;
+    margin-top: 5px;
     width: 100%;
     padding: 0 0 0 1.5em;
 }
 
 .volume-item{
-    display: flex;
+    display: block;
     color: white;
-    height: 2em;
-    width: 5em;
-    align-items: center;
-    padding: 0 1em;
+    height: 1.7rem;
+    width: 6rem;
+    text-align: center;
     margin-right: 10px;
+    margin-top: 10px;
 }
 
-.volume-item.read{
-    opacity: 0.5;
-    border: solid 3px var(--focusCol);
+.volume-item a{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.volume-item a:hover{
+    text-decoration: none;
 }

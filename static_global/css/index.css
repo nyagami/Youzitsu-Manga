@@ -91,6 +91,10 @@ body{
     border: none;
 }
 
+.navbar-brand:focus-visible{
+    outline: none;
+}
+
 .navbar-brand img{
     display: inline-block;
     height: 60px;

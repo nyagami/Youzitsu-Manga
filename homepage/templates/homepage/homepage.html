@@ -14,15 +14,16 @@
           <div class="series-type divider-element text-uppercase">{{ cate }}</div>
           <div class="line divider-element"></div>
         </div>
-        <div class="pair-series d-flex">
+        <div class="pair-series d-flex justify-content-between">
           {% for series in group_series %}
             <div class="series-container">
               <div class="series-card">
                 <picture class="d-block">
                   <img src="{{media_url}}/{{ series.embed_image }}" alt="series embed_image">
                 </picture>
-                <div class="btn-group btn">
-                  <a href="/read/{{cate}}/{{series.slug}}">Đọc ngay ››</a>
+                <div class="btn-group btn" type="button" onclick=" location.href='/read/{{cate}}/{{series.slug}}' ">
+                  <!-- <a href="/read/{{cate}}/{{series.slug}}">Đọc ngay ››</a> -->
+                  <span>Đọc ngay ››</span>
                 </div class="button">
                 <div class="btn-group justify-content-around">
                   <div class="react">

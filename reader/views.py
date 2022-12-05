@@ -82,10 +82,11 @@ def series_page_data(request, series_slug):
                     chapter_dict[ch_clean] = [chapter_dict[ch_clean][0], True]
             else:
                 chapter_dict[ch_clean] = [chapter, False]
+        pre_color = 'while'
         for ch in chapter_dict:
             chapter, multiple_groups = chapter_dict[ch]
             u = chapter.uploaded_on
-            color_theme = Volume.objects.get(volume_number=chapter.volume).color_theme or 'white'
+            color_theme = Volume.objects.get(series = series, volume_number=chapter.volume).color_theme or 'white'
             chapter_list.append(
                 [
                     chapter.clean_chapter_number(),
@@ -96,8 +97,10 @@ def series_page_data(request, series_slug):
                     [u.year, u.month - 1, u.day, u.hour, u.minute, u.second],
                     chapter.volume or "null",
                     color_theme,
+                    1 if color_theme != pre_color else 0,
                 ]
             )
+            pre_color = color_theme
             volume_dict[chapter.volume].append(
                 [
                     chapter.clean_chapter_number(),

@@ -94,9 +94,6 @@
 										<a href="#" class="connection-item"><img src="https://img.icons8.com/color/100/000000/bitbucket.png" alt=""> <span>Bitbucket</span></a>
 									</div>
 									<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-										<a href="#" class="connection-item"><img src="https://img.icons8.com/color/100/000000/remove-ads.png" alt="" ><span>Facebook ads</span></a>
-									</div>
-									<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
 										<a href="#" class="connection-item"><img src="https://img.icons8.com/wired/64/000000/slack.png" alt="" > <span>Slack</span></a>
 									</div>
 								</div>
@@ -145,12 +142,11 @@
 							</a>
 						</div>
 						<div id="is-authenticated" class="d-none">
-							<a class="nav-link" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle">
+							<a class="nav-link" href="#" id="navbar-user-avatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							</a>
-							<div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+							<div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbar-user-avatar">
 								<div class="nav-user-info">
-									<h5 class="mb-0 text-white nav-user-name" id="display_name">Noname</h5>
+									<h5 class="mb-0 text-white nav-user-name" id="display-name">Noname</h5>
 									<span id="username"></span>
 								</div>
 								<a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Tài khoản</a>
@@ -212,8 +208,11 @@
 	</script>
 	<script type="text/javascript">
 		function getProfile(data){
-			$("#display_name").text(data['display_name']);
+			$("#display-name").text(data['display_name']);
 			$("#username").text('@'+data["username"]);
+			let img = data['avatar'] || "{% static 'img/unknow_user.jpeg' %}";
+			let avatar = `<img src=${img} alt="avatar" class="user-avatar-md rounded-circle">`
+			$("#navbar-user-avatar").append(avatar);
 		}
 		fetch("/api/get_user_info").then(req => req.json()).then(data => {
 			if(data){

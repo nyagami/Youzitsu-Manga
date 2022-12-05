@@ -315,5 +315,6 @@ def get_user_info(request):
             "is_authenticated": True,
             "username": profile.user.username,
             "display_name": profile.display_name,
+            "avatar": str(profile.avatar),
         }
     return HttpResponse(json.dumps(context), content_type="application/json")
