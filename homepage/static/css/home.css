@@ -7,6 +7,7 @@
 main {
     position: relative;
     margin-top: 7rem;
+    min-height: 120vh;
 }
 
 .all-series-container{
@@ -27,7 +28,10 @@ main {
 }
 
 .pair-series{
-    max-height: 1000px;
+    max-height: max-content;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
 
 .line{
@@ -59,6 +63,7 @@ main {
     margin-bottom: 6em;
     height: 450px;
     width: calc(50% - 20px);
+    min-width: 400px;
     display: flex;
     background-color: var(--blackFlag);
     border-left: solid 5px var(--accentCol);
