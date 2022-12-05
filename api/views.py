@@ -307,10 +307,13 @@ def series_data_slug(request):
         return HttpResponse(json.dumps(series), content_type="application/json")
 
 def get_user_info(request):
-    profile = Profile.objects.get(user=request.user) or request
-    context = {
-        "is_authenticated": profile.user.is_authenticated,
-        "username": profile.user.username,
-        "display_name": profile.display_name,
-    }
+    if request.user.is_authenticated == False:
+        context = None
+    else: 
+        profile = Profile.objects.get(user=request.user)
+        context = {
+            "is_authenticated": True,
+            "username": profile.user.username,
+            "display_name": profile.display_name,
+        }
     return HttpResponse(json.dumps(context), content_type="application/json")
