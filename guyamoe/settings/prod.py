@@ -1,5 +1,3 @@
-import os
-
 from .base import *
 from dotenv import load_dotenv
 load_dotenv()
@@ -14,6 +12,8 @@ SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = "ALLOW"
+
+ALLOWED_HOST = []
 
 DEBUG = False
 SITE_ID = 2
@@ -59,7 +59,13 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = "/tmp/static"
-MEDIA_ROOT = "/tmp/media"
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get("MAIL_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("MAIL_PASS")
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 OCR_SCRIPT_PATH = os.path.join(PARENT_DIR, "ocr_tool.sh")

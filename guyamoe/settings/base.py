@@ -24,8 +24,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "oxrdiDDsuMtd8SIsgAy7i+aJzSGCWt3Xl1IXe
 
 CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
 
-ALLOWED_HOSTS = ["localhost","54.169.199.132","youzitsu.ga"]
-
 SITE_ID = 1
 
 # Application definition
@@ -153,11 +151,11 @@ MEDIA_URL = "/media/"
 # MAIL_DISCORD_WEBHOOK_TOKEN = os.environ.get("MAIL_DISCORD_WEBHOOK_TOKEN", "")
 
 BRANDING_NAME = "Youzitsu"
-BRANDING_DESCRIPTION = "A place to read the entirety of the Kaguya-sama: Love is War manga. No ads. No bad reader. All guya."
-BRANDING_IMAGE_URL = "https://i.imgur.com/jBhT5LV.png"
+BRANDING_DESCRIPTION = "Đọc manga Youzitsu | Lớp học đề cao thực lực"
+BRANDING_IMAGE_URL = ""
 
-HOME_BRANDING_NAME = "Read the Kaguya-sama manga series | Youzitsu"
-HOME_BRANDING_DESCRIPTION = "Read the Kaguya-sama: Love is War / Kaguya Wants to Be Confessed To manga and spin-off series. No ads. No bad reader. All guya."
-HOME_BRANDING_IMAGE_URL = "https://i.imgur.com/jBhT5LV.png"
+HOME_BRANDING_NAME = "Chào mừng đến lớp học đề cao thực lực"
+HOME_BRANDING_DESCRIPTION = "Đọc manga Lớp học đề cao thực lực | Classroom of the Elite | Youzitsu"
+HOME_BRANDING_IMAGE_URL = ""
 
-IMAGE_PROXY_URL = "https://proxy.f-ck.me"
+IMAGE_PROXY_URL = ""
