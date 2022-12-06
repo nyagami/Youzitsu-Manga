@@ -25,9 +25,4 @@ CACHES = {
     }
 }
 
-# Registration
-
-REGISTRATION_OPEN = True
-LOGIN_REDIRECT_URL = '/'
-
 

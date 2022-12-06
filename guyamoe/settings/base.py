@@ -118,6 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 REGISTRATION_OPEN = False
 INCLUDE_REGISTER_URL = True
+REGISTRATION_OPEN = True
+LOGIN_REDIRECT_URL = '/'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
