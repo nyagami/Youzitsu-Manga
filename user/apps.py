@@ -5,3 +5,6 @@ class UserConfig(AppConfig):
     name = 'user'
 
     verbose_name = "Người dùng"
+
+    def ready(self) -> None:
+        import user.signals
