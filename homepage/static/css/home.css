@@ -172,3 +172,37 @@ main {
 .volume-item a:hover{
     text-decoration: none;
 }
+
+@media (max-width: 992px){
+    .pair-series{
+        justify-content: center;
+    }
+}
+
+@media (max-width: 540px){
+    .series-container{
+        max-width: 28rem;
+        font-size: smaller;
+        padding: 0 1rem;
+    }
+
+    .series-card{
+        width: 13rem;
+        float: left;
+    }
+
+    .series-card picture img{
+        height: 256px;
+        width: 180px;
+        border-radius: 0;
+    }
+
+    .series-content{
+        width: 17rem;
+        margin: 0;
+    }
+
+    .volume-item{
+        width: 4rem;
+    }
+}

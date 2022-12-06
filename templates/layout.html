@@ -63,23 +63,23 @@
 			<a class="navbar-brand" href="/">
 				<img src="{% static 'img/logo/logo.png' %}" alt="Youzitsu">
 			</a>
+			<div class="nav-item">
+				<div id="custom-search" class="top-search-bar">
+					<input class="form-control" type="text" placeholder="Search..">
+				</div>
+			</div>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse " id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto navbar-right-top">
-					<li class="nav-item">
-						<div id="custom-search" class="top-search-bar">
-							<input class="form-control" type="text" placeholder="Search..">
-						</div>
-					</li>
 					<li class="nav-item dropdown connection">
 						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
 						<ul class="dropdown-menu dropdown-menu-right connection-dropdown">
 							<li>
-								<div class="dropdown-menu-title"><a href="#">Mục khác</a></div>
+								<div class="dropdown-item dropdown-menu-title"><a href="#">Mục khác</a></div>
 							</li>
-							<li class="connection-list">
+							<li class="dropdown-item connection-list">
 								<div class="row">
 									<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
 										<a href="#" class="connection-item"><img src="https://img.icons8.com/nolan/100/000000/github.png" alt="" > <span>Github</span></a>
@@ -103,36 +103,31 @@
 					</li>
 					<li class="nav-item dropdown notification">
 						<a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
-						<ul class="dropdown-menu dropdown-menu-right notification-dropdown">
-							<li>
-								<div class="dropdown-menu-title"> Thông báo </div>
-								<div class="notification-list">
-									<div class="list-group">
-										<a href="#" class="list-group-item list-group-item-action active">
-											<div class="notification-info">
-												<div class="notification-list-user-img"><img src="https://img.icons8.com/office/100/000000/administrator-female.png" alt="" class="user-avatar-md rounded-circle"></div>
-												<div class="notification-list-user-block"><span class="notification-list-user-name">Kikyou</span>
-													Chào mừng bạn đến với lớp học... à nhầm, web đọc manga Youzitsu
-													<div class="notification-date">2 min ago</div>
-												</div>
+						<div class="dropdown-menu dropdown-menu-right notification-dropdown">
+							<div class="dropdown-item dropdown-menu-title"> Thông báo </div>
+							<div class="notification-list">
+								<div class="dropdown-item list-group">
+									<a href="#" class="list-group-item list-group-item-action active">
+										<div class="notification-info">
+											<div class="notification-list-user-img"><img src="https://img.icons8.com/office/100/000000/administrator-female.png" alt="" class="user-avatar-md rounded-circle"></div>
+											<div class="notification-list-user-block"><span class="notification-list-user-name">Kikyou</span>
+												Chào mừng bạn đến với lớp học... à nhầm, web đọc manga Youzitsu
+												<div class="notification-date">2 min ago</div>
 											</div>
-										</a>
-										<!-- <a href="#" class="list-group-item list-group-item-action">
-											<div class="notification-info">
-												<div class="notification-list-user-img"><img src="https://img.icons8.com/color/48/000000/administrator-female.png" alt="" class="user-avatar-md rounded-circle"></div>
-												<div class="notification-list-user-block"><span class="notification-list-user-name">Kei</span>updated the email address
-													<div class="notification-date">2 days ago</div>
-												</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action">
+										<div class="notification-info">
+											<div class="notification-list-user-img"><img src="https://img.icons8.com/color/48/000000/administrator-female.png" alt="" class="user-avatar-md rounded-circle"></div>
+											<div class="notification-list-user-block"><span class="notification-list-user-name">Kei</span>updated the email address
+												<div class="notification-date">2 days ago</div>
 											</div>
-										</a> -->
-									   
-									</div>
+										</div>
+									</a>
+									
 								</div>
-							</li>
-							<li>
-								<!-- <div class="list-footer"> <a href="#">View all notifications</a></div> -->
-							</li>
-						</ul>
+							</div>
+						</div>
 					</li>
 					<li class="nav-item dropdown nav-user">
 						<div id="is-not-authenticated" class="d-none">
@@ -145,7 +140,7 @@
 							<a class="nav-link" href="#" id="navbar-user-avatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							</a>
 							<div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbar-user-avatar">
-								<div class="nav-user-info">
+								<div class="dropdown-item nav-user-info">
 									<h5 class="mb-0 text-white nav-user-name" id="display-name">Noname</h5>
 									<span id="username"></span>
 								</div>

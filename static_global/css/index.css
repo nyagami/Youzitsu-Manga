@@ -144,93 +144,23 @@ body{
     font-size: unset;
 }
 
-@media (max-width: 992px) {
-	html:not(.home) .navbar .container-fluid {
-		max-width: 83.222222%;
-	}
-
-	.home .navbar {
-		padding-right: 2.6% !important;
-		padding-left: 2.6% !important;
-	}
-
-	.navbar-brand-logo {
-		width: auto;
-		margin: 0 auto !important;
-		padding-left: 4rem !important;
-	}
-
-	.navbar-toggler {
-		width: 4rem;	
-	}
-	.navbar .navbar-toggler {
-		position: relative;
-	}
-	
-	.collasping {
-		 transition: height 0.3s ease-out;
-	}
-
-	.navbar-collapse.collapsing,
-	.navbar-collapse.collapse.show {
-		top: 4rem;
-		right: 17px;
-		position: fixed;
-		max-height: calc(90vh - 5rem);
-		z-index: 200;
-		width: auto;
-		min-width: 10rem;
-		background: #1e1e1e;
-		box-shadow: 0px 7px 17px -5px black;
-		border-radius: 3px;
-		overflow: auto;
-		padding-right: 0;
-	}
-
-	.navbar-collapse.collapsing > ul > li a,
-	.navbar-collapse.collapse.show > ul > li a {
-		padding: 0.65em 1em !important;
-		flex-grow: 1;
-	}
-
-	.navbar-collapse.collapsing > ul > li a,
-	.navbar-collapse.collapse.show > ul > li a {
-		box-shadow: none !important;
-	}
-
-	.navbar-collapse.collapsing .dropdown-toggle,
-	.navbar-collapse.collapse.show .dropdown-toggle {
-		display: none;
-	}
-	.navbar-collapse.collapsing .dropdown-menu,
-	.navbar-collapse.collapse.show .dropdown-menu {
-		display: block;
-		box-shadow: none;
-		width: 100%;
-		background: none;
-	}
-
-	.navbar-collapse.collapsing .dropdown-divider,
-	.navbar-collapse.collapse.show .dropdown-divider {
-		display: none;
-	}
-
-	.navbar-collapse.collapsing .dropdown-menu a,
-	.navbar-collapse.collapse.show .dropdown-menu a {
-		color: white;
-	}
-
-	.navbar-collapse.collapsing .dropdown-menu,
-	.navbar-collapse.collapse.show .dropdown-menu {
-		padding: 0;
-		border: 0;
-	}
-
-	.enter-key {
-		top: -0.8rem !important;
-	}
-
+.dropdown-item{
+    color: var(--textCol);
 }
+
+.dropdown-item.list-group{
+    padding: 0;
+    white-space: inherit;
+}
+
+.dropdown-item:hover{
+    background-color: var(--accentCol);
+}
+
+.dropdown-item.connection-list:hover{
+    background-color: var(--blackLight);
+}
+
 
 
 /* --  top-search-bar ---  */
@@ -277,7 +207,7 @@ body{
     margin-top: -1px;
     border-left: transparent;
     border-right: transparent;
-    background-color: var(--blackFlag);
+    background-color: var(--blackLight);
 }
 
 .notification-list .list-group-item.active {
@@ -390,7 +320,7 @@ body{
 .connection-list {
     width: 300px;
     padding: 20px;
-    background-color: var(--blackFlag);
+    background-color: var(--blackLight);
 }
 
 .connection-item {
@@ -437,7 +367,7 @@ body{
     background-color: var(--accentCol);
     line-height: 1.4;
     padding: 12px;
-    color: #fff;
+    color: var(--textCol);
     font-size: 13px;
     border-radius: 2px 2px 0 0;
 }
@@ -448,26 +378,13 @@ body{
     left: 0px;
 }
 
+span#username{
+    color: wheat;
+}
+
 .nav-user-dropdown {}
 
-.nav-user-dropdown .dropdown-item {
-    display: block;
-    width: 100%;
-    padding: 12px 22px 15px;
-    clear: both;
-    font-weight: 500;
-    color: var(--textCol);
-    text-align: inherit;
-    white-space: nowrap;
-    background-color: var(--blackFlag);
-    border: 0;
-    font-size: 13px;
-    line-height: 0.4;
-}
 
-.nav-user-dropdown .dropdown-item:hover {
-    background-color: var(--accentCol);
-}
 
 /*---- User icon sizes ---*/
 
@@ -525,4 +442,141 @@ body{
 
 .avatar.bg-primary i {
     font-size: 14px;
+}
+
+@media (max-width: 992px) {
+	html:not(.home) .navbar .container-fluid {
+		max-width: 83.222222%;
+	}
+
+	.home .navbar {
+		padding-right: 2.6% !important;
+		padding-left: 2.6% !important;
+	}
+
+	.navbar-brand-logo {
+		width: auto;
+		margin: 0 auto !important;
+		padding-left: 4rem !important;
+	}
+
+	.navbar-toggler {
+		width: 4rem;	
+	}
+	.navbar .navbar-toggler {
+		position: relative;
+	}
+	
+	.collasping {
+		 transition: height 0.3s ease-out;
+	}
+
+	.navbar-collapse.collapsing,
+	.navbar-collapse.collapse.show {
+		top: 4rem;
+		right: 17px;
+		position: fixed;
+		max-height: calc(90vh - 5rem);
+		z-index: 200;
+		width: auto;
+		min-width: 10rem;
+		background: #1e1e1e;
+		box-shadow: 0px 7px 17px -5px black;
+		border-radius: 3px;
+		overflow: auto;
+		padding-right: 0;
+	}
+
+	.navbar-collapse.collapsing > ul > li a,
+	.navbar-collapse.collapse.show > ul > li a {
+		box-shadow: none !important;
+	}
+
+	.navbar-collapse.collapsing .dropdown-toggle,
+	.navbar-collapse.collapse.show .dropdown-toggle {
+		display: none;
+	}
+	.navbar-collapse.collapsing .dropdown-menu,
+	.navbar-collapse.collapse.show .dropdown-menu {
+		box-shadow: none;
+		width: 100%;
+		background: none;
+	}
+
+	.navbar-collapse.collapsing .dropdown-divider,
+	.navbar-collapse.collapse.show .dropdown-divider {
+		display: none;
+	}
+
+	.navbar-collapse.collapsing .dropdown-menu a,
+	.navbar-collapse.collapse.show .dropdown-menu a {
+		color: white;
+	}
+
+	.navbar-collapse.collapsing .dropdown-menu,
+	.navbar-collapse.collapse.show .dropdown-menu {
+		padding: 0;
+		border: 0;
+	}
+
+    .navbar-nav{
+        display: flex;
+        flex-flow: row wrap;
+        border-radius: 5px;
+    }
+    
+    .nav-link{
+        margin-top: 0 !important;
+    }
+
+    .dropdown-menu{
+        position: fixed !important;
+        right: 0;
+        top: 8rem;
+        right: 17px;
+    }
+
+    .dropdown-menu, .dropdown-item{
+        width: 192px !important;
+    }
+
+    .dropdown-menu .dropdown-item{
+        width: 20rem;
+        float: right;
+    }
+    a.dropdown-item{
+        background-color: var(--blackLight);
+    }
+
+    .dropdown-item:hover{
+        background-color: var(--accentSelected);
+    }
+
+    .dropdown-menu-title, .nav-user-info{
+        background-color: var(--accentSelected);
+    }
+
+    .connection-list, .connection-item{
+        padding: 0;
+        margin: 0;
+    }
+
+    a.list-group-item:hover,  a.dropdown-item:hover{
+        background-color: var(--accentCol);
+    }
+}
+
+@media (max-width: 540px){
+    .navbar-brand{
+        padding: 0.2rem 0;
+    }
+}
+
+@media (max-width: 478px){
+    .top-search-bar{
+        width: 11em;
+        height: 3em;
+        margin: 0;
+        padding: 0;
+    }
 }
