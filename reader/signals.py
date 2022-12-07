@@ -21,6 +21,18 @@ def delete_series_hitcount(sender, instance, **kwargs):
     if hit_count_obj:
         hit_count_obj.delete()
 
+@receiver(post_save, sender=Series)
+def post_save_series(sender, instance, **kwargs):
+    if instance.embed_image:
+        save_dir = os.path.dirname(str(instance.embed_image))
+        vol_cover = os.path.basename(str(instance.embed_image))
+        for old_data in os.listdir(os.path.join(settings.MEDIA_ROOT, save_dir)):
+            if old_data != vol_cover:
+                os.remove(os.path.join(settings.MEDIA_ROOT, save_dir, old_data))
+        filename, ext = vol_cover.rsplit('.', 1)
+        image = Image.open(os.path.join(settings.MEDIA_ROOT, save_dir, vol_cover))
+        image.save(os.path.join(settings.MEDIA_ROOT, save_dir, f"{filename}.jpeg"), "JPEG")
+
 
 @receiver(post_delete, sender=Chapter)
 def delete_chapter_folder(sender, instance, **kwargs):

@@ -222,10 +222,6 @@ main {
         width: 4rem;
         height: 1.4rem;
         padding: 0.3em;
-    }
-
-    .btn{
-        border-color: #f00c;
-        background-color: #c608082e !important;
+        background-color: unset;
     }
 }

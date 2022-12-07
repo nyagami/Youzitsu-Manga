@@ -5,7 +5,7 @@ for(let i = 0; i < volumes_container.length; i++){
         let ul = `<ul>`;
         volumes_list.forEach((data) => {
             style = "";
-            ul += `<li class="volume-item text-uppercase" onclick="location.href='/read/manga/${volumes_container[i].title}/#volume-${data['number']}' " type="button" style="border: solid 1.5px ${data['color']};">
+            ul += `<li class="volume-item text-uppercase" role="button" onclick="location.href='/read/manga/${volumes_container[i].title}/#volume-${data['number']}'" style="border: solid 1.5px ${data['color']};">
                     vol ${data['number']}
                    </li>`;
         })
