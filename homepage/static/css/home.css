@@ -188,7 +188,7 @@ main {
 }
 
 
-@media (max-width: 540px){
+@media (max-width: 576px){
     .all-series-container{
         padding: 10px;
     }
@@ -208,8 +208,8 @@ main {
     }
 
     .series-card picture img{
-        height: 256px;
-        width: 180px;
+        width: 150px;
+        height: 213.46px;
         border-radius: 0;
     }
 
@@ -222,5 +222,10 @@ main {
         width: 4rem;
         height: 1.4rem;
         padding: 0.3em;
+    }
+
+    .btn{
+        border-color: #f00c;
+        background-color: #c608082e !important;
     }
 }
