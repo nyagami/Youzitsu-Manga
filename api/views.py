@@ -174,17 +174,14 @@ def upload_new_chapter(request, series_slug):
         )
         with zipfile.ZipFile(request.FILES["chapterPages"]) as zip_file:
             zipped_pages = zip_file.namelist()
-            if all(
-                [x.split(" ", 1)[0].split(".", 1)[0].isdigit() for x in zipped_pages]
-            ):
-                all_pages = sorted(
-                    zipped_pages, key=lambda x: int(x.split(" ", 1)[0].split(".", 1)[0])
-                )
-            else:
+            try:
+                from decimal import Decimal
+                all_pages = sorted(zipped_pages, key=lambda x: Decimal(x.split('/')[-1].rsplit('.', 1)[0]))
+            except:
                 all_pages = sorted(zipped_pages)
             padding = len(str(len(all_pages)))
             for idx, page in enumerate(all_pages):
-                extension = page.rsplit(".", 1)[1]
+                extension = page.rsplit(".", 1)[-1]
                 page_file = f"{str(idx+1).zfill(padding)}.{extension}"
                 with open(
                     os.path.join(chapter_folder, group_folder, page_file), "wb"

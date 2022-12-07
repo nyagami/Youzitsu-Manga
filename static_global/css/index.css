@@ -36,6 +36,9 @@ main{
 
 html {
 	scroll-behavior: smooth;
+    zoom: 1;
+    min-zoom: 0.5;
+    max-zoom: 2;
 }
 
 body{
