@@ -656,7 +656,7 @@ var reading_button = null;
 						</thead>
 						<tbody id="chapterTable">
 							{% for chapter_list_value, chapter, title, ch_slug, group, upload_date, volume, color_theme, is_first in chapter_list %}
-							<tr class="table-default" {% if is_first %} id="volume-{{ volume }}" {% endif %} style="border: solid 1.1px {{color_theme}};" data-chapter="{{ chapter }}">
+							<tr class="table-default" {% if is_first %} id="volume-{{ volume }}" {% endif %} style="border-left: solid 0.2em {{color_theme}};" data-chapter="{{ chapter }}">
 								<td scope="row" class="read-icon d-none" onclick="updateRead('{{ chapter }}')"></td>
 								<td scope="row" class="chapter-title">
 									<a href="/{{ reader_modifier }}/{{ slug }}/{{ ch_slug }}/1/">
@@ -677,7 +677,7 @@ var reading_button = null;
 										</span>
 									</a>
 								</td>
-								<td scope="row">{{ volume }}</td>
+								<td scope="row" style="color: {{color_theme}};">{{ volume }}</td>
 								<td scope="row">{{ group }}</td>
 								<td scope="row" class="detailed-chapter-upload-date">{{ upload_date }}</td>
 								{% if "download" in available_features %}
