@@ -563,6 +563,12 @@ span#username{
 
     a.list-group-item:hover,  a.dropdown-item:hover{
         background-color: var(--accentCol);
+    }   
+    a.nav-link.login-button{
+        width: 64px !important;
+    }
+    a.nav-link.login-button span{
+        display: none;
     }
 }
 

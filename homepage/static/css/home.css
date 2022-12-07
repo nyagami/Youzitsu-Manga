@@ -113,7 +113,7 @@ main {
 .series-card .btn-group.btn{
     padding: 0;
     border-color: #f00c;
-    background-color: #c608082e;
+    background-color: #c608082e !important;
 }
 
 .series-card .btn-group.btn span{
@@ -179,16 +179,32 @@ main {
     }
 }
 
+@media (max-width: 768px) {
+
+    .series-card picture img{
+        max-height: 213px;
+        max-width: 150px;
+    }
+}
+
+
 @media (max-width: 540px){
+    .all-series-container{
+        padding: 10px;
+    }
     .series-container{
-        max-width: 28rem;
-        font-size: smaller;
-        padding: 0 1rem;
+        width: 28rem;
+        height: 20rem;
+        font-size: xx-small;
     }
 
     .series-card{
-        width: 13rem;
-        float: left;
+        width: 16rem;
+    }
+
+    .series-card picture{
+        margin: 0.5rem;
+        margin-left: 1.2rem;
     }
 
     .series-card picture img{
@@ -204,5 +220,7 @@ main {
 
     .volume-item{
         width: 4rem;
+        height: 1.4rem;
+        padding: 0.3em;
     }
 }
