@@ -693,7 +693,7 @@ function SettingsHandler(){
 		addr: 'lyt.direction',
 		prettyName: 'Hướng đọc',
 		options: ['ltr', 'ttb', 'rtl'],
-		default: 'ltr',
+		default: 'ttb',
 		strings: {
 			ltr: 'Trái qua phải',
 			ttb: 'Trên xuống dưới',

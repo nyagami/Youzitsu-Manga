@@ -161,6 +161,7 @@ main {
     text-align: center;
     margin-right: 10px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .volume-item a{
