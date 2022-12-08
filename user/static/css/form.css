@@ -1,12 +1,12 @@
 
 body{
-    color: red;
+    color: #ccc;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 0.9375rem;
     font-weight: 400;
     line-height: 1.5;
-    background-color: #272B30;
+    background-color: #1c1c1c;
 }
 .main{
     position: relative;
@@ -15,16 +15,15 @@ body{
     align-items: center;
     justify-content: center;
 }
-.login-form{
-    background-color: #000;
+.form{
     height: 34em;
     width: 24em;
 }
 .title-text{
     display: flex;
     justify-content: center;
-    padding: 1em 0em;
-    font-size: 2.5em;
+    padding: 0.25em 0em;
+    font-size: 2em;
     color: #ccc;
 }
 
@@ -35,23 +34,23 @@ body{
 }
 .input-wrap > input{
     box-sizing: border-box;
-    background: #000;
+    background: #1c1c1c;
     color: #fff;
     border: none;
     width: 100%;
     border-bottom: 2px solid #fff;
-    padding: 0.5em;
+    padding: 0.2em;
     display: inline-block;
 }
 .input-wrap > input:focus{
     outline: none;
-    border-bottom: 2px solid yellow; 
+    border-bottom: 2px solid red; 
 }
 .login-btn{
     display: flex;
     justify-content: center;
     color: #fff;
-    margin-top: 1.5em;
+    margin-top: 1em;
     margin-left: 50%;
     transform: translateX(-50%);
     padding: 0.5em 5em;
@@ -64,8 +63,7 @@ body{
 }
 .login-btn:hover{
     color: #fff;
-    border: 2px solid yellow;
-    background-color: #000;
+    border: 2px solid red;
 }
 .register-wrap{
     color: #fff;
@@ -97,4 +95,19 @@ body{
 }
 .forgot-link:hover{
     color: #fff;
+}
+.input-text {
+    margin: 0.5em 0 0.5em 0;
+}
+
+.error{
+    font-weight:700 ;
+    padding: 0.25em 0.25em 0 0.25em !important;
+    margin: 0.5em 0 -0.25em 0;
+}
+.form-field-error > ul{
+    font-weight: 700; 
+    list-style-type: none;
+    padding: 0.25em 0.25em 0 0.25em !important;
+    margin: 0;
 }

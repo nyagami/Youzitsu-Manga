@@ -5,17 +5,16 @@
 {% endblock %}
 {% block body %}
     <div class="main">
-        <div class="login-form">
+        <div class="form">
         <div class="title-text">Đăng nhập</div>
         <form class="wrapper-form"  method="post">
             {% csrf_token %}
             <div>
-                <div>Tên đăng nhập</div>
+                <div class="input-text">Tên đăng nhập</div>
                 <span class="input-wrap">{{ form.username }}</span>
             </div>
             <div>
-                <br/>
-                <div>Mật khẩu</div>
+                <div class="input-text">Mật khẩu</div>
                 <span class="input-wrap" >{{ form.password }}</span>
             </div>
             {% if form.errors %}

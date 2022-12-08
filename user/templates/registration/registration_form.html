@@ -4,47 +4,52 @@
     <link rel="stylesheet" href="{% static 'css/form.css' %}">
 {% endblock %}
 {% block body %}
-<main class="justify-content-center">
-    <div class="form-container">
-        <form method="post">
+<div class="main">
+    <div class="form">
+        <div class="title-text">Đăng kí</div>
+        <form class="wrapper-form" method="post">
             {% csrf_token %}
-            <div class="form-group">
-                <div>Username:</div>
-                <span>{{ form.username }}</span>
+            <div>
+                <div class="input-text">Username</div>
+                <span class="input-wrap">{{ form.username }}</span>
             </div>
             {% if form.username.errors %}
                 <div>{{ form.username.errors }}</div>
             {% endif %}
-            <div class="form-group">
-                <div>Tên hiển thị:</div>
-                <span>{{ form.display_name }}</span>
+            <div>
+                <div class="input-text">Tên hiển thị</div>
+                <span class="input-wrap">{{ form.display_name }}</span>
             </div>
             {% if form.display_name.errors %}
                 <div>{{ form.display_name.errors }}</div>
             {% endif %}
-            <div class="form-group">
-                <div>Email:</div>
-                <span>{{ form.email }}</span>
+            <div>
+                <div class="input-text">Email</div>
+                <span class="input-wrap">{{ form.email }}</span>
             </div>
             {% if form.email.errors %}
                 <div>{{ form.email.errors }}</div>
             {% endif %}
-            <div class="form-group">
-                <div>Mật khẩu:</div>
-                <span>{{ form.password1 }}</span>
+            <div>
+                <div class="input-text">Mật khẩu</div>
+                <span class="input-wrap">{{ form.password1 }}</span>
+            
             </div>
             {% if form.password1.errors %}
                 <div class="form-field-error">{{ form.password1.errors }}</div>
             {% endif %}
-            <div class="form-group">
-                <div>Nhập lại mật khẩu:</div>
-                <span>{{ form.password2 }}</span>
+            <div>
+                <div class="input-text">Nhập lại mật khẩu</div>
+                <span class="input-wrap">{{ form.password2 }}</span>
+            
             </div>
             {% if form.password2.errors %}
                 <div class="form-field-error">{{ form.password2.errors }}</div>
             {% endif %}
-            <button>Đăng kí</button>
+            <button class="login-btn">Đăng kí
+          </button>
           </form>
+        </div>
     </div>
-</main>
+</div>
 {% endblock %}
