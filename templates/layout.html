@@ -60,9 +60,9 @@
 	{% load cache %} {% cache 1 sidebar %}
 	<header>
         <nav class="fixed-top">
-            <ul>
+            <ul class="nav-list">
                 <li class="list-item-branch-logo">
-					<a href="/" id="fb">
+					<a href="/" id="home">
 						<img src="{% static 'img/logo/logo.png' %}" alt="logo">
 					</a>
 				</li>
@@ -80,16 +80,47 @@
 					<button class="tooltip" data-tooltip="Message" id="btn_msg">
 						<i class="fas fa-message"></i>
 					</button>
-				</li>
+				</li> -->
                 <li>
 					<button class="tooltip" data-tooltip="Notification" id="btn_bell">
 						<i class="fas fa-bell"></i><span class="indicator"></span>
 					</button>
-				</li> -->
+					<div class="nav-menu">
+						<label for="">Thông báo</label>
+					</div>
+				</li>
                 <li>
 					<button class="tooltip" data-tooltip="Profile" id="btn_profile"><i class="fas fa-user"></i></button>  
-					<div class="">
-						
+					<div class="nav-menu">
+						<div class="d-flex user-section">
+							<div id="user-avatar">
+								<img class="rounded-circle user-avatar-lg" src="{% static 'img/unknow_user.jpeg' %}" alt="avatar">
+							</div>
+							<div id="user-info">
+								<a class="row" href="#" id="user-full-name">Đỗ Hoàng Quân</a>
+								<span class="row" id="username">@nyagami</span>
+							</div>
+							<button>
+								<i class="fa-solid fa-gear"></i>
+							</button>
+						</div>
+						<div class="divider"></div>
+						<div class="list-group">
+							<ul class="nav-menu-list">
+								<li class="nav-menu-item">
+									<button>
+										<i class="fa-solid fa-brush"></i>
+										Tuỳ chọn Theme
+									</button>
+								</li>
+								<li class="nav-menu-item">
+									<button>
+										<i class="fa-solid fa-right-from-bracket"></i>
+										Đăng xuất
+									</button>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</li>
             </ul>
@@ -161,6 +192,30 @@
 				icon.css('border-radius', '1.5rem');
 			}
 		})
+
+		$('button.tooltip').click((e) => {
+			let target = $(e.currentTarget);
+			target.next().show();
+			hideOnClickOutside(target, target.next());
+		})
+
+		function hideOnClickOutside(toggle, selector) {
+			const outsideClickListener = (event) => {
+				const $target = $(event.target);
+				if (!$target.closest(toggle).length && !selector.find($target).length && !$target.closest(selector).length && $(selector).is(':visible')) {
+					console.log($target);
+					$(selector).hide();
+					removeClickListener();
+				}
+			}
+
+			const removeClickListener = () => {
+				document.removeEventListener('click', outsideClickListener);
+			}
+
+			document.addEventListener('click', outsideClickListener);
+		}
+		
 		// function getProfile(data){
 		// 	$("#display-name").text(data['display_name']);
 		// 	$("#username").text('@'+data["username"]);
