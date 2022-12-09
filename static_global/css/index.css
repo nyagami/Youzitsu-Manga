@@ -479,3 +479,9 @@ button.tooltip {}
         --btn-width-100: 60px;
     }
 }
+
+@media (max-width: 992px){
+    .tooltip::after{
+        display: none;
+    }
+}
