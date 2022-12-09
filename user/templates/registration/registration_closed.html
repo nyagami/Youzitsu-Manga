@@ -1,7 +1,14 @@
 {% extends "layout.html"%}
-
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
 {% block body %}
-    <main class="justify-content-center">
-        <h1>Hiện chưa mở đăng kí!</h1>
-    </main>
+    <div class="main">
+        <h1>Hiện chưa mở đăng kí !</h1>
+        <br/>
+        <a href="/" class="deco-none">
+            <button class="login-btn">Trở về trang chủ</button>
+        </a>
+    </div>
 {% endblock%}
