@@ -46,6 +46,10 @@ button{
     border: unset;
 }
 
+a:hover{
+    text-decoration: none;
+}
+
 main {
     margin-top: 5rem;
 }
@@ -311,7 +315,7 @@ button.tooltip {}
 
 .nav-menu{
     position: fixed;
-    width: 18rem;
+    width: 20rem;
     background-color: var(--blackLight);
     top: 3.75rem;
     right: 1rem;
@@ -342,13 +346,15 @@ button.tooltip {}
     margin: 0 1rem 0 0.5rem;
 }
 
-#user-full-name{
-    font-weight: 600;
+.user-fullname{
     font-size: 1.1rem;
+    font-weight: bold;
+    margin-right: 0.3rem;
+    color: var(--accentSelected) !important;
 }
 
 #username{
-    color: var(--accentSelected) !important;
+    color: var(--accentSelectedInvert) !important;
 }
 
 .user-section button{
@@ -381,7 +387,7 @@ button.tooltip {}
 }
 
 .nav-menu-item{
-    height: 2rem;
+    height: unset !important;
     padding: 0.5rem 2rem;
     border-radius: 6px;
     cursor: pointer;
@@ -394,6 +400,49 @@ button.tooltip {}
 .nav-menu-item button:focus{
     outline: unset;
 }
+
+
+.noti-link{}
+
+.list-title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.noti-link{
+    display: flex;
+}
+
+.noti-link:hover{
+    text-decoration: none;
+}
+
+.noti-body{
+    margin-left: 1rem;
+}
+
+.noti-body:not(.user-fullname){
+    font-size: 0.9rem;
+}
+
+.noti-time{
+    font-size: small;
+    color: var(--accentSelectedInvert) !important;
+}
+
+.not-read::after{
+    content: '';
+    position: relative;
+    display: inline-block;
+    content: '';
+    height: 0.4rem;
+    width: 0.4rem;
+    border-radius: 100%;
+    background-color: var(--accentSelectedInvert);
+    left: 0.5rem;
+}
+
+/* ------------------- */
 
 .user-avatar-xxl {
     height: 128px;

@@ -86,7 +86,40 @@
 						<i class="fas fa-bell"></i><span class="indicator"></span>
 					</button>
 					<div class="nav-menu">
-						<label for="">Thông báo</label>
+						<div class="list-title">
+							<h5>Thông báo</h5>
+							<a href="#" id="read-all-noti">Đã đọc hết</a>
+						</div>
+						<div class="list-group">
+							<ul class="nav-menu-list">
+								<li class="nav-menu-item">
+									<a href="#" class="noti-link">
+										<img src="{% static 'img/unknow_user.jpeg' %}" class="rounded-circle user-avatar-lg" alt="user">
+										<div class="noti-body">
+											<div class="noti-content">
+												<span class="user-fullname">Kei</span>
+												Mồ ~
+												<br>
+												Kiyotaka lại lôi mình vào vụ phiền phức này...
+											</div>
+											<span class="noti-time not-read">5 giây trước</span>
+										</div>
+									</a> 
+								</li>
+								<li class="nav-menu-item">
+									<a href="#" class="noti-link">
+										<img src="{% static 'img/unknow_user.jpeg' %}" class="rounded-circle user-avatar-lg" alt="user">
+										<div class="noti-body">
+											<div class="noti-content">
+												<span class="user-fullname">Kiyotaka</span>
+												Chào mừng bạn đến với 'Lớp học đề cao thực lực!'
+											</div>
+											<span class="noti-time">1 phút trước</span>
+										</div>
+									</a> 
+								</li>
+							</ul>
+						</div>
 					</div>
 				</li>
                 <li>
@@ -97,7 +130,7 @@
 								<img class="rounded-circle user-avatar-lg" src="{% static 'img/unknow_user.jpeg' %}" alt="avatar">
 							</div>
 							<div id="user-info">
-								<a class="row" href="#" id="user-full-name">Đỗ Hoàng Quân</a>
+								<span class="row user-fullname">Đỗ Hoàng Quân</span>
 								<span class="row" id="username">@nyagami</span>
 							</div>
 							<button>
@@ -203,7 +236,6 @@
 			const outsideClickListener = (event) => {
 				const $target = $(event.target);
 				if (!$target.closest(toggle).length && !selector.find($target).length && !$target.closest(selector).length && $(selector).is(':visible')) {
-					console.log($target);
 					$(selector).hide();
 					removeClickListener();
 				}
@@ -216,6 +248,9 @@
 			document.addEventListener('click', outsideClickListener);
 		}
 		
+		$('#read-all-noti').click(() => {
+			$('.noti-time').removeClass('not-read');
+		})
 		// function getProfile(data){
 		// 	$("#display-name").text(data['display_name']);
 		// 	$("#username").text('@'+data["username"]);
