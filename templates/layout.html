@@ -126,16 +126,22 @@
 					<button class="tooltip" data-tooltip="Profile" id="btn_profile"><i class="fas fa-user"></i></button>  
 					<div class="nav-menu">
 						<div class="d-flex user-section">
+							{% if request.user.is_authenticated %}
 							<div id="user-avatar">
-								<img class="rounded-circle user-avatar-lg" src="{% static 'img/unknow_user.jpeg' %}" alt="avatar">
+								<img class="rounded-circle user-avatar-lg" src="{% if request.user.profile.avatar %} {{ request.user.profile.avatar }} {% else %} {% static 'img/default_avatar.jpeg' %} {% endif %}" alt="avatar">
 							</div>
 							<div id="user-info">
-								<span class="row user-fullname">Đỗ Hoàng Quân</span>
-								<span class="row" id="username">@nyagami</span>
+								<span class="row user-fullname">{{ request.user.profile.display_name }}</span>
+								<span class="row" id="username">@{{ request.user.username }}</span>
 							</div>
 							<button>
 								<i class="fa-solid fa-gear"></i>
 							</button>
+							{% else %}
+							<div>
+								<a class="regis-link" href="/user/login">Đăng nhập</a> | <a class="regis-link" href="/user/register">Đăng kí</a>
+							</div>
+							{% endif %}
 						</div>
 						<div class="divider"></div>
 						<div class="list-group">
@@ -146,12 +152,14 @@
 										Tuỳ chọn Theme
 									</button>
 								</li>
-								<li class="nav-menu-item">
-									<button>
+								{% if request.user.is_authenticated %}
+								<li id="logout-btn" class="nav-menu-item">
+									<button onclick=" location.href = '/user/logout' ">
 										<i class="fa-solid fa-right-from-bracket"></i>
 										Đăng xuất
 									</button>
 								</li>
+								{% endif %}
 							</ul>
 						</div>
 					</div>
@@ -259,16 +267,7 @@
 		// 	let avatar = `<img src=${img} alt="avatar" class="user-avatar-md rounded-circle">`
 		// 	$("#navbar-user-avatar").append(avatar);
 		// }
-		// fetch("/api/get_user_info").then(req => req.json()).then(data => {
-		// 	if(data){
-		// 		$("#is-authenticated").removeClass("d-none");
-		// 		$("#is-not-authenticated").addClass("d-none");
-		// 		getProfile(data);
-		// 	}else{
-		// 		$("#is-not-authenticated").removeClass("d-none");
-		// 		$("#is-authenticated").addClass("d-none");
-		// 	}
-		// })
+		console.log(`{{request.user.profile}}`);
 	</script>
 </body>
 

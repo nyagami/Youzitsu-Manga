@@ -50,6 +50,14 @@ a:hover{
     text-decoration: none;
 }
 
+a.regis-link{
+    margin: 0 0.5rem;
+}
+
+a.regis-link:hover{
+    text-decoration: underline;
+}
+
 main {
     margin-top: 5rem;
 }
@@ -263,12 +271,14 @@ button.tooltip:hover {
     content: attr(data-tooltip);
     background: rgba(43, 43, 43, 0.8);
     top: 120%;
+    outline: solid 1px var(--textCol);
     border-radius: 5px;
     padding: 0 0.5rem;
     opacity: 0;
     transition: .3s;
     pointer-events: none;
     user-select: none;
+    transition: 1s;
 }
 
 .tooltip:hover::after {
