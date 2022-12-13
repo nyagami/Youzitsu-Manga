@@ -163,3 +163,38 @@ body{
     font-size: 1em;
     line-height: 2rem;
 }
+@media only screen and (max-width : 320px){
+    .form{
+        width: 100%;
+    }
+    .reset-btn{
+        width: 100%;
+    }
+    h1{
+        font-size: 1rem;
+    }
+    .deco-none{
+        width: 100%;
+    }
+    .login-btn{
+        font-size: 0.75rem;
+    }
+}
+@media only screen and (min-width : 320px) and (max-width : 768px){
+    .reset-btn{
+        width: 100%;
+    }
+    .form{
+        width: 200%;
+    }
+    h1{
+        font-size: 1.5rem;
+    }
+    .deco-none{
+        width: 100%;
+    }
+    .login-btn{
+        font-size: 1rem;
+    }
+    
+}
