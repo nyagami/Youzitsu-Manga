@@ -75,7 +75,7 @@
 						<span class="input-clear" id="id-input-clear"></span>
 					</button> 
 				</li>
-                <li id="space"></li>
+                <li class="space"></li>
                 <!-- <li> 
 					<button class="tooltip" data-tooltip="Message" id="btn_msg">
 						<i class="fas fa-message"></i>
@@ -83,7 +83,7 @@
 				</li> -->
                 <li>
 					<button class="tooltip" data-tooltip="Notification" id="btn_bell">
-						<i class="fas fa-bell"></i><span class="indicator"></span>
+						<i class="fas fa-bell"></i>
 					</button>
 					<div class="nav-menu">
 						<div class="list-title">
@@ -94,7 +94,34 @@
 							<ul class="nav-menu-list">
 								<li class="nav-menu-item">
 									<a href="#" class="noti-link">
-										<img src="{% static 'img/default_avatar.jpeg' %}" class="rounded-circle user-avatar-lg" alt="user">
+										<img src="{% static 'img/character/thumb-shiina.png' %}" class="rounded-circle user-avatar-lg" alt="user">
+										<div class="noti-body">
+											<div class="noti-content">
+												<span class="user-fullname">Hiyori</span>
+												Chào các bạn, hiện tại ngoài đọc truyện ra thì các tính năng khác đều là đang thử nghiệm.
+												<br>
+												Và các những dữ liệu hiện tại cũng không được lưu lại!
+												Chúc các bạn đọc truyện vui vẻ ^ ^
+											</div>
+											<span class="noti-time">1 phút trước</span>
+										</div>
+									</a> 
+								</li>
+								<li class="nav-menu-item">
+									<a href="#" class="noti-link">
+										<img src="{% static 'img/character/thumb-kiyotaka.png' %}" class="rounded-circle user-avatar-lg" alt="user">
+										<div class="noti-body">
+											<div class="noti-content">
+												<span class="user-fullname">Kiyotaka</span>
+												Chào mừng bạn đến với <b>Lớp học đề cao thực lực!</b>
+											</div>
+											<span class="noti-time">5 phút trước</span>
+										</div>
+									</a> 
+								</li>
+								<li class="nav-menu-item">
+									<a href="#" class="noti-link">
+										<img src="{% static 'img/character/thumb-kei.png' %}" class="rounded-circle user-avatar-lg" alt="user">
 										<div class="noti-body">
 											<div class="noti-content">
 												<span class="user-fullname">Kei</span>
@@ -102,22 +129,11 @@
 												<br>
 												Kiyotaka lại lôi mình vào vụ phiền phức này...
 											</div>
-											<span class="noti-time not-read">5 giây trước</span>
+											<span class="noti-time">5 phút trước</span>
 										</div>
 									</a> 
 								</li>
-								<li class="nav-menu-item">
-									<a href="#" class="noti-link">
-										<img src="{% static 'img/default_avatar.jpeg' %}" class="rounded-circle user-avatar-lg" alt="user">
-										<div class="noti-body">
-											<div class="noti-content">
-												<span class="user-fullname">Kiyotaka</span>
-												Chào mừng bạn đến với 'Lớp học đề cao thực lực!'
-											</div>
-											<span class="noti-time">1 phút trước</span>
-										</div>
-									</a> 
-								</li>
+								
 							</ul>
 						</div>
 					</div>
@@ -137,14 +153,15 @@
 								<img class="rounded-circle user-avatar-lg" src="{% if request.user.profile.avatar %} {{ request.user.profile.avatar }} {% else %} {% static 'img/default_avatar.jpeg' %} {% endif %}" alt="avatar">
 							</div>
 							<div id="user-info">
-								<span class="row user-fullname">{{ request.user.profile.display_name }}</span>
-								<span class="row" id="username">@{{ request.user.username }}</span>
+								<span class="d-block user-fullname">{{ request.user.profile.display_name }}</span>
+								<span class="" id="username">@{{ request.user.username }}</span>
 							</div>
+							<div class="space"></div>
 							<button>
 								<i class="fa-solid fa-gear"></i>
 							</button>
 							{% else %}
-							<div>
+							<div class="w-100 d-flex justify-content-center">
 								<a class="regis-link" href="/user/login">Đăng nhập</a> | <a class="regis-link" href="/user/register">Đăng kí</a>
 							</div>
 							{% endif %}
