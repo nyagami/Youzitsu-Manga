@@ -158,3 +158,8 @@ body{
     width: 24em;
     height: 25%;
 }
+.help-text{
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 2rem;
+}
