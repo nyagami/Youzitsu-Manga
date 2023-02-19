@@ -4,13 +4,13 @@ Kế thừa từ mã nguồn của <a href="https://github.com/subject-f/guyamoe
 ⚠ **Note:** Hướng dẫn cài bên dưới sẽ không được áp dụng cho mọi truyện khác,
 vì nó chứa nhiều phần code liên quan đến bộ Kaguya-sama: Love is War.
 
-## Prerequisites 
+## Yêu cầu 
 - git
 - python 3.6.5+
 - pip
 - virtualenv
 
-## Install
+## Cài đặt
 1. Tạo một môi trường ảo cho project.
 ```
 virtualenv venv
@@ -69,7 +69,7 @@ Ví dụ: `Kaguya-Wants-To-Be-Confessed-To` là `<series-slug-name>`.
 
 Giờ web có thể xem được trên localhost:8000
 
-## Other info
+## Thông tin khác
 Các URL: 
 
 - `/` - home page
