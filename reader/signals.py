@@ -21,6 +21,7 @@ def delete_series_hitcount(sender, instance, **kwargs):
     if hit_count_obj:
         hit_count_obj.delete()
 
+
 @receiver(post_save, sender=Series)
 def post_save_series(sender, instance, **kwargs):
     if instance.embed_image:

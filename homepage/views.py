@@ -33,7 +33,7 @@ def admin_home(request):
 @decorator_from_middleware(OnlineNowMiddleware)
 def home(request):
     categories = Category.objects.all()
-    all_series = [(category.name, Series.objects.filter(category = category)) for category in categories]
+    all_series = [(category.name, Series.objects.filter(category=category)) for category in categories]
     return render(
         request,
         "homepage/homepage.html",

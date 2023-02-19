@@ -177,7 +177,7 @@ def upload_new_chapter(request, series_slug):
             try:
                 from decimal import Decimal
                 all_pages = sorted(zipped_pages, key=lambda x: Decimal(x.split('/')[-1].rsplit('.', 1)[0]))
-            except:
+            except Exception:
                 all_pages = sorted(zipped_pages)
             padding = len(str(len(all_pages)))
             for idx, page in enumerate(all_pages):
@@ -196,16 +196,18 @@ def upload_new_chapter(request, series_slug):
             json.dumps({"response": "failure"}), content_type="application/json"
         )
 
+
 def get_volumes_by_series_slug(request, series_slug):
-    series = Series.objects.filter(slug = series_slug).first()
-    volumes = Volume.objects.filter(series = series)
+    series = Series.objects.filter(slug=series_slug).first()
+    volumes = Volume.objects.filter(series=series)
     volumes_list = [
         {
             "number": volume.volume_number,
             "color": volume.color_theme,
         } for volume in volumes
     ]
-    return HttpResponse(json.dumps({"volumes_list": volumes_list}), content_type="application/json",status="200")
+    return HttpResponse(json.dumps({"volumes_list": volumes_list}), content_type="application/json", status="200")
+
 
 @csrf_exempt
 @cache_control(public=True, max_age=3600, s_maxage=3600)
@@ -303,10 +305,11 @@ def series_data_slug(request):
         series = [series.slug for series in Series.objects.all().order_by("id")]
         return HttpResponse(json.dumps(series), content_type="application/json")
 
+
 def get_user_info(request):
-    if request.user.is_authenticated == False:
+    if request.user.is_authenticated is False:
         context = None
-    else: 
+    else:
         profile = Profile.objects.get(user=request.user)
         context = {
             "is_authenticated": True,

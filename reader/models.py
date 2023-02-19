@@ -52,6 +52,7 @@ def new_volume_path_file_name(instance, filename):
     new_filename = str(randint(10000, 99999)) + ext
     return os.path.join(new_volume_folder(instance), new_filename,)
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
@@ -59,9 +60,11 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
     class Meta:
         verbose_name_plural = "Thể loại"
         ordering = ("index",)
+
 
 class Series(models.Model):
     name = models.CharField(max_length=200, db_index=True)

@@ -86,7 +86,7 @@ def series_page_data(request, series_slug):
         for ch in chapter_dict:
             chapter, multiple_groups = chapter_dict[ch]
             u = chapter.uploaded_on
-            color_theme = Volume.objects.get(series = series, volume_number=chapter.volume).color_theme or 'white'
+            color_theme = Volume.objects.get(series=series, volume_number=chapter.volume).color_theme or 'white'
             chapter_list.append(
                 [
                     chapter.clean_chapter_number(),

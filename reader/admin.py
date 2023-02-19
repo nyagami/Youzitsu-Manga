@@ -28,8 +28,11 @@ class HitCountAdmin(admin.ModelAdmin):
 admin.site.register(HitCount, HitCountAdmin)
 admin.site.register(Person)
 
+
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name",)
+
+
 admin.site.register(Category, CategoryAdmin)
 
 
@@ -41,6 +44,7 @@ class GroupAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Group, GroupAdmin)
+
 
 class SeriesAdmin(admin.ModelAdmin):
     form = SeriesForm
