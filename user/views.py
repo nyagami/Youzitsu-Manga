@@ -8,7 +8,7 @@ from .form import RegistrationForm
 from .models import Profile
 
 
-#Registration
+# Registration
 class RegistrationView(OldRegistrationView):
     title = "Đăng kí"
     form_class = RegistrationForm
@@ -27,7 +27,7 @@ class RegistrationView(OldRegistrationView):
         profile.save()
         return user
 
-# Login
+
 class LoginView(OldLoginView):
     template_name = "log/login.html"
     extra_context = {
@@ -42,13 +42,14 @@ class LogoutView(OldLogOutView):
         "page_title": "Đăng xuất",
     }
 
-# Password
 
 class PasswordChangeView(OldPasswordChangeView):
     template_name = "password/password_change.html"
+
     def form_valid(self, form):
         self.request.session['password_pwned'] = False
         return super().form_valid(form)
+
 
 class PasswordResetView(OldPasswordResetView):
     template_name = "password/password_reset.html"

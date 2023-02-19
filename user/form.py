@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
 
 from django import forms
 
+
 def valid_email(email):
     return re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', email)
+
 
 class RegistrationForm(OldRegistrationForm):
     username = forms.RegexField(regex=r'^\w+$', min_length=2, max_length=30, label="Tên người dùng")

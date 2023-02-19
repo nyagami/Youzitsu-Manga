@@ -7,8 +7,10 @@ from colorfield.fields import ColorField
 
 # Create your models here.
 
+
 def avatar_image_path(self, filename):
     return os.path.join("user", "avatar", self.user.username, filename)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="user", related_name="profile")
