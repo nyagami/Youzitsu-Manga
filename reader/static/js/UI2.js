@@ -42,7 +42,7 @@ function KeyListener(target, mode) {
 	}
 	this.target._keyListener.list.push(this);
 	this.handler = e => {
-	var keyCode = e.code || e.key;
+		var keyCode = e.code || e.key;
 		if(this.held) return;
 		if(this.stopper) e.stopPropagation();
 		if(this.conditions.length > 0) {
@@ -102,7 +102,6 @@ function KeyListener(target, mode) {
 		}
 		if(this.exclusiveness) e.stopImmediatePropagation();
 	}
-
 	if(this.mode == 'hold') {
 		this.target.addEventListener('keydown', this.handler, false);
 		this.target.addEventListener('keyup', this.handler, false);
@@ -240,7 +239,7 @@ function UI(o) {
 
 	this.consume = function consume() {
 		this._ = {};
-	var binds = this.$.querySelectorAll('[data-bind]');
+		var binds = this.$.querySelectorAll('[data-bind]');
 		binds.forEach(item => {
 			this._[item.getAttribute('data-bind')] = item;
 		})
@@ -271,7 +270,7 @@ function UI(o) {
 			return false;
 		}
 		if(DEBUG) console.debug('Node was not found. Creating an instance using embedded HTML tempate.')
-	var holder = crelm();
+		var holder = crelm();
 		holder.innerHTML = this.me.html;
 		return holder.firstElementChild;
 	}
@@ -352,7 +351,7 @@ function Linkable(o) {
 	this.S.linkAnonymous = (streamID, callback) => {
 		if(!streamID)
 			throw('AlgEx: must specify a stream for anonymous mapping.')
-	var inObj = {}
+		var inObj = {}
 		inObj[streamID] = callback;
 		this.S.link(new Linkable().S.mapIn(inObj));
 		return this;
@@ -391,7 +390,7 @@ function Linkable(o) {
 	}
 
 	this.S.out = (streamID, data) => {
-	var dataPacket = new DataPacket(streamID, data, this)
+		var dataPacket = new DataPacket(streamID, data, this)
 		if(DEBUG) console.debug('Sending',dataPacket, 'using stream '+streamID, '...');
 		for (var i = 0; i < this.S.targets.length; i++) {
 			if(!(streamID in this.S.targets[i].S.inStreams)) {
@@ -402,16 +401,16 @@ function Linkable(o) {
 		return this.S;
 	}
 
-	this.S.call = (streamID, data, targetStructure) => {
-		//might be inefficient, redo to preserve the dummy
-		targetStructure = targetStructure || new UI_Dummy();
-		this.S.in(new DataPacket(streamID, data, targetStructure));
-	}
+	// this.S.call = (streamID, data, targetStructure) => {
+	// 	//might be inefficient, redo to preserve the dummy
+	// 	targetStructure = targetStructure || new UI_Dummy();
+	// 	this.S.in(new DataPacket(streamID, data, targetStructure));
+	// }
 
-	this.S.outAsync = (streamID, dataPacket) => {
-		setTimeout((function() { this.S.out(streamID, dataPacket) }).bind(this), 1);
-		return this.S;
-	}
+	// this.S.outAsync = (streamID, dataPacket) => {
+	// 	setTimeout((function() { this.S.out(streamID, dataPacket) }).bind(this), 1);
+	// 	return this.S;
+	// }
 
 	this.S.proxyOut = (streamID, targetStructure) => {
 		this.S.addIn(streamID, dataPacket => this.S.out(streamID, dataPacket));
@@ -558,7 +557,7 @@ function UI_List(o) {
 	this.addMapped = function(map) {
 		this.lastAdded = [];
 		for(var id in map) {
-		var item = map[id];
+			var item = map[id];
 			item.$.setAttribute('data-list-id', id);
 			this.$.appendChild(item.$);
 			this.lastAdded.push(item);
@@ -1211,7 +1210,7 @@ function UI_ToggleButton(o) {
 
 function UI_ButtonGroup(o) {
 	o=be(o);
-var customHTML = o.html;
+	var customHTML = o.html;
 	UI.call(this, Object.assign(o, {
 		kind: ['ButtonGroup'].concat(o.kind || []),
 		html: o.html || `

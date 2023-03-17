@@ -25,7 +25,6 @@ function shadowScroll() {
 function scroll(element, x, y, noshadow) {
 	//if(x == DBG_VAL || y == DBG_VAL || element == DBG_VAL || (isNaN(DBG_VAL) && (isNaN(x) || isNaN(y)))) debugger;
 	if(!noshadow) shadowScroll();
-	//console.log(element, 'scrolled to', x, y)
 	if(element.scroll)
 		element.scroll(x, y)
 	else
@@ -50,7 +49,7 @@ function LoadHandler(o) {
 	}
 
 	this.onload = () => {
-	var SCP = this.parseSCP();
+		var SCP = this.parseSCP();
 		API.requestSeries(SCP.series)
 			.then(data => {
 				Reader.setSCP(SCP);
@@ -79,7 +78,7 @@ function ReaderAPI(o) {
 
 	this.infuseSeriesData = function(data) {
 		for(var num in data.chapters) {
-		let chapter = data.chapters[num];
+			let chapter = data.chapters[num];
 			chapter.images = {};
 			chapter.descriptions = {};
 			chapter.loaded = {};
@@ -1411,7 +1410,7 @@ function UI_Reader(o) {
 		this.selector_page.clearPreload();
 		this.imageView.updateScrollPosition();
 		this.displayPage(page);
-		// this._.comment_button.href = '/reader/series/' + this.SCP.series + '/' + this.SCP.chapter + '/comments'
+		this._.comment_button.href = '/reader/series/' + this.SCP.series + '/' + this.SCP.chapter + '/' + this.current.chapters[this.SCP.chapter].images[1].length
 		this.plusOne();
 		return this;
 	}
@@ -1545,9 +1544,6 @@ function UI_Reader(o) {
 		// TODO: hard-coded values is meh
 		let url = document.location.href + document.location.hash;
 	var chapter = '' + (this.SCP.chapterObject.notice? +this.SCP.chapter-1 : this.SCP.chapter);
-		if (document.location.pathname.includes("Kaguya-Wants-To-Be-Confessed-To/")) {
-			url = document.location.origin + '/' + chapter.replace('.', '-') + '/'+ (this.SCP.page+1) + document.location.hash;
-		}
 		navigator.clipboard.writeText(url)
 		.then(function() {
 		  Tooltippy.set('Link đã được copy!');
@@ -1558,7 +1554,7 @@ function UI_Reader(o) {
 
 	this.openComments = function() {
 		if(this.SCP.series && this.SCP.chapter !== undefined)
-			window.location.href = '/read/manga/' + this.SCP.series + '/' + this.SCP.chapter + '/comments';
+			window.location.href = '/read/manga/' + this.SCP.series + '/' + this.SCP.chapter;
 	}
 
 	this.setLayout = (layout, silent) => {
@@ -1718,8 +1714,8 @@ function UI_Reader(o) {
 	this._.share_button.onmousedown = e => this.copyShortLink(e);
 	this._.search.onclick = e => Loda.display('search');
 	this._.jump.onclick = e => Loda.display('jump');
-	// this._.download_chapter.onclick = () => DownloadManagerObj.downloadChapter();
-	// this._.download_cancel.onclick = () => DownloadManagerObj.cancelDownload();
+	this._.download_chapter.onclick = () => DownloadManagerObj.downloadChapter();
+	this._.download_cancel.onclick = () => DownloadManagerObj.cancelDownload();
 	this._.random_chapter_button.addEventListener('mousedown', e => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -1743,8 +1739,8 @@ function UI_Reader(o) {
 		.attach(this._.jump, 'Nhảy tới chapter... [J]')
 		.attach(this._.spread_button, 'Chế độ 2 trang [Q]')
 		.attach(this._.settings_button, 'Cài đặt nâng cao [O]')
-		// .attach(this._.download_chapter, 'Tải chapter')
-		// .attach(this._.comment_button, 'Go to comments [C]')
+		.attach(this._.download_chapter, 'Tải chương')
+		.attach(this._.comment_button, 'Đi đến phần bình luận [C]')
 		// .attach(this._.fit_none, 'Images are displayed in natural resolution.')
 		// .attach(this._.fit_all, 'Images expand to width or height.')
 		// .attach(this._.fit_width, 'Images expand to max width.')
@@ -2937,8 +2933,8 @@ function UI_Loda_Search(o) {
 		});
 
 		this.tabs.add(new UI_Tab({
-			text: 'Text search',
-			counterText: 'Press <span class="inline-icon">⮠</span>'
+			text: 'Tìm kiếm văn bản',
+			counterText: 'Ấn <span class="inline-icon">⮠</span>'
 		}))
 
 		this.tabs.get(1).$.onmousedown = e => {
@@ -3000,7 +2996,7 @@ function UI_Loda_Jump(o) {
 			Reader.initChapter(chap, page-1);
 		}
 		catch (err) {
-			Tooltippy.set('Không tồn tại!');
+			Tooltippy.set('Chương hoặc trang không hợp lệ!');
 		}
 	}
 
@@ -3631,7 +3627,7 @@ function UI_About(o) {
 			<p>Thiết kế, UX: Algoinde</p>
 			<p>Reader code: Algoinde, funkyhippo, Einlion</p>
 			<p>Backend: appu</p>
-			<a href="https://twitter.com/Kiyoponya" target="_blank"><p style="color: deeppink;">Mượner: Nyagami</p></a>
+			<a href="https://github.com/nyagami" target="_blank"><p style="color: deeppink;">Mượner: Nyagami</p></a>
 			<hr>
 			<a href="https://github.com/appu1232/guyamoe" target="_blank">Github</a>
 			<hr>
@@ -3699,7 +3695,7 @@ Reader.S.link(URLC);
 Reader.S.link(Settings);
 Reader.$.focus();
 ThemeManager.S.link(Settings);
-//Settings.sendInit();
+// Settings.sendInit();
 ThemeManager.themeUpdated();
 
 if(window.location.hash == '#s') Loda.display('search');
