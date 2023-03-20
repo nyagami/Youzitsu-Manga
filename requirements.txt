@@ -6,7 +6,6 @@ Pillow
 python-memcached==1.59
 requests==2.22.0
 beautifulsoup4==4.8.2
-django-admin-interface==0.20.0
 django-colorfield
 django-registration-redux
 python-dotenv

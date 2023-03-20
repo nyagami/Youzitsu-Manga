@@ -7,22 +7,16 @@
 
 <main id="home">
   <div class="all-series-container">
-    {% for cate, group_series in all_series %}
       <div class="group_series-container">
-        <div class="d-flex flex-row justify-content-center">
-          <div class="line divider-element"></div>
-          <div class="series-type divider-element text-uppercase">{{ cate }}</div>
-          <div class="line divider-element"></div>
-        </div>
         <div class="pair-series">
-          {% for series in group_series %}
+          {% for series in all_series %}
             <div class="series-container">
               <div class="series-card">
                 <picture class="d-block">
                   <img src="{{media_url}}/{{ series.embed_image }}" alt="series embed_image">
                 </picture>
-                <div class="btn-group btn" role="button" onclick=" location.href='/read/{{cate}}/{{series.slug}}' ">
-                  <!-- <a href="/read/{{cate}}/{{series.slug}}">Đọc ngay ››</a> -->
+                <div class="btn-group btn" role="button" onclick=" location.href='/read/series/{{series.slug}}' ">
+                  <!-- <a href="/read/series/{{series.slug}}">Đọc ngay ››</a> -->
                   <span>Đọc ngay ››</span>
                 </div>
                 <div class="btn-group justify-content-around">
@@ -46,7 +40,6 @@
           {% endfor %}
         </div>
       </div>
-    {% endfor %}
   </div>
 </main>
 

@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "user.apps.UserConfig",
     "misc.apps.MiscConfig",
-    'admin_interface',
     'colorfield',
     "registration",
     "django.contrib.admin",

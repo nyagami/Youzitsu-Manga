@@ -19,7 +19,7 @@ class HitCount(models.Model):
     hits = models.PositiveIntegerField(("Hits"), default=0)
 
 
-class Person(models.Model):
+class Creator(models.Model):
     name = models.CharField(max_length=200)
     japan_name = models.CharField(max_length=200, default=None, null=True, blank=True)
 
@@ -53,32 +53,18 @@ def new_volume_path_file_name(instance, filename):
     return os.path.join(new_volume_folder(instance), new_filename,)
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(blank=True)
-    index = models.PositiveSmallIntegerField(default=1)
-
-    def __str__(self) -> str:
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "Thể loại"
-        ordering = ("index",)
-
-
 class Series(models.Model):
     name = models.CharField(max_length=200, db_index=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True, related_name='category')
     slug = models.SlugField(unique=True, max_length=200)
     author = models.ForeignKey(
-        Person,
+        Creator,
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
         related_name="series_author",
     )
     artist = models.ForeignKey(
-        Person,
+        Creator,
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -137,7 +123,6 @@ class Series(models.Model):
 
     class Meta:
         ordering = ("name",)
-        verbose_name_plural = "Tác phẩm"
 
 
 class Volume(models.Model):

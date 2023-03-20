@@ -25,5 +25,11 @@ db.sqlite3
 #django migrations
 */migrations/*
 !*/migrations/__init__.py
+
+#statics
 media/
 /static
+
+#other
+init_note.txt
+UI_2_note.txt
