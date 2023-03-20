@@ -79,29 +79,11 @@ class Series(models.Model):
     next_release_html = models.TextField(blank=True, null=True)
     indexed = models.BooleanField(default=False)
     preferred_sort = models.CharField(max_length=200, blank=True, null=True)
-    scraping_enabled = models.BooleanField(default=False)
-    scraping_source = models.CharField(
-        max_length=2, choices=SCRAPING_SOURCES, default=MANGADEX
-    )
-    scraping_identifiers = models.TextField(blank=True, null=True)
     use_latest_vol_cover_for_embed = models.BooleanField(default=False)
     embed_image = models.ImageField(upload_to=embed_image_path, blank=True, null=True)
-    canonical_series_url_filler = models.CharField(
-        max_length=24,
-        blank=True,
-        null=True,
-        help_text="""Adds this text to the canonical url of the series' series page.
-                     Useful to avoid blacklists of... many varieties.""",
-    )
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        if self.canonical_series_url_filler:
-            return f"/read/series/{self.canonical_series_url_filler}/{self.slug}/"
-        else:
-            return f"/read/series/{self.slug}/"
 
     def get_latest_volume_cover_path(self):
         vols = Volume.objects.filter(series=self).order_by("-volume_number")
@@ -164,7 +146,6 @@ class Chapter(models.Model):
     )
     version = models.PositiveSmallIntegerField(blank=True, null=True, default=None)
     preferred_sort = models.CharField(max_length=200, blank=True, null=True)
-    scraper_hash = models.CharField(max_length=32, blank=True)
     reprocess_metadata = models.BooleanField(
         default=False,
         help_text="""Check this and save to recreate/reprocess other chapter data

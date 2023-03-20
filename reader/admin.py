@@ -47,9 +47,6 @@ class SeriesAdmin(admin.ModelAdmin):
     form = SeriesForm
     # readonly_fields = ("slug",)
     list_display = ("name",)
-    exclude = ('alternative_titles', 'next_release_page', 'next_release_time', 'next_release_html',
-               'preferred_sort', 'scraping_enabled', 'scraping_source', 'scraping_identifiers',
-               'canonical_series_url_filler',)
 
 
 admin.site.register(Series, SeriesAdmin)
