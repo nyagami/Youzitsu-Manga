@@ -32,6 +32,7 @@ admin.site.register(Creator)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name",)
 
+
 class GroupAdmin(admin.ModelAdmin):
     list_display = (
         "id",
