@@ -15,6 +15,8 @@ from reader.views import series_page_data
 
 from user.models import Profile
 
+from utils.models import Comment
+
 
 from .api import (
     all_groups,
@@ -318,3 +320,16 @@ def get_user_info(request):
             "avatar": str(profile.avatar),
         }
     return HttpResponse(json.dumps(context), content_type="application/json")
+
+
+def get_comments(request, article):
+    comments = Comment.objects.filter(article=article)
+    return comments
+
+
+def post_comment(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        parent = int(request.POST.get('parent'))
+        parent_comment = Comment.objects.get(id=parent)
+        Comment.objects.create(article=parent_comment.article)  # this still havent been implemented, just pass flake8
+        return HttpResponse(status=200)

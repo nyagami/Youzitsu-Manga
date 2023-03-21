@@ -25,5 +25,8 @@ class Profile(models.Model):
 
     mute = models.BooleanField(default=False, help_text="Mấy thằng này tốt nhất là nên nín =))")
 
+    def __str__(self) -> str:
+        return self.user.username
+
     class Meta:
         verbose_name_plural = "Hồ sơ"
