@@ -2417,6 +2417,20 @@ function UI_ReaderImageWrapper(o) {
 	this.S.proxyOut('imageHeight');
 }
 
+function UI_CommmentSection(o){
+	o=be(o);
+	UI.call(this, {
+		node: o.node,
+		kind: ['ReaderCommentSection'].concat(o.kind || []),
+	});
+	Linkable.call(this);
+	this.firstDraw = true;
+	this.imageContainer = new UI_Tabs({
+		node: this._.image_container,
+		held: true
+	})
+	this.wrappers = {};
+}
 
 function UI_ReaderNoticeWrapper(o) {
 	o=be(o);
