@@ -33,6 +33,7 @@
   <meta property="og:url" content="{{ absolute_url }}">
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="{% static 'external/css/pickr.nano@1-8-1.css' %}{{ version_query }}"/>
+  <link rel="stylesheet" href="{% static 'css/comment.css' %}{{ version_query }}">
   <link rel="canonical" href="{{ absolute_url }}" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}{{ version_query }}">
   <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
@@ -131,6 +132,7 @@
       </div>
       <div class="rdr-image-wrap" data-bind='image_container' tabindex="-1">
       </div>
+      {% include "comment.html" %}
       <div class="zoom-level refresh-chapter is-hidden" data-bind="random_chapter">
         <div class="refresh-chapter-note">This is the Blu-ray extras "random chapter".<br>Click this button to
           reshuffle the chapter.</div>
@@ -149,7 +151,6 @@
         </div>
       </div>
     </content>
-    {% include "comment.html" %}
     <div class="zoom-level vis" data-bind="zoom_level">
       <div class="ico-btn" data-bind="zoom_level_plus"></div>
       <div class="ico-btn" data-bind="zoom_level_minus"></div>

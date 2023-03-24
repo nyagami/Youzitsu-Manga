@@ -1134,6 +1134,7 @@ function UI_Reader(o) {
 		.attach('spreadCount', ['KeyU'], s => Settings.cycle('adv.spreadCount'))
 		.attach('spreadOffset', ['KeyI'], s => Settings.cycle('adv.spreadOffset'))
 		.attach('share', ['KeyR'], s => this.copyShortLink(s))
+		.attach('comment', ['KeyC'], s => this.openComments(s))
 		.attach('enter', ['Enter'], s => {
 			if(this.SCP.page == this.SCP.lastPage)
 				this.nextChapter();
@@ -1172,6 +1173,10 @@ function UI_Reader(o) {
 
 	this.imageView = new UI_ReaderImageView({
 		node: this._.image_viewer
+	}).S.link(this);
+
+	this.commentSection = new UI_CommmentSection({
+		node: this._.comment_section
 	}).S.link(this);
 
 	this.groupList = new UI_Tabs({
@@ -1410,7 +1415,6 @@ function UI_Reader(o) {
 		this.selector_page.clearPreload();
 		this.imageView.updateScrollPosition();
 		this.displayPage(page);
-		this._.comment_button.href = '/reader/series/' + this.SCP.series + '/' + this.SCP.chapter + '/' + this.current.chapters[this.SCP.chapter].images[1].length
 		this.plusOne();
 		return this;
 	}
@@ -1552,9 +1556,9 @@ function UI_Reader(o) {
 		});
 	}
 
-	this.openComments = function() {
-		if(this.SCP.series && this.SCP.chapter !== undefined)
-			window.location.href = '/read/manga/' + this.SCP.series + '/' + this.SCP.chapter;
+	this.openComments = function(e) {
+		if(this.commentSection.active) this.commentSection.close();
+		else this.commentSection.open();
 	}
 
 	this.setLayout = (layout, silent) => {
@@ -1712,6 +1716,7 @@ function UI_Reader(o) {
 	this._.zoom_level_plus.onmousedown = e => Settings.next('lyt.zoom', undefined, true);
 	this._.zoom_level_minus.onmousedown = e => Settings.prev('lyt.zoom', undefined, true);
 	this._.share_button.onmousedown = e => this.copyShortLink(e);
+	this._.comment_button.onmousedown = e => this.openComments(e);
 	this._.search.onclick = e => Loda.display('search');
 	this._.jump.onclick = e => Loda.display('jump');
 	this._.download_chapter.onclick = () => DownloadManagerObj.downloadChapter();
@@ -2424,12 +2429,19 @@ function UI_CommmentSection(o){
 		kind: ['ReaderCommentSection'].concat(o.kind || []),
 	});
 	Linkable.call(this);
-	this.firstDraw = true;
-	this.imageContainer = new UI_Tabs({
-		node: this._.image_container,
-		held: true
-	})
-	this.wrappers = {};
+	this.active = false;
+
+	this.close = () => {
+		this.active = false;
+		console.log("close");
+	};
+
+	this.open = () => {
+		this.active = true;
+		console.log("open");
+	}
+
+	this.close();
 }
 
 function UI_ReaderNoticeWrapper(o) {
