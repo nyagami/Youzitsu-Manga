@@ -1745,7 +1745,7 @@ function UI_Reader(o) {
 		.attach(this._.spread_button, 'Chế độ 2 trang [Q]')
 		.attach(this._.settings_button, 'Cài đặt nâng cao [O]')
 		.attach(this._.download_chapter, 'Tải chương')
-		.attach(this._.comment_button, 'Đi đến phần bình luận [C]')
+		.attach(this._.comment_button, 'Mở phần bình luận [C]')
 		// .attach(this._.fit_none, 'Images are displayed in natural resolution.')
 		// .attach(this._.fit_all, 'Images expand to width or height.')
 		// .attach(this._.fit_width, 'Images expand to max width.')
@@ -2266,7 +2266,7 @@ const SCROLL_X = 3;
 			return;
 		}
 		if(e.button != 0) return;
-		if(Settings.get('bhv.clickTurnPage') === false) return;
+		if(Settings.get('bhv.clickTurnPage') === false || Reader.commentSection.active) return;
 	var box = this.$.getBoundingClientRect();
 	var areas = [
 			0,
@@ -2433,15 +2433,13 @@ function UI_CommmentSection(o){
 
 	this.close = () => {
 		this.active = false;
-		console.log("close");
+		this.$.classList.add('hidden');
 	};
 
 	this.open = () => {
 		this.active = true;
-		console.log("open");
+		this.$.classList.remove('hidden');
 	}
-
-	this.close();
 }
 
 function UI_ReaderNoticeWrapper(o) {

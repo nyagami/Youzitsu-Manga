@@ -1,3 +1,15 @@
-<div class="comment-wrap" data-bind="comment_section">
-    Bình luận
+<div class="comment-wrap hidden" data-bind="comment_section">
+    {% load mptt_tags %}
+    <ul>
+        {% recursetree comments %}
+        <li>
+            {{ node.author.display_name }} {{ node.content }}
+            {% if not node.is_leaf_node %}
+            <ul>
+                {{ children }}
+            </ul>
+            {% endif %}
+        </li>
+        {% endrecursetree %}
+    </ul>
 </div>

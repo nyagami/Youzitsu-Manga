@@ -17,6 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .middleware import OnlineNowMiddleware
 from .models import Chapter, HitCount, Series, Volume
 from .users_cache_lib import get_user_ip
+from utils.models import Comment
 
 
 @csrf_exempt
@@ -215,6 +216,7 @@ def get_all_metadata(request, series_slug):
 @decorator_from_middleware(OnlineNowMiddleware)
 def reader(request, series_slug, chapter, page=None):
     if page:
+        comments = Comment.objects._mptt_filter(article='c:test')
         data = get_all_metadata(request, series_slug)
         if chapter in data:
             data[chapter]["relative_url"] = f"read/manga/{series_slug}/{chapter}/1"
@@ -224,6 +226,7 @@ def reader(request, series_slug, chapter, page=None):
             data[chapter]["first_party"] = True
             data[chapter]["indexed"] = data["indexed"]
             data[chapter]["embed_image"] = data["embed_image"]
+            data[chapter]["comments"] = comments
             return render(request, "reader/reader.html", data[chapter])
         else:
             return render(request, "homepage/404_page.html", status=404)
