@@ -45,6 +45,7 @@
   const IS_FIRST_PARTY = {{ first_party|yesno:"true,false,false" }};
   const IS_INDEXED = {{ indexed|yesno:"true,false,false" }};
   const IMAGE_PROXY_URL = "{{ image_proxy_url }}";
+  const authenticated = "{{ request.user.is_authenticated }}" === 'True';
 </script>
 
 <body>
@@ -167,6 +168,7 @@
 <script type="text/javascript" src="{% static 'js/ResizeSensor.js' %}{{ version_query }}"></script>
 <script type="text/javascript" src="{% static 'js/alg_lib.js' %}{{ version_query }}"></script>
 <script type="text/javascript" src="{% static 'js/UI2.js' %}{{ version_query }}"></script>
+<script type="text/javascript" src="{% static 'js/customCore.js' %}{{ version_query }}"></script>
 <script type="text/javascript" src="{% static 'js/init.js' %}{{ version_query }}"></script>  
 <script type="text/javascript">
   // History tagging
