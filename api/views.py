@@ -9,12 +9,13 @@ from django.core.cache import cache
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ValidationError
 
 from reader.models import Chapter, ChapterIndex, Group, Series, Volume
 from reader.views import series_page_data
 
 from user.models import Profile
-
+from colorfield.fields import color_hex_validator
 from utils.models import Comment
 
 
@@ -322,14 +323,49 @@ def get_user_info(request):
     return HttpResponse(json.dumps(context), content_type="application/json")
 
 
-def get_comments(request, article):
-    comments = Comment.objects.filter(article=article)
-    return comments
-
-
 def post_comment(request):
     if request.method == 'POST' and request.user.is_authenticated:
         parent = int(request.POST.get('parent'))
         parent_comment = Comment.objects.get(id=parent)
         Comment.objects.create(article=parent_comment.article)  # this still havent been implemented, just pass flake8
         return HttpResponse(status=200)
+
+
+@csrf_exempt
+def update_theme(request):
+    if request.user.is_authenticated is False or request.method != 'POST':
+        return HttpResponse(json.dumps({"response": "làm cái gì thế ?"}), content_type="application/json", status=401)
+
+    profile = Profile.objects.get(user=request.user)
+    theme = request.POST['theme']
+    primary_color = request.POST.get('primary_color')
+    text_color = request.POST.get('text_color')
+    accent_color = request.POST.get('accent_color')
+    reader_background = request.POST.get('reader_background')
+
+    try:
+        Profile.valid_theme(theme)
+        color_hex_validator(primary_color)
+        color_hex_validator(text_color)
+        color_hex_validator(accent_color)
+        color_hex_validator(reader_background)
+    except ValidationError:
+        return HttpResponse(json.dumps({"response": "invalid values"}), content_type="application/json", status=406)
+
+    profile.theme = theme
+    profile.primary_color = primary_color
+    profile.text_color = text_color
+    profile.accent_color = accent_color
+    profile.reader_background = reader_background
+    profile.save()
+    return HttpResponse(json.dumps({"response": "success"}), content_type="application/json", status=200)
+
+
+@csrf_exempt
+def reset_theme(request):
+    if request.user.is_authenticated is False or request.method != 'POST':
+        return HttpResponse(json.dumps({"response": "làm cái gì thế ?"}), content_type="application/json", status=401)
+
+    profile = Profile.objects.get(user=request.user)
+    profile.reset_theme()
+    return HttpResponse(json.dumps({"response": "success"}), content_type="application/json", status=200)

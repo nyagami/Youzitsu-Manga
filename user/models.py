@@ -1,6 +1,7 @@
 import os
 
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
 from colorfield.fields import ColorField
@@ -18,8 +19,8 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to=avatar_image_path, blank=True)
     description = models.TextField(verbose_name="Mô tả", max_length=500, blank=True)
 
-    theme = models.CharField("Giao diện", max_length=50, default='Dark', )
-    interface_color = ColorField(default='#3A3F44')
+    theme = models.CharField("Giao diện", max_length=50, default='Dark')
+    primary_color = ColorField(default='#3A3F44')
     text_color = ColorField(default='#272B30')
     accent_color = ColorField(default='#B2DFFB')
     reader_background = ColorField(default='#EEEEEE')
@@ -32,5 +33,15 @@ class Profile(models.Model):
     class Meta:
         verbose_name_plural = "Hồ sơ"
 
-    def valid_theme(theme: str):
-        return theme in ['Dark', 'Reaper', 'Zaibatsu', 'Light', 'Custom']
+    @classmethod
+    def valid_theme(self, theme: str):
+        if theme not in ['Dark', 'Reaper', 'Zaibatsu', 'Light', 'Custom']:
+            raise ValidationError
+
+    def reset_theme(self):
+        self.theme = 'Custom'
+        self.primary_color = '#3A3F44'
+        self.text_color = '#B2DFFB'
+        self.accent_color = '#B2DFFB'
+        self.reader_background = '#EEEEEE'
+        self.save()
