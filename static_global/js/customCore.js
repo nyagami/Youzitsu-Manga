@@ -1,12 +1,17 @@
 function ThemeCore(){
-    this.themeUpdated = () => {
-        let reset = false;
-        let theme = 'Dark';
-        if(Settings){
+    this.themeUpdated = (reset, theme) => {
+		if(Settings){
             reset = Settings.get('thm.reset');
             theme = Settings.get('thm.theme');
         }
-		if(theme === 'Custom')	this.setTheme(Settings.get('thm.primaryCol'), Settings.get('thm.readerBg'), Settings.get('thm.accentCol'), Settings.get('thm.textCol'));
+
+		if(theme === 'Custom'){
+			if(Settings){
+				this.setTheme(Settings.get('thm.primaryCol'), Settings.get('thm.readerBg'), Settings.get('thm.accentCol'), Settings.get('thm.textCol'));
+			}else{
+				this.setTheme(user_primary_color, user_reader_background, user_accent_color, user_text_color);
+			}
+		}
 		else if (theme === 'Dark')	this.setTheme('#3a3f44', '#272b30', '#b2dffb','#eeeeee');
 		else if (theme === 'Reaper') this.setTheme('#272836', '#121223', '#487DE4', '#EEEEEE');
 		else if (theme === 'Zaibatsu') this.setTheme('#1D1D1D', '#000000', '#BA1F1F', '#EEEEEE');
@@ -51,10 +56,10 @@ function ThemeCore(){
 			}else{
 				document.documentElement.style.setProperty("--rescueShade", '0px 1px 1px rgba(255,255,255,0.6),0px -1px 1px rgba(255,255,255,0.6),-1px 0px 1px rgba(255,255,255,0.6),1px 0px 1px rgba(255,255,255,0.6)');
 			}
-			Tooltippy.set('Contrast ratio too low, safety outline enabled.')
+			if(Tooltippy) Tooltippy.set('Contrast ratio too low, safety outline enabled.')
 		}else{
 			document.documentElement.style.setProperty("--rescueShade", 'unset');
-			Tooltippy.reset();
+			if(Tooltippy) Tooltippy.reset();
 		}
 
 		[r, g, b] = hexToRgb(reader);
@@ -74,13 +79,42 @@ function ThemeCore(){
 	}
 
 	this.resetCustom = () => {
-		Settings.set('thm.reset', false);
-		if(Settings.get('thm.theme') === 'Custom') {
-			Settings.set('thm.primaryCol', '#3A3F44');
-			Settings.set('thm.readerBg', '#272B30');
-			Settings.set('thm.accentCol', '#B2DFFB');
-			Settings.set('thm.textCol', '#EEEEEE');
+		if(Settings){
+			Settings.set('thm.reset', false);
+			if(Settings.get('thm.theme') === 'Custom') {
+				Settings.set('thm.primaryCol', '#3A3F44');
+				Settings.set('thm.readerBg', '#272B30');
+				Settings.set('thm.accentCol', '#B2DFFB');
+				Settings.set('thm.textCol', '#EEEEEE');
+			}
+		}else{
+			user_primary_color = '#3A3F44';
+			user_reader_background = '#272B30';
+			user_accent_color = '#B2DFFB';
+			user_text_color = '#EEEEEE';
 		}
+	}
+
+	this.post = (reset, theme) => {
+		if(!is_authenticated) return;
+		const formBody = new FormData();
+		formBody.append("reset", reset);
+		formBody.append("theme", theme);
+		if(Settings){
+			formBody.append("primary_color", Settings.get('thm.primaryCol'));
+			formBody.append("text_color", Settings.get('thm.textCol'));
+			formBody.append("accent_color", Settings.get('thm.accentCol'));
+			formBody.append("reader_background", Settings.get('thm.readerBg'));
+		}else{
+			formBody.append("primary_color", user_primary_color);
+			formBody.append("text_color", user_text_color);
+			formBody.append("accent_color", user_accent_color);
+			formBody.append("reader_background", user_reader_background);
+		}
+		fetch("/api/reset_theme",{
+			method: "POST",
+			body: formBody,
+		}).then(res => res.json()).then(status => console.log(status));
 	}
 }
 
@@ -88,7 +122,7 @@ function Serialization(){
 	this.all = {};
 
 	this.deserialize = () => {
-		if(!localStorage) return;
+		if(!localStorage) return {};
 		var settings = localStorage.getItem('settings');
 		try{
 			if(!settings) throw 'No settings';
@@ -96,10 +130,18 @@ function Serialization(){
 			if(settings.VER && settings.VER != this.ver) {
 				throw 'Settings ver changed';
 			}
+			if(is_authenticated){
+				settings['thm.theme'] = user_theme;
+				settings['thm.primaryCol'] = user_primary_color;
+				settings['thm.textCol'] = user_text_color;
+				settings['thm.accentCol'] = user_accent_color;
+				settings['thm.readerBg'] = user_reader_background;
+			}
 			for(var setting in settings) {
 				if(setting == 'VER') continue;
 				if(this.set) this.set(setting, settings[setting], true);
-				else this.all[setting] = settings[setting];	// should confuse people =))
+				else this.all[setting] = settings[setting];
+				// should confuse people =))
 			}
 			return settings;
 		}catch (e){
@@ -113,7 +155,6 @@ function Serialization(){
 
 	this.serialize = function() {
 		var settings = {};
-
 		// for site reader screen, settings are packet
 		for(var setting in this.all) {
 			if(this.all[setting].set) settings[setting] = this.all[setting].get();

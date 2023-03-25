@@ -39,7 +39,6 @@ class Profile(models.Model):
             raise ValidationError
 
     def reset_theme(self):
-        self.theme = 'Custom'
         self.primary_color = '#3A3F44'
         self.text_color = '#B2DFFB'
         self.accent_color = '#B2DFFB'

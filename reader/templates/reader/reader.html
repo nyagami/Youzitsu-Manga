@@ -45,7 +45,12 @@
   const IS_FIRST_PARTY = {{ first_party|yesno:"true,false,false" }};
   const IS_INDEXED = {{ indexed|yesno:"true,false,false" }};
   const IMAGE_PROXY_URL = "{{ image_proxy_url }}";
-  const authenticated = "{{ request.user.is_authenticated }}" === 'True';
+  const is_authenticated = "{{ request.user.is_authenticated }}" === 'True';
+  const user_theme = "{{ request.user.profile.theme }}";
+  const user_primary_color = "{{ request.user.profile.primary_color }}";
+  const user_text_color = "{{ request.user.profile.text_color }}";
+  const user_accent_color = "{{ request.user.profile.accent_color }}";
+  const user_reader_background = "{{ request.user.profile.reader_background }}";
 </script>
 
 <body>

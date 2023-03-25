@@ -8,27 +8,28 @@
     font-style: normal;
 }
 
+/* Variables, dependent on theme */
 :root {
-    --readerBg: black;
+    --readerBg: #272b30;
     --sidebarCol: #3a3f44;
-    --accentCol: #ce2e51aa;
+    --accentCol: #b2dffb;
     --icoCol: #eee;
-    --textCol: rgb(255, 255, 255);
+    --textCol: #ddd;
     --sidebarColDark: #2b2f33;
+    --sidebarColDarkA: #2b2f3300;
     --prevCol: #34393d;
-    --accentSelected: #ca4360;
-    --accentSelectedInvert: hsl(186, 79%, 66%);
+    --accentSelected: #ffffff;
+    --accentSelectedInvert: #333333;
     --sidebarColFocus: rgba(0, 0, 0, 0.3);
-    --borderColor: rgba(0, 0, 0, 0.7);
-    --shadowBoxColor: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
-    --blackFlag: rgb(28, 28, 28);
-    --blackLight: rgb(52, 52, 52);
+    --borderColor: rgba(0,0,0,0.7);
+    --blackFlag: rgba(0,0,0,0.7);
+    --blackLight: rgba(0,0,0,0.2);
     /* One time use */
     --rdrBorderL: 1px;
     --rdr-wb: 2px;
-    --rdrAncBottomWhite: rgba(255, 255, 255, 0.35);
+    --rdrAncBottomWhite: rgba(255,255,255,0.35);
     --rescueShade: unset;
-}
+    }
 
 * {
     box-sizing: border-box;

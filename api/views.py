@@ -337,12 +337,12 @@ def update_theme(request):
         return HttpResponse(json.dumps({"response": "làm cái gì thế ?"}), content_type="application/json", status=401)
 
     profile = Profile.objects.get(user=request.user)
-    theme = request.POST['theme']
+    theme = request.POST.get('theme')
+    reset = request.POST.get('reset')
     primary_color = request.POST.get('primary_color')
     text_color = request.POST.get('text_color')
     accent_color = request.POST.get('accent_color')
     reader_background = request.POST.get('reader_background')
-
     try:
         Profile.valid_theme(theme)
         color_hex_validator(primary_color)
@@ -357,15 +357,7 @@ def update_theme(request):
     profile.text_color = text_color
     profile.accent_color = accent_color
     profile.reader_background = reader_background
+    if reset:
+        profile.reset_theme()
     profile.save()
-    return HttpResponse(json.dumps({"response": "success"}), content_type="application/json", status=200)
-
-
-@csrf_exempt
-def reset_theme(request):
-    if request.user.is_authenticated is False or request.method != 'POST':
-        return HttpResponse(json.dumps({"response": "làm cái gì thế ?"}), content_type="application/json", status=401)
-
-    profile = Profile.objects.get(user=request.user)
-    profile.reset_theme()
     return HttpResponse(json.dumps({"response": "success"}), content_type="application/json", status=200)

@@ -482,7 +482,7 @@ function SettingsHandler(){
 			this.refreshAll(); //opt - update only linked setting
 			if(localStorage)
 				localStorage.setItem('settings', this.serialize())
-				this.S.out('message', e.setting.getHelp());
+			this.S.out('message', e.setting.getHelp());
 		}
 		// if(e.silent != true) {
 		// 	if(!e.notip)

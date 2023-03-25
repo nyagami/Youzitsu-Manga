@@ -8,6 +8,7 @@
 	<link defer rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}{{ version_query }}">
 	<link rel="stylesheet" href="{% static 'css/index.css' %}{{ version_query }}">
 	<script src="https://kit.fontawesome.com/75d6000ca7.js" crossorigin="anonymous"></script>
+	<script src="{% static 'js/customCore.js' %}{{ version_query}}"></script>
 	<script src="{% static 'js/jquery.min.js' %}{{ version_query }}"></script>
 	<script src="{% static 'js/alg_lib.js' %}{{ version_query }}"></script>
 	<script defer src="{% static 'js/bootstrap.min.js' %}{{ version_query }}"></script>
@@ -236,6 +237,31 @@
 				}
 			}
 		}
+		const is_authenticated = "{{ request.user.is_authenticated }}" === "True";
+		const themeCore = new ThemeCore();
+		const serialization = new Serialization();
+		serialization.ver = '0.79';
+		var user_theme = "Dark";
+		var user_primary_color = "#3a3f44";
+		var user_text_color = "#ddd";
+		var user_text_color = "#b2dffb";
+		var user_reader_background = "#272b30";
+		if(is_authenticated){
+			user_theme = "{{ request.user.profile.theme }}";
+			user_primary_color = "{{ request.user.profile.primary_color }}";
+			user_text_color = "{{ request.user.profile.text_color }}";
+			user_accent_color = "{{ request.user.profile.accent_color }}";
+			user_reader_background = "{{ request.user.profile.reader_background }}";
+		}
+		var settings = serialization.deserialize();
+		if(settings['thm.theme']) user_theme = settings['thm.theme'];
+		if(settings['thm.primaryCol']) user_theme = settings['thm.primaryCol'];
+		if(settings['thm.textCol']) user_theme = settings['thm.textCol'];
+		if(settings['thm.accentCol']) user_theme = settings['thm.accentCol'];
+		if(settings['thm.readerBg']) user_theme = settings['thm.readerBg'];
+		const Settings = undefined;
+		const Tooltippy = undefined;
+		themeCore.themeUpdated(false, user_theme);
 	</script>
 	<script type="text/javascript">
 		searchButton = $('#search_btn');
