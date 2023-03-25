@@ -18,10 +18,11 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to=avatar_image_path, blank=True)
     description = models.TextField(verbose_name="Mô tả", max_length=500, blank=True)
 
-    interface_color = ColorField(default='#FF0000')
-    text_color = ColorField(default='#FF0000')
-    accent_color = ColorField(default='#FF0000')
-    reader_background = ColorField(default='#FF0000')
+    theme = models.CharField("Giao diện", max_length=50, default='Dark', )
+    interface_color = ColorField(default='#3A3F44')
+    text_color = ColorField(default='#272B30')
+    accent_color = ColorField(default='#B2DFFB')
+    reader_background = ColorField(default='#EEEEEE')
 
     mute = models.BooleanField(default=False, help_text="Mấy thằng này tốt nhất là nên nín =))")
 
@@ -30,3 +31,6 @@ class Profile(models.Model):
 
     class Meta:
         verbose_name_plural = "Hồ sơ"
+
+    def valid_theme(theme: str):
+        return theme in ['Dark', 'Reaper', 'Zaibatsu', 'Light', 'Custom']
