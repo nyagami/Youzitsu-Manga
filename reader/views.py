@@ -212,7 +212,6 @@ def get_all_metadata(request, series_slug):
     return series_metadata
 
 
-@cache_control(public=True, max_age=30, s_maxage=30)
 @decorator_from_middleware(OnlineNowMiddleware)
 def reader(request, series_slug, chapter, page=None):
     if page:
