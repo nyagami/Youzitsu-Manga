@@ -1,10 +1,10 @@
 function ThemeCore(){
+	this.postTimeout = undefined;
     this.themeUpdated = (reset, theme) => {
 		if(Settings){
-            reset = Settings.get('thm.reset');
+			reset = Settings.get('thm.reset');
             theme = Settings.get('thm.theme');
         }
-
 		if(theme === 'Custom'){
 			if(Settings){
 				this.setTheme(Settings.get('thm.primaryCol'), Settings.get('thm.readerBg'), Settings.get('thm.accentCol'), Settings.get('thm.textCol'));
@@ -95,10 +95,9 @@ function ThemeCore(){
 		}
 	}
 
-	this.post = (reset, theme) => {
+	this.post = (theme) => {
 		if(!is_authenticated) return;
 		const formBody = new FormData();
-		formBody.append("reset", reset);
 		formBody.append("theme", theme);
 		if(Settings){
 			formBody.append("primary_color", Settings.get('thm.primaryCol'));
@@ -111,10 +110,15 @@ function ThemeCore(){
 			formBody.append("accent_color", user_accent_color);
 			formBody.append("reader_background", user_reader_background);
 		}
-		fetch("/api/reset_theme",{
-			method: "POST",
-			body: formBody,
-		}).then(res => res.json()).then(status => console.log(status));
+		clearTimeout(this.postTimeout);
+		this.postTimeout = setTimeout(
+			() => fetch("/api/update_theme/",{
+				method: "POST",
+				body: formBody,
+			}).then(res => res.json()).then(status => console.log(status)),
+			1500
+		);
+		// we dont want a self-Ddos :))
 	}
 }
 

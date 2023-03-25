@@ -2600,7 +2600,7 @@ function UI_MessageBox(o) {
 	Linkable.call(this);
 
 	this.allowedStyles = ['flash', 'fade', 'slide', 'none']
-	this.fadeTime = 500;
+	this.fadeTime = 1000;
 
 	this.timers = [];
 
@@ -2744,6 +2744,10 @@ function UI_LodaManager(o) {
 	}
 
 	this.close = function() {
+		if(this.currentLoda == 'settings'){
+			ThemeManager.post(Settings.get('thm.theme'));
+			// when everything is done, post save;
+		}
 		this.$.classList.add('hidden');
 		this.$.innerHTML = '';
 		Reader.$.focus();

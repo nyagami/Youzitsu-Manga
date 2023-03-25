@@ -9,7 +9,6 @@ from django.core.cache import cache
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ValidationError
 
 from reader.models import Chapter, ChapterIndex, Group, Series, Volume
 from reader.views import series_page_data
@@ -338,7 +337,6 @@ def update_theme(request):
 
     profile = Profile.objects.get(user=request.user)
     theme = request.POST.get('theme')
-    reset = request.POST.get('reset')
     primary_color = request.POST.get('primary_color')
     text_color = request.POST.get('text_color')
     accent_color = request.POST.get('accent_color')
@@ -349,7 +347,7 @@ def update_theme(request):
         color_hex_validator(text_color)
         color_hex_validator(accent_color)
         color_hex_validator(reader_background)
-    except ValidationError:
+    except Exception:
         return HttpResponse(json.dumps({"response": "invalid values"}), content_type="application/json", status=406)
 
     profile.theme = theme
@@ -357,7 +355,5 @@ def update_theme(request):
     profile.text_color = text_color
     profile.accent_color = accent_color
     profile.reader_background = reader_background
-    if reset:
-        profile.reset_theme()
     profile.save()
     return HttpResponse(json.dumps({"response": "success"}), content_type="application/json", status=200)

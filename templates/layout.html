@@ -255,10 +255,10 @@
 		}
 		var settings = serialization.deserialize();
 		if(settings['thm.theme']) user_theme = settings['thm.theme'];
-		if(settings['thm.primaryCol']) user_theme = settings['thm.primaryCol'];
-		if(settings['thm.textCol']) user_theme = settings['thm.textCol'];
-		if(settings['thm.accentCol']) user_theme = settings['thm.accentCol'];
-		if(settings['thm.readerBg']) user_theme = settings['thm.readerBg'];
+		if(settings['thm.primaryCol']) user_primary_color = settings['thm.primaryCol'];
+		if(settings['thm.textCol']) user_text_color = settings['thm.textCol'];
+		if(settings['thm.accentCol']) user_accent_color = settings['thm.accentCol'];
+		if(settings['thm.readerBg']) user_reader_background = settings['thm.readerBg'];
 		const Settings = undefined;
 		const Tooltippy = undefined;
 		themeCore.themeUpdated(false, user_theme);
