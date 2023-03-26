@@ -1,9 +1,13 @@
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/comment.css' %}{{ version_query }}">
+</head>
 <div class="comment-wrap hidden" data-bind="comment_section">
     {% load mptt_tags %}
     <ul>
         {% recursetree comments %}
         <li>
-            {{ node.author.display_name }} {{ node.content }}
+            {{ node.author.display_name }} {{ node.content }} deepth: {{ node.deepth}}
             {% if not node.is_leaf_node %}
             <ul>
                 {{ children }}
