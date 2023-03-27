@@ -29,10 +29,8 @@ def admin_home(request):
     )
 
 
-@cache_control(public=True, max_age=300, s_maxage=300)
 @decorator_from_middleware(OnlineNowMiddleware)
 def home(request):
-    all_series = Series.objects.all()
     return render(
         request,
         "homepage/homepage.html",
@@ -44,8 +42,6 @@ def home(request):
             "page_title": "Chào mừng đến lớp học đề cao thực lực",
             "template": "home",
             "version_query": settings.STATIC_VERSION,
-            # "user": request.user,
-            "all_series": all_series,
             "media_url": settings.MEDIA_URL,
         },
     )
@@ -69,14 +65,14 @@ def about(request):
 @decorator_from_middleware(ForwardParametersMiddleware)
 def main_series_chapter(request, chapter):
     return redirect(
-        "reader-manga-chapter", "manga-nam-nhat", chapter, "1"
+        "reader-manga-chapter", "manga-nam-hai", chapter, "1"
     )
 
 
 @decorator_from_middleware(ForwardParametersMiddleware)
 def main_series_page(request, chapter, page):
     return redirect(
-        "reader-manga-chapter", "manga-nam-nhat", chapter, page
+        "reader-manga-chapter", "manga-nam-hai", chapter, page
     )
 
 
@@ -86,12 +82,12 @@ def latest(request):
     if not latest_chap:
         latest_chap = (
             Chapter.objects.order_by("-chapter_number")
-            .filter(series__slug="manga-nam-nhat")[0]
+            .filter(series__slug="manga-nam-hai")[0]
             .slug_chapter_number()
         )
         cache.set("latest_chap", latest_chap, 3600 * 96)
     return redirect(
-        "reader-manga-chapter", "manga-nam-nhat", latest_chap, "1"
+        "reader-manga-chapter", "manga-nam-hai", latest_chap, "1"
     )
 
 

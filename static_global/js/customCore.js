@@ -116,7 +116,7 @@ function ThemeCore(){
 				method: "POST",
 				body: formBody,
 			}).then(res => res.json()).then(status => console.log(status)),
-			1500
+			1000
 		);
 		// we dont want a self-Ddos :))
 	}

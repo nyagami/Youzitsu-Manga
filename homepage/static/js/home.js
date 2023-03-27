@@ -1,15 +1,38 @@
-const volumes_container = document.getElementsByClassName("volumes-container")
-for(let i = 0; i < volumes_container.length; i++){
-    fetch(`/api/get_volumes_by_series_slug/${volumes_container[i].title}/`).then(req => req.json()).then(list => {
-        const volumes_list = list['volumes_list']
-        let ul = `<ul>`;
-        volumes_list.forEach((data) => {
-            style = "";
-            ul += `<li class="volume-item text-uppercase" role="button" onclick="location.href='/read/manga/${volumes_container[i].title}/#volume-${data['number']}'" style="border: solid 1.5px ${data['color']};">
-                    vol ${data['number']}
-                   </li>`;
-        })
-        ul += `</ul>`;
-        volumes_container[i].innerHTML = ul;
-    })
-}
+fetch('/api/get_all_series/')
+.then(res => res.json())
+.then(all_series => {
+    for(let series in all_series){
+        const manga = all_series[series];
+        html = `
+        <div class="series-card">
+            <picture class="d-block">
+                <img src="${manga.cover}" alt="series embed_image">
+            </picture>
+            <div class="btn-group btn" role="button" onclick=" location.href='/read/series/${manga.slug}' ">
+                <span>Đọc ngay ››</span>
+            </div>
+            <div class="btn-group justify-content-around">
+                <div class="react"><span><i class="fas fa-heart"></i></span></div>
+                <div class="react"><span><i class="fas fa-share-square"></i></span></div>
+                <div class="react"><span><i class="fas fa-award"></i></span></div>
+            </div>
+        </div>
+        <div class="series-content">
+            <div class="series-title"><b>${series}</b></div>
+            <div class="volumes-container" title="${manga.slug}">
+                <ul>
+                ${manga.volumes.reduce((prev, vol) => {
+                    const style = `border: solid 1.5px ${vol.color};`;
+                    const li = `
+                    <li class="volume-item text-uppercase" role="button" onclick="location.href='/read/manga/${manga.slug}/#volume-${vol.num}'" style = "${style}">
+                        vol ${vol.num}
+                    </li>`;
+                    return prev + li;
+                }, '')}
+                </ul>
+            </div>
+        </div>
+        `;
+        $(`#${manga.slug}`).html(html);
+    }
+})

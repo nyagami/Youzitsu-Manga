@@ -7,40 +7,10 @@
 
 <main id="home">
   <div class="all-series-container">
-      <div class="group_series-container">
-        <div class="pair-series">
-          {% for series in all_series %}
-            <div class="series-container">
-              <div class="series-card">
-                <picture class="d-block">
-                  <img src="{{media_url}}/{{ series.embed_image }}" alt="series embed_image">
-                </picture>
-                <div class="btn-group btn" role="button" onclick=" location.href='/read/series/{{series.slug}}' ">
-                  <!-- <a href="/read/series/{{series.slug}}">Đọc ngay ››</a> -->
-                  <span>Đọc ngay ››</span>
-                </div>
-                <div class="btn-group justify-content-around">
-                  <div class="react">
-                    <span><i class="fas fa-heart"></i></span>
-                  </div>
-                  <div class="react">
-                    <span><i class="fas fa-share-square"></i></span>
-                  </div>
-                  <div class="react">
-                    <span><i class="fas fa-award"></i></span>
-                  </div>
-                </div>
-              </div>
-              <div class="series-content">
-                <div class="series-title"><b>{{ series.name }}</b></div>
-                <div class="volumes-container" title="{{series.slug}}">
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-  </div>
+    <div class="pair-series">
+      <div class="series-container" id="manga-nam-nhat"></div>
+      <div class="series-container" id="manga-nam-hai"></div>
+    </div>
 </main>
 
 <script type="text/javascript" src="{% static 'js/home.js' %}{{ version_query }}"></script>

@@ -53,11 +53,12 @@ def get_all_series(request):
         all_series_data = {}
         for series in all_series:
             vols = Volume.objects.filter(series=series).order_by("-volume_number")
-            cover_vol_url = ""
-            for vol in vols:
-                if vol.volume_cover:
-                    cover_vol_url = f"/media/{vol.volume_cover}"
-                    break
+            cover_url = f"/media/{series.embed_image}"
+            if series.use_latest_vol_cover_for_embed:
+                for vol in vols:
+                    if vol.volume_cover:
+                        cover_url = f"/media/{vol.volume_cover}"
+                        break
             chapters = Chapter.objects.filter(series=series)
             last_updated = None
             for ch in chapters:
@@ -68,11 +69,12 @@ def get_all_series(request):
                 "artist": series.artist.name,
                 "description": series.synopsis,
                 "slug": series.slug,
-                "cover": cover_vol_url,
+                "cover": cover_url,
                 "groups": all_groups(),
                 "last_updated": int(datetime.timestamp(last_updated))
                 if last_updated
                 else 0,
+                "volumes": [{"num": vol.volume_number, "color": vol.color_theme} for vol in vols],
             }
         cache.set("all_series_data", all_series_data, 3600 * 12)
     return HttpResponse(json.dumps(all_series_data), content_type="application/json")

@@ -160,7 +160,6 @@ def series_page_data(request, series_slug):
     return series_page_dt
 
 
-@cache_control(public=True, max_age=60, s_maxage=60)
 @decorator_from_middleware(OnlineNowMiddleware)
 def series_info(request, series_slug):
     data = series_page_data(request, series_slug)
@@ -168,7 +167,6 @@ def series_info(request, series_slug):
     return render(request, "reader/series.html", data)
 
 
-@cache_control(public=True, max_age=60, s_maxage=60)
 @decorator_from_middleware(OnlineNowMiddleware)
 def series_info_canonical(request, url_str, series_slug):
     series = get_object_or_404(Series, slug=series_slug)
@@ -179,7 +177,6 @@ def series_info_canonical(request, url_str, series_slug):
 
 
 @staff_member_required
-@cache_control(public=True, max_age=60, s_maxage=60)
 @decorator_from_middleware(OnlineNowMiddleware)
 def series_info_admin(request, series_slug):
     data = series_page_data(request, series_slug)
