@@ -9,7 +9,7 @@ from django.views.decorators.cache import cache_control
 
 from homepage.middleware import ForwardParametersMiddleware
 from reader.middleware import OnlineNowMiddleware
-from reader.models import Series, Chapter
+from reader.models import Chapter
 
 
 @staff_member_required
