@@ -58,6 +58,10 @@ a.regis-link:hover{
     text-decoration: underline;
 }
 
+.icon{
+    color: var(--icoCol);
+}
+
 main {
     margin-top: 5rem;
 }
@@ -84,7 +88,7 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: var(--blackFlag);
+    background: var(--sidebarCol);
 }
 
 /* Handle */
@@ -129,8 +133,7 @@ nav ul.nav-list {
     height: 4rem;
     margin: 0;
     display: flex;
-    box-shadow: 0 1px 8px rgba(175, 32, 32, 0.7);
-    background-color: var(--readerBg);
+    background-color: var(--sidebarCol);
 }
 
 nav ul.nav-list li {
@@ -150,8 +153,6 @@ nav ul li #search_btn {
     transition: 0.5s;
 }
 
-#search_btn {}
-
 #search_btn i {
     position: absolute;
     z-index: 1;
@@ -160,7 +161,7 @@ nav ul li #search_btn {
     padding: 1rem;
     top: 0;
     left: 0;
-    background-color: var(--blackFlag);
+    background-color: var(--sidebarColDark);
     border-radius: 1.5rem;
     transition: 1s;
 }
@@ -172,6 +173,7 @@ nav ul li #search_btn {
 
 #search_btn .form-control {
     padding: 0.5rem 0.25rem;
+    color: var(--textCol);
 }
 
 #search_btn.active {
@@ -194,18 +196,18 @@ nav ul li #search_btn {
 #search_btn .input-clear::before {
     position: absolute;
     content: "";
-    width: 1px;
+    width: 1.5px;
     height: 1rem;
-    background-color: var(--textCol);
+    background-color: var(--icoCol);
     transform: rotate(45deg);
 }
 
 #search_btn .input-clear::after {
     position: absolute;
     content: "";
-    width: 1px;
+    width: 1.5px;
     height: 1rem;
-    background-color: var(--textCol);
+    background-color: var(--icoCol);
     transform: rotate(-45deg);
 }
 
@@ -243,7 +245,6 @@ nav ul li #btn_profile {
     justify-content: center;
     align-items: center;
     font-size: 1rem;
-    background: rgba(0, 0, 0, 0.068);
     border: none;
     outline: none;
     border-radius: 50%;
@@ -255,34 +256,11 @@ li button#search_btn {
     background-color: var(--blackLight) !important;
 }
 
-button.tooltip {
+li button.nav-btn {
     position: relative;
     z-index: 3;
     opacity: 1;
-    background-color: rgba(255, 255, 255, 0.2) !important;
-}
-
-button.tooltip:hover {
-    background-color: rgba(255, 255, 255, 0.3) !important;
-}
-
-.tooltip::after {
-    position: absolute;
-    content: attr(data-tooltip);
-    background: rgba(43, 43, 43, 0.8);
-    top: 120%;
-    outline: solid 1px var(--textCol);
-    border-radius: 5px;
-    padding: 0 0.5rem;
-    opacity: 0;
-    transition: .3s;
-    pointer-events: none;
-    user-select: none;
-    transition: 1s;
-}
-
-.tooltip:hover::after {
-    opacity: 1;
+    background-color: var(--sidebarColDark) !important;
 }
 
 nav ul li #btn_profile::after {
@@ -296,7 +274,7 @@ nav ul li #btn_profile::after {
     height: 0.4rem;
     width: 0.4rem;
     border-radius: 100%;
-    background-color: var(--accentSelectedInvert);
+    background-color: var(--accentCol);
     top: 0.5rem;
     right: 0.5rem;
     animation: 0.9s infinite newNoti;
@@ -321,29 +299,20 @@ nav ul li #btn_profile::after {
     }
 }
 
-button.tooltip {}
-
 .nav-menu{
     position: fixed;
     width: 20rem;
-    background-color: var(--blackLight);
+    background-color: var(--prevCol);
     top: 3.75rem;
     right: 1rem;
     border-radius: 10px;
+    border: solid var(--rdrBorderL) var(--borderColor);
     padding: 0.7rem;
     display: none;
 }
 
-/* button.tooltip.active + .nav-menu{
-    visibility: visible;
-} */
-
-.nav-menu ul{}
-
-
 .user-section{
     padding: 0.5rem 0.3rem;
-    background-color: var(--blackFlag);
     border-radius: 6px;
 }
 
@@ -357,13 +326,14 @@ button.tooltip {}
 
 .user-fullname{
     font-size: 1.1rem;
-    font-weight: bold;
     margin-right: 0.3rem;
-    color: var(--accentSelected) !important;
+    font-weight: 500;
+    color: var(--accentCol) !important;
 }
 
 #username{
-    color: var(--accentSelectedInvert) !important;
+    color: var(--accentCol) !important;
+    opacity: 0.8;
 }
 
 .user-section button{
@@ -377,7 +347,6 @@ button.tooltip {}
 
 .user-section button:hover,
 .user-section button:focus{
-    background-color: var(--blackLight);
     outline: unset;
 }
 
@@ -390,7 +359,7 @@ button.tooltip {}
 }
 
 .nav-menu-list{
-    background-color: var(--blackFlag);
+    background-color: var(--prevCol);
     padding: 0.5rem 0;
     border-radius: 6px;
 }
@@ -406,16 +375,19 @@ button.tooltip {}
     background-color: var(--blackLight);
 }
 
+.nav-menu-item button{
+    color: var(--textCol);
+}
+
 .nav-menu-item button:focus{
     outline: unset;
 }
 
 
-.noti-link{}
-
 .list-title{
     display: flex;
     justify-content: space-between;
+    color: var(--textCol);
 }
 
 .noti-link{
@@ -428,6 +400,7 @@ button.tooltip {}
 
 .noti-body{
     margin-left: 1rem;
+    color: var(--textCol);
 }
 
 .noti-body:not(.user-fullname){
@@ -436,7 +409,8 @@ button.tooltip {}
 
 .noti-time{
     font-size: small;
-    color: var(--accentSelectedInvert) !important;
+    color: var(--textCol);
+    opacity: 0.5;
 }
 
 .not-read::after{
@@ -447,9 +421,14 @@ button.tooltip {}
     height: 0.4rem;
     width: 0.4rem;
     border-radius: 100%;
-    background-color: var(--accentSelectedInvert);
+    background-color: var(--accentCol);
     left: 0.5rem;
 }
+
+#read-all-noti{
+    color: var(--accentCol);
+}
+
 
 /* ------------------- */
 
@@ -486,11 +465,5 @@ button.tooltip {}
 @media screen and (max-width: 700px) {
     :root {
         --btn-width-100: 60px;
-    }
-}
-
-@media (max-width: 992px){
-    .tooltip::after{
-        display: none;
     }
 }

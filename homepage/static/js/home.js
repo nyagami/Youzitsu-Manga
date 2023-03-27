@@ -12,14 +12,14 @@ fetch('/api/get_all_series/')
                 <span>Đọc ngay ››</span>
             </div>
             <div class="btn-group justify-content-around">
-                <div class="react"><span><i class="fas fa-heart"></i></span></div>
-                <div class="react"><span><i class="fas fa-share-square"></i></span></div>
-                <div class="react"><span><i class="fas fa-award"></i></span></div>
+                <div class="react"><span><i class="fas fa-heart icon"></i></span></div>
+                <div class="react"><span><i class="fas fa-share-square icon"></i></span></div>
+                <div class="react"><span><i class="fas fa-award icon"></i></span></div>
             </div>
         </div>
         <div class="series-content">
-            <div class="series-title"><b>${series}</b></div>
-            <div class="volumes-container" title="${manga.slug}">
+            <div class="series-title"><b><a href='/read/series/${manga.slug}'>${series}</a></b></div>
+            <div class="volumes-container">
                 <ul>
                 ${manga.volumes.reduce((prev, vol) => {
                     const style = `border: solid 1.5px ${vol.color};`;

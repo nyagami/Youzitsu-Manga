@@ -69,7 +69,7 @@
 				</li>
                 <li> 
 					<button id="search_btn" class=""> 
-						<i class="fas fa-search" id="id-search-icon"></i> 
+						<i class="fas fa-search icon" id="id-search-icon"></i>
 						<div class="search-input">
 							<input class="form-control" id="id-search-input" placeholder="Tìm kiếm gì đó..." type="text">
 						</div>
@@ -83,8 +83,9 @@
 					</button>
 				</li> -->
                 <li>
-					<button class="tooltip" data-tooltip="Notification" id="btn_bell">
-						<i class="fas fa-bell"></i>
+					<button class="nav-btn" id="btn_bell">
+						<i class="indicator"></i>
+						<i class="fas fa-bell icon"></i>
 					</button>
 					<div class="nav-menu">
 						<div class="list-title">
@@ -117,6 +118,7 @@
 												Chào mừng bạn đến với <b>Lớp học đề cao thực lực!</b>
 											</div>
 											<span class="noti-time">5 phút trước</span>
+											<i class="not-read"></i>
 										</div>
 									</a> 
 								</li>
@@ -140,11 +142,11 @@
 					</div>
 				</li>
                 <li>
-					<button class="tooltip" data-tooltip="Profile" id="btn_profile">
+					<button class="nav-btn" id="btn_profile">
 						{% if request.user.is_authenticated %}
 						<img class="rounded-circle user-avatar-md" src="{% if request.user.profile.avatar %} {{ request.user.profile.avatar }} {% else %} {% static 'img/default_avatar.jpeg' %} {% endif %}" alt="avatar">
 						{% else %}
-						<i class="fas fa-user"></i>
+						<i class="fas fa-user icon"></i>
 						{% endif %}
 					</button>  
 					<div class="nav-menu">
@@ -155,11 +157,11 @@
 							</div>
 							<div id="user-info">
 								<span class="d-block user-fullname">{{ request.user.profile.display_name }}</span>
-								<span class="" id="username">@{{ request.user.username }}</span>
+								<span class="" id="username"><i>@{{ request.user.username }}</i></span>
 							</div>
 							<div class="space"></div>
 							<button>
-								<i class="fa-solid fa-gear"></i>
+								<i class="fa-solid fa-gear fa-lg icon"></i>
 							</button>
 							{% else %}
 							<div class="w-100 d-flex justify-content-center">
@@ -172,14 +174,14 @@
 							<ul class="nav-menu-list">
 								<li class="nav-menu-item">
 									<button>
-										<i class="fa-solid fa-brush"></i>
+										<i class="fa-solid fa-brush icon"></i>
 										Tuỳ chọn Theme
 									</button>
 								</li>
 								{% if request.user.is_authenticated %}
 								<li id="logout-btn" class="nav-menu-item">
 									<button onclick=" location.href = '/user/logout' ">
-										<i class="fa-solid fa-right-from-bracket"></i>
+										<i class="fa-solid fa-right-from-bracket icon"></i>
 										Đăng xuất
 									</button>
 								</li>
@@ -264,18 +266,18 @@
 		themeCore.themeUpdated(false, user_theme);
 	</script>
 	<script type="text/javascript">
-		searchButton = $('#search_btn');
-		icon = $('#id-search-icon');
+		let searchButton = $('#search_btn');
+		let icon = $('#id-search-icon');
 		icon.click(() => {
 			searchButton.toggleClass('active');
-			icon.css('border-radius', '1.5rem 0 0 1.5rem');
+			if(searchButton.hasClass('active')) icon.css('border-radius', '1.5rem 0 0 1.5rem');
+			else icon.css('border-radius', '1.5rem');
 		})
 		input = $("#id-search-input");
 		clear = $("#id-input-clear");
 		clear.click(() => {
 			if(input.val()){
 				input.val('');
-				console.log(input.val());
 			}
 			else{
 				searchButton.removeClass('active');
@@ -283,7 +285,7 @@
 			}
 		})
 
-		$('button.tooltip').click((e) => {
+		$('button.nav-btn').click((e) => {
 			let target = $(e.currentTarget);
 			if(!target.next().is(':visible')) target.next().show();
 			else target.next().hide();
