@@ -244,25 +244,26 @@ main a {
 
 .manga-link.chapter {
 	font-size: 0.9rem;
-	border-color: #f00c; 
-	background-color: #c608082e;
+	border-color: var(--accentCol); 
+	background-color: var(--sidebarColFocus);
 	padding: 0;
 	cursor: pointer;
 	margin-left: 0;
 	outline: none !important;
 }
 .manga-link.chapter > span {
-	border-color: #f00c;
+	border-color: var(--accentCol);
 	padding: 0.4em 0.8em;
 	display: inline-block;
 	color: #ddd;
 }
 .manga-link.chapter .manga-link-chap {
-	border-right: 1px solid #f00c;
+	border-right: 1px solid var(--borderColor);
 	padding: 0.4em 0.5em;
 }
 .manga-link.chapter .manga-link-text {
-	background: rgba(0,0,0,0.4);
+	background: var(--sidebarColFocus);
+	color: var(--textCol);
 }
 .manga-link.chapter.no-chapter .manga-link-chap {
 	display: none;
@@ -311,7 +312,7 @@ main a {
 
 .page-series .series-content {
   border-radius: 4px;
-  background-color: var(--blackFlag);
+  background-color: var(--prevCol);
 		background-attachment: fixed;
 	 background-position: 50% 10%;
 	  background-size: 1500px;
@@ -320,7 +321,7 @@ main a {
 }
 
 .page-series .sidecard {
-  background-color: #1a1a1a;
+  background-color: var(--sidebarCol);
 		background-attachment: fixed;
 	 background-position: 50% 10%;
 	  background-size: 1500px;
@@ -339,13 +340,14 @@ main a {
 	padding: 1em 1.3em;
 }
 .page-series article h1 {
-	color: white;
+	color: var(--textCol);
 	font-size: 2em;
 	margin-bottom: 0.5em;
 }
 .page-series article h2 {
 	font-size: 0.9em;
-	color: #aaa;
+	color: var(--textCol);
+	opacity: 0.6;
 	font-weight: normal;
 }
 .page-series article p {
@@ -358,7 +360,8 @@ main a {
 	margin-bottom: 0;
 	margin-top: 0.5em;
 	font-size: 0.9em;
-	color: #ccc;
+	color: var(--textCol);
+	opacity: 0.8;
 }
 
 .page-series article p:nth-of-type(1) {
@@ -389,7 +392,7 @@ main a {
 }
 
 .page-series .table {
-	color: #ddd;
+	color: var(--textCol);
 }
 
 .page-series #chapters th {
@@ -403,7 +406,7 @@ main a {
 }
 .page-series #chapters td {
 	border-bottom: 0;
-	border-top: 1px solid #444;
+	border-top: 1px solid var(--accentCol);
 	box-shadow: none !important;
 	outline: none !important;
 }
@@ -416,9 +419,11 @@ main a {
 	text-align: center;
 	cursor: pointer;
 	position: relative;
+	color: var(--textCol);
+	opacity: 0.8;
 }
 .page-series td.read-icon:hover {
-	color: #eee;
+	color: var(--accentCol);
 }
 .page-series .read-icon:before {
 	font-family: guya;
@@ -428,7 +433,7 @@ main a {
 	content: attr(data-tooltip);
 	position: absolute;
 	padding: 0.4em 0.6em;
-	color: white;
+	color: var(--textCol);
 	margin-left: 8px;
 	margin-top: 4px;
 	line-height: 1.5em;
@@ -462,16 +467,17 @@ main a {
 	border-radius: 0 !important;
 	box-shadow: none !important;
 	padding: 0;
+	color: var(--textCol);
 	border-bottom: 1px solid transparent !important;
 }
 .page-series .btn-group .btn.s {
 	border-bottom: 1px solid #bbb !important;
 	box-shadow: 0px -34px 20px -40px #bbb inset !important;
-	color: white;
+	color: var(--accentCol);
 }
 .page-series .btn-group .btn:not(.s):hover {
 	box-shadow: 0px -35px 20px -40px #666 inset !important;
-	border-bottom: 1px solid #666 !important;
+	border-bottom: 1px solid var(--accentSelectedInvert) !important;
 }
 .page-series .btn-group a {
 	display: flex;
@@ -491,24 +497,32 @@ main a {
 	border-radius: 0 !important;
 	line-height: inherit;
 	height: 3em;
-	color: white;
+	color: var(--textCol);
 	padding-left: 1em;
 }
 
 .page-series #chapterTitleSearch::placeholder {
-	color: rgba(255,255,255,1);
-	opacity: 0.6;
+	color: var(--textCol);
+	opacity: 0.7;
 }
 
 .page-series .card table {
 	margin-bottom: 0;
 }
-
-.page-series .detailed-chapter-upload-date {
-	text-align: center;
+.table-default:hover{
+	opacity: 1;
+}
+.table-default > td:hover,
+.table-default > td > a:hover{
+	color: var(--accentCol);
 }
 
-#compactView .card {
+
+.page-series .detailed-chapter-upload-date {
+	padding-left: 1rem;
+}
+
+/* #compactView .card {
 	background: none;
 	padding: 0;
 }
@@ -522,7 +536,7 @@ main a {
 }
 #compactView .card .compact-chapter-upload-date,
 #compactView .card .chapter-group {
-	color: #aaa !important;
+	color: var(--textCol) !important;
 }
 #compactView .card .row {
 	margin: 0 !important;
@@ -537,7 +551,7 @@ main a {
 }
 #compactView .card .col-3 a:hover {
 	background: rgba(255,255,255,0.1);
-}
+} */
 
 #volumeCoversView {
 	display: flex;

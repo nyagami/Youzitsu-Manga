@@ -36,7 +36,7 @@ main {
     text-align: center;
 }
 
-.series-title{
+.series-title b a{
     display: block;
     width: 100%;
     padding: 0 0.5em;
@@ -61,8 +61,8 @@ main {
 
 .series-card .btn-group.btn{
     padding: 0;
-    border-color: #f00c;
-    background-color: #c608082e !important;
+    border-color: var(--accentCol);
+    background-color: var(--sidebarColFocus) !important;
 }
 
 .series-card .btn-group.btn span{

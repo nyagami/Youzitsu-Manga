@@ -518,21 +518,14 @@ var reading_button = null;
 	<div class="bs-docs-section clearfix mt-1">
 		<div class="row justify-content-center">
 			<div class="col-lg-2 col-md-3 col-sm-11 col-xs-12 mb-4 side-cover">
-				<div class="list-item">
-					<div class="list-content">
-						<div class="list-body d-flex justify-content-center">
-							<span class="text-white text-white font-weight-bold"> </span>
-						</div>
-					</div>
-					<div class="media media-3x4 justify-content-center">
-						<picture>
-							{% if cover_vol_url_webp %}
-							<source type="image/webp" srcset="{{ cover_vol_url_webp }}" class="img-fluid"
-								alt="{{ series }} manga" />
-							{% endif %}
-							<img src="{{ cover_vol_url }}" class="img-fluid" alt="{{ series }} manga" />
-						</picture>
-					</div>
+				<div class="media media-3x4 justify-content-center">
+					<picture>
+						{% if cover_vol_url_webp %}
+						<source type="image/webp" srcset="{{ cover_vol_url_webp }}" class="img-fluid"
+							alt="{{ series }} manga" />
+						{% endif %}
+						<img src="{{ cover_vol_url }}" class="img-fluid" alt="{{ series }} manga" />
+					</picture>
 				</div>
 				<div class="card sidecard">
 					<div class="card-body">
@@ -542,7 +535,6 @@ var reading_button = null;
 								<tr>
 									<th>{{ type }}</th>
 									<td class="text-sm">{{ value }}</td>
-
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -552,22 +544,6 @@ var reading_button = null;
 			</div>
 			<div class="col-lg-8 col-md-7 col-sm-11 col-xs-12 series-content">
 				<article>
-					<picture>
-						<source type="image/webp" srcset="{{ cover_vol_url_webp }}" class="img-fluid"
-							alt="{{ series }} manga" />
-						<img src="{{ cover_vol_url }}" class="img-fluid" alt="{{ series }} manga" />
-					</picture>
-					<table class="table table-borderless table-sm small" style="display: none;">
-						<tbody>
-							{% for type, value in metadata %}
-							<tr>
-								<th>{{ type }}</th>
-								<td class="text-sm">{{ value }}</td>
-
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
 					<h1>{{ series }}</h1>
 					{% if alt_titles %}
 					{% for alt in alt_titles %}
@@ -575,9 +551,6 @@ var reading_button = null;
 						{{ alt }}
 					</h2>
 					{% endfor %}
-					{% endif %}
-					{% if original_url %}
-					<a href="{{ original_url }}">View Original</a>
 					{% endif %}
 					{{ synopsis|safe|linebreaks }}
 					<br>
@@ -607,7 +580,7 @@ var reading_button = null;
 							class="fa fa-rss"></i></a>
 					{% endif %}
 					{% if "admin" in available_features %}
-					<a href="#" onclick="loadGroups('{{ slug }}')" data-toggle="modal" data-target="#uploadModal"><i class="float-right fa fa-upload fa-lg" ></i></a>
+					<a href="#" onclick="loadGroups('{{ slug }}')" data-toggle="modal" data-target="#uploadModal"><i class="float-right fa fa-upload fa-lg icon" ></i></a>
 					{% endif %}
 				</div>
 				{% if "compact" in available_features %}
