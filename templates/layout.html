@@ -7,10 +7,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link defer rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}{{ version_query }}">
 	<link rel="stylesheet" href="{% static 'css/index.css' %}{{ version_query }}">
+	<link rel="stylesheet" href="{% static 'external/css/pickr.nano@1-8-1.css' %}{{ version_query }}"/>
 	<script src="https://kit.fontawesome.com/75d6000ca7.js" crossorigin="anonymous"></script>
 	<script src="{% static 'js/customCore.js' %}{{ version_query}}"></script>
 	<script src="{% static 'js/jquery.min.js' %}{{ version_query }}"></script>
 	<script src="{% static 'js/alg_lib.js' %}{{ version_query }}"></script>
+	<script type="text/javascript" src="{%static 'external/js/pickr@1-8-1.min.js'%}{{ version_query }}"></script>
 	<script defer src="{% static 'js/bootstrap.min.js' %}{{ version_query }}"></script>
 	{% if canonical_url %}
 	<link rel="canonical" href="{{ canonical_url }}" />
@@ -60,29 +62,30 @@
 	{% include "tracking.html" %}
 	{% load cache %} {% cache 1 sidebar %}
 	<header>
-        <nav class="fixed-top">
-            <ul class="nav-list">
-                <li class="list-item-branch-logo">
+		<nav class="fixed-top">
+			<ul class="nav-list">
+				<li class="list-item-branch-logo">
 					<a href="/" id="home">
 						<img src="{% static 'img/logo/logo.png' %}" alt="logo">
 					</a>
 				</li>
-                <li> 
-					<button id="search_btn" class=""> 
+				<li>
+					<button id="search_btn" class="">
 						<i class="fas fa-search icon" id="id-search-icon"></i>
 						<div class="search-input">
-							<input class="form-control" id="id-search-input" placeholder="Tìm kiếm gì đó..." type="text">
+							<input class="form-control" id="id-search-input" placeholder="Tìm kiếm gì đó..."
+								type="text">
 						</div>
 						<span class="input-clear" id="id-input-clear"></span>
-					</button> 
+					</button>
 				</li>
-                <li class="space"></li>
-                <!-- <li> 
+				<li class="space"></li>
+				<!-- <li> 
 					<button class="tooltip" data-tooltip="Message" id="btn_msg">
 						<i class="fas fa-message"></i>
 					</button>
 				</li> -->
-                <li>
+				<li>
 					<button class="nav-btn" id="btn_bell">
 						<i class="indicator"></i>
 						<i class="fas fa-bell icon"></i>
@@ -96,22 +99,25 @@
 							<ul class="nav-menu-list">
 								<li class="nav-menu-item">
 									<a href="#" class="noti-link">
-										<img src="{% static 'img/character/thumb-shiina.png' %}" class="rounded-circle user-avatar-lg" alt="user">
+										<img src="{% static 'img/character/thumb-shiina.png' %}"
+											class="rounded-circle user-avatar-lg" alt="user">
 										<div class="noti-body">
 											<div class="noti-content">
 												<span class="user-fullname">Hiyori</span>
-												Chào các bạn, hiện tại ngoài đọc truyện ra thì các tính năng khác đều là đang thử nghiệm.
+												Chào các bạn, hiện tại ngoài đọc truyện ra thì các tính năng khác đều là
+												đang thử nghiệm.
 												<br>
 												Và các những dữ liệu hiện tại cũng không được lưu lại!
 												Chúc các bạn đọc truyện vui vẻ ^ ^
 											</div>
 											<span class="noti-time">1 phút trước</span>
 										</div>
-									</a> 
+									</a>
 								</li>
 								<li class="nav-menu-item">
 									<a href="#" class="noti-link">
-										<img src="{% static 'img/character/thumb-kiyotaka.png' %}" class="rounded-circle user-avatar-lg" alt="user">
+										<img src="{% static 'img/character/thumb-kiyotaka.png' %}"
+											class="rounded-circle user-avatar-lg" alt="user">
 										<div class="noti-body">
 											<div class="noti-content">
 												<span class="user-fullname">Kiyotaka</span>
@@ -120,11 +126,12 @@
 											<span class="noti-time">5 phút trước</span>
 											<i class="not-read"></i>
 										</div>
-									</a> 
+									</a>
 								</li>
 								<li class="nav-menu-item">
 									<a href="#" class="noti-link">
-										<img src="{% static 'img/character/thumb-kei.png' %}" class="rounded-circle user-avatar-lg" alt="user">
+										<img src="{% static 'img/character/thumb-kei.png' %}"
+											class="rounded-circle user-avatar-lg" alt="user">
 										<div class="noti-body">
 											<div class="noti-content">
 												<span class="user-fullname">Kei</span>
@@ -134,26 +141,29 @@
 											</div>
 											<span class="noti-time">5 phút trước</span>
 										</div>
-									</a> 
+									</a>
 								</li>
-								
 							</ul>
 						</div>
 					</div>
 				</li>
-                <li>
+				<li>
 					<button class="nav-btn" id="btn_profile">
 						{% if request.user.is_authenticated %}
-						<img class="rounded-circle user-avatar-md" src="{% if request.user.profile.avatar %} {{ request.user.profile.avatar }} {% else %} {% static 'img/default_avatar.jpeg' %} {% endif %}" alt="avatar">
+						<img class="rounded-circle user-avatar-md"
+							src="{% if request.user.profile.avatar %} {{ request.user.profile.avatar }} {% else %} {% static 'img/default_avatar.jpeg' %} {% endif %}"
+							alt="avatar">
 						{% else %}
 						<i class="fas fa-user icon"></i>
 						{% endif %}
-					</button>  
+					</button>
 					<div class="nav-menu">
 						<div class="d-flex user-section">
 							{% if request.user.is_authenticated %}
 							<div id="user-avatar">
-								<img class="rounded-circle user-avatar-lg" src="{% if request.user.profile.avatar %} {{ request.user.profile.avatar }} {% else %} {% static 'img/default_avatar.jpeg' %} {% endif %}" alt="avatar">
+								<img class="rounded-circle user-avatar-lg"
+									src="{% if request.user.profile.avatar %} {{ request.user.profile.avatar }} {% else %} {% static 'img/default_avatar.jpeg' %} {% endif %}"
+									alt="avatar">
 							</div>
 							<div id="user-info">
 								<span class="d-block user-fullname">{{ request.user.profile.display_name }}</span>
@@ -165,22 +175,23 @@
 							</button>
 							{% else %}
 							<div class="w-100 d-flex justify-content-center">
-								<a class="regis-link" href="/user/login">Đăng nhập</a> | <a class="regis-link" href="/user/register">Đăng kí</a>
+								<a class="regis-link" href="/user/login">Đăng nhập</a> | <a class="regis-link"
+									href="/user/register">Đăng kí</a>
 							</div>
 							{% endif %}
 						</div>
 						<div class="divider"></div>
 						<div class="list-group">
 							<ul class="nav-menu-list">
-								<li class="nav-menu-item">
+								<li class="nav-menu-item" data-toggle="modal" data-target="#themeModal" onclick="$('#btn_profile').next().hide()">
 									<button>
 										<i class="fa-solid fa-brush icon"></i>
 										Tuỳ chọn Theme
 									</button>
 								</li>
 								{% if request.user.is_authenticated %}
-								<li id="logout-btn" class="nav-menu-item">
-									<button onclick=" location.href = '/user/logout' ">
+								<li id="logout-btn" class="nav-menu-item" onclick=" location.href = '/user/logout' ">
+									<button>
 										<i class="fa-solid fa-right-from-bracket icon"></i>
 										Đăng xuất
 									</button>
@@ -190,9 +201,53 @@
 						</div>
 					</div>
 				</li>
-            </ul>
-        </nav>
-    </header>
+			</ul>
+		</nav>
+		</div>
+		<div class="modal" id="themeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Theme</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div>
+							<select name="" id="">
+								<option value="Dark">Dark</option>
+								<option value="Reaper">Reaper</option>
+								<option value="Zaibatsu">Zaibatsu</option>
+								<option value="Light">Light</option>
+								<option value="Custom">Custom</option>
+							</select>
+						</div>
+						<div class="color-field">
+							<header>Màu giao diện</header>
+							<button type="button" class="UI ColorPicker" role="button" aria-label="toggle color picker dialog" style="background-color: rgb(43, 98, 153);"></button>
+						</div>
+						<div class="color-field">
+							<header>Màu chữ</header>
+							<div class="color-picker"></div>
+						</div>
+						<div class="color-field">
+							<header>Màu tương tác</header>
+							<div class="color-picker"></div>
+						</div>
+						<div class="color-field">
+							<header>Nền trang</header>
+							<div class="color-picker"></div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 	<script>
 		var links = document.querySelectorAll('header .nav-link');
 		[].forEach.call(links, link => {
@@ -215,7 +270,7 @@
 
 		function autosize() {
 			var el = this;
-			setTimeout(function() {
+			setTimeout(function () {
 				el.style.height = "";
 				el.style.height = Math.min(el.scrollHeight, 500) + "px";
 				el.nextElementSibling.style.top = Math.min(el.scrollHeight, 500) + "px";
@@ -223,7 +278,9 @@
 		}
 
 	</script>
-	{% endcache %} {% block body %} {% endblock %}
+	{% endcache %}
+	{% block body %}
+	{% endblock %}
 	<script>
 		isiOSAux = (window.navigator.standalone == true);
 		if (isiOSAux) {
@@ -248,7 +305,7 @@
 		var user_text_color = "#ddd";
 		var user_text_color = "#b2dffb";
 		var user_reader_background = "#272b30";
-		if(is_authenticated){
+		if (is_authenticated) {
 			user_theme = "{{ request.user.profile.theme }}";
 			user_primary_color = "{{ request.user.profile.primary_color }}";
 			user_text_color = "{{ request.user.profile.text_color }}";
@@ -256,11 +313,11 @@
 			user_reader_background = "{{ request.user.profile.reader_background }}";
 		}
 		var settings = serialization.deserialize();
-		if(settings['thm.theme']) user_theme = settings['thm.theme'];
-		if(settings['thm.primaryCol']) user_primary_color = settings['thm.primaryCol'];
-		if(settings['thm.textCol']) user_text_color = settings['thm.textCol'];
-		if(settings['thm.accentCol']) user_accent_color = settings['thm.accentCol'];
-		if(settings['thm.readerBg']) user_reader_background = settings['thm.readerBg'];
+		if (settings['thm.theme']) user_theme = settings['thm.theme'];
+		if (settings['thm.primaryCol']) user_primary_color = settings['thm.primaryCol'];
+		if (settings['thm.textCol']) user_text_color = settings['thm.textCol'];
+		if (settings['thm.accentCol']) user_accent_color = settings['thm.accentCol'];
+		if (settings['thm.readerBg']) user_reader_background = settings['thm.readerBg'];
 		const Settings = undefined;
 		const Tooltippy = undefined;
 		themeCore.themeUpdated(false, user_theme);
@@ -270,16 +327,16 @@
 		let icon = $('#id-search-icon');
 		icon.click(() => {
 			searchButton.toggleClass('active');
-			if(searchButton.hasClass('active')) icon.css('border-radius', '1.5rem 0 0 1.5rem');
+			if (searchButton.hasClass('active')) icon.css('border-radius', '1.5rem 0 0 1.5rem');
 			else icon.css('border-radius', '1.5rem');
 		})
 		input = $("#id-search-input");
 		clear = $("#id-input-clear");
 		clear.click(() => {
-			if(input.val()){
+			if (input.val()) {
 				input.val('');
 			}
-			else{
+			else {
 				searchButton.removeClass('active');
 				icon.css('border-radius', '1.5rem');
 			}
@@ -287,7 +344,7 @@
 
 		$('button.nav-btn').click((e) => {
 			let target = $(e.currentTarget);
-			if(!target.next().is(':visible')) target.next().show();
+			if (!target.next().is(':visible')) target.next().show();
 			else target.next().hide();
 			hideOnClickOutside(target, target.next());
 		})
@@ -307,7 +364,7 @@
 
 			document.addEventListener('click', outsideClickListener);
 		}
-		
+
 		$('#read-all-noti').click(() => {
 			$('.noti-time').removeClass('not-read');
 		})
