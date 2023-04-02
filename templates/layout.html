@@ -1,13 +1,13 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="home h-100" lang="vi" class="bg-dark h-100">
+<html class="h-100" lang="vi" class="h-100">
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link defer rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}{{ version_query }}">
 	<link rel="stylesheet" href="{% static 'css/index.css' %}{{ version_query }}">
-	<link rel="stylesheet" href="{% static 'external/css/pickr.nano@1-8-1.css' %}{{ version_query }}"/>
+	<link rel="stylesheet" href="{% static 'external/css/pickr.nano@1-8-1.css' %}{{ version_query }}" />
 	<script src="https://kit.fontawesome.com/75d6000ca7.js" crossorigin="anonymous"></script>
 	<script src="{% static 'js/customCore.js' %}{{ version_query}}"></script>
 	<script src="{% static 'js/jquery.min.js' %}{{ version_query }}"></script>
@@ -183,7 +183,8 @@
 						<div class="divider"></div>
 						<div class="list-group">
 							<ul class="nav-menu-list">
-								<li class="nav-menu-item" data-toggle="modal" data-target="#themeModal" onclick="$('#btn_profile').next().hide()">
+								<li class="nav-menu-item" data-toggle="modal" data-target="#themeModal"
+									onclick="$('#btn_profile').next().hide()">
 									<button>
 										<i class="fa-solid fa-brush icon"></i>
 										Tuỳ chọn Theme
@@ -216,7 +217,7 @@
 					</div>
 					<div class="modal-body">
 						<div>
-							<select name="" id="">
+							<select class="form-select" id="theme">
 								<option value="Dark">Dark</option>
 								<option value="Reaper">Reaper</option>
 								<option value="Zaibatsu">Zaibatsu</option>
@@ -224,25 +225,33 @@
 								<option value="Custom">Custom</option>
 							</select>
 						</div>
-						<div class="color-field">
+						<div class="d-flex picker-wrapper">
 							<header>Màu giao diện</header>
-							<button type="button" class="UI ColorPicker" role="button" aria-label="toggle color picker dialog" style="background-color: rgb(43, 98, 153);"></button>
+							<button type="button" class="ColorPicker" role="button"
+								aria-label="toggle color picker dialog"
+								style="background-color: rgb(43, 98, 153);"></button>
 						</div>
-						<div class="color-field">
+						<div class="d-flex picker-wrapper">
 							<header>Màu chữ</header>
-							<div class="color-picker"></div>
+							<button type="button" class="ColorPicker" role="button"
+								aria-label="toggle color picker dialog"
+								style="background-color: rgb(43, 98, 153);"></button>
 						</div>
-						<div class="color-field">
+						<div class="d-flex picker-wrapper">
 							<header>Màu tương tác</header>
-							<div class="color-picker"></div>
+							<button type="button" class="ColorPicker" role="button"
+								aria-label="toggle color picker dialog"
+								style="background-color: rgb(43, 98, 153);"></button>
 						</div>
-						<div class="color-field">
+						<div class="d-flex picker-wrapper">
 							<header>Nền trang</header>
-							<div class="color-picker"></div>
+							<button type="button" class="ColorPicker" role="button"
+								aria-label="toggle color picker dialog"
+								style="background-color: rgb(43, 98, 153);"></button>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
+						<button type="button" class="ResetButton" data-dismiss="modal">Reset</button>
 					</div>
 				</div>
 			</div>
@@ -303,7 +312,7 @@
 		var user_theme = "Dark";
 		var user_primary_color = "#3a3f44";
 		var user_text_color = "#ddd";
-		var user_text_color = "#b2dffb";
+		var user_accent_color = "#b2dffb";
 		var user_reader_background = "#272b30";
 		if (is_authenticated) {
 			user_theme = "{{ request.user.profile.theme }}";
@@ -368,6 +377,70 @@
 		$('#read-all-noti').click(() => {
 			$('.noti-time').removeClass('not-read');
 		})
+		if(user_theme !== 'Custome'){
+			$('.picker-wrapper').addClass('disabled');
+		}
+		$('#theme').on('change', (e) => {
+			if(e.target.value !== 'Custom'){
+				$('.picker-wrapper').addClass('disabled');
+			}else{
+				$('.picker-wrapper').removeClass('disabled');
+			}
+			themeCore.themeUpdated(false, e.target.value);
+		})
+		$('#theme').val(user_theme);
+		const themeArr = [user_primary_color, user_text_color, user_accent_color, user_reader_background];
+		const themePickerArr = 
+			$('.ColorPicker').map((idx, el) => {
+				const pickr = new Pickr({
+					el: el,
+					useAsButton: true,
+					default: themeArr[idx],
+					theme: 'nano',
+					autoReposition: true,
+					components: {
+						preview: true,
+						opacity: false,
+						hue: true,
+						preview: false,
+						interaction: {
+							hex: false,
+							rgba: false,
+							hsva: false,
+							input: true,
+							save: true
+						}
+					}
+				})
+					.on('save', color => {
+						pickr.colorBackup = color.toHEXA().toString(0);
+						pickr.hide();
+					})
+					.on('change', (color, instance) => {
+						pickr.set(color.toHEXA().toString(0), false);
+						themeCore.themeUpdated(false, $('#theme').val());
+					})
+					.on('show', (color, instance) => {
+						pickr.colorBackup = pickr.value;
+						pickr.getRoot().app.focus();
+					})
+					.on('hide', instance => {
+						pickr.set(pickr.colorBackup);
+						themeCore.themeUpdated(false, $('#theme').val());
+					})
+				pickr.$ = el;
+				pickr.getRoot().app.setAttribute("tabindex", "-1");
+				pickr.$.style.backgroundColor = pickr.value = themeArr[idx];
+				pickr.set = (value, local) => {
+					if(pickr.value && value.toLowerCase() == pickr.value.toLowerCase()) return;
+					pickr.value = value;
+					pickr.$.style.backgroundColor = value;
+					themeArr[idx] = value
+					if(!local) pickr.setColor(value, true);
+				};
+				pickr.get = () => pickr.value;
+				return pickr;
+			})
 	</script>
 </body>
 

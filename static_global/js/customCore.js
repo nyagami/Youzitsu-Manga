@@ -9,7 +9,7 @@ function ThemeCore(){
 			if(Settings){
 				this.setTheme(Settings.get('thm.primaryCol'), Settings.get('thm.readerBg'), Settings.get('thm.accentCol'), Settings.get('thm.textCol'));
 			}else{
-				this.setTheme(user_primary_color, user_reader_background, user_accent_color, user_text_color);
+				this.setTheme(themeArr[0], themeArr[3], themeArr[2], themeArr[1]);
 			}
 		}
 		else if (theme === 'Dark')	this.setTheme('#3a3f44', '#272b30', '#b2dffb','#eeeeee');
@@ -88,10 +88,10 @@ function ThemeCore(){
 				Settings.set('thm.textCol', '#EEEEEE');
 			}
 		}else{
-			user_primary_color = '#3A3F44';
-			user_reader_background = '#272B30';
-			user_accent_color = '#B2DFFB';
-			user_text_color = '#EEEEEE';
+			themeArr[0] = '#3A3F44';
+			themeArr[1] = '#272B30';
+			themeArr[2] = '#B2DFFB';
+			themeArr[3] = '#EEEEEE';
 		}
 	}
 
