@@ -105,17 +105,17 @@ function ThemeCore(){
 			formBody.append("accent_color", Settings.get('thm.accentCol'));
 			formBody.append("reader_background", Settings.get('thm.readerBg'));
 		}else{
-			formBody.append("primary_color", user_primary_color);
-			formBody.append("text_color", user_text_color);
-			formBody.append("accent_color", user_accent_color);
-			formBody.append("reader_background", user_reader_background);
+			formBody.append("primary_color", themeArr[0]);
+			formBody.append("text_color", themeArr[1]);
+			formBody.append("accent_color", themeArr[2]);
+			formBody.append("reader_background", themeArr[3]);
 		}
 		clearTimeout(this.postTimeout);
 		this.postTimeout = setTimeout(
 			() => fetch("/api/update_theme/",{
 				method: "POST",
 				body: formBody,
-			}).then(res => res.json()).then(status => console.log(status)),
+			}),
 			1000
 		);
 		// we dont want a self-Ddos :))

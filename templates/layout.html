@@ -250,8 +250,8 @@
 								style="background-color: rgb(43, 98, 153);"></button>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="ResetButton" data-dismiss="modal">Reset</button>
+					<div class="modal-footer picker-wrapper">
+						<button type="button" class="ResetButton" id="resetTheme">Reset</button>
 					</div>
 				</div>
 			</div>
@@ -308,12 +308,13 @@
 		const is_authenticated = "{{ request.user.is_authenticated }}" === "True";
 		const themeCore = new ThemeCore();
 		const serialization = new Serialization();
+		const defaultTheme = ['#3a3f44', '#ddd', '#b2dffb', '#272b30'];
 		serialization.ver = '0.79';
 		var user_theme = "Dark";
-		var user_primary_color = "#3a3f44";
-		var user_text_color = "#ddd";
-		var user_accent_color = "#b2dffb";
-		var user_reader_background = "#272b30";
+		var user_primary_color = defaultTheme[0];
+		var user_text_color = defaultTheme[1];
+		var user_accent_color = defaultTheme[2];
+		var user_reader_background = defaultTheme[3];
 		if (is_authenticated) {
 			user_theme = "{{ request.user.profile.theme }}";
 			user_primary_color = "{{ request.user.profile.primary_color }}";
@@ -327,10 +328,13 @@
 		if (settings['thm.textCol']) user_text_color = settings['thm.textCol'];
 		if (settings['thm.accentCol']) user_accent_color = settings['thm.accentCol'];
 		if (settings['thm.readerBg']) user_reader_background = settings['thm.readerBg'];
+		const themeArr = [user_primary_color, user_text_color, user_accent_color, user_reader_background];
+		const themeMapping = ['thm.primaryCol', 'thm.textCol', 'thm.accentCol', 'thm.readerBg'];
 		const Settings = undefined;
 		const Tooltippy = undefined;
 		themeCore.themeUpdated(false, user_theme);
 	</script>
+
 	<script type="text/javascript">
 		let searchButton = $('#search_btn');
 		let icon = $('#id-search-icon');
@@ -377,19 +381,23 @@
 		$('#read-all-noti').click(() => {
 			$('.noti-time').removeClass('not-read');
 		})
-		if(user_theme !== 'Custome'){
+
+		$('#theme').val(user_theme);
+		if(user_theme !== 'Custom'){
 			$('.picker-wrapper').addClass('disabled');
 		}
+		
 		$('#theme').on('change', (e) => {
 			if(e.target.value !== 'Custom'){
 				$('.picker-wrapper').addClass('disabled');
 			}else{
 				$('.picker-wrapper').removeClass('disabled');
 			}
+			serialization.all['thm.theme'] = e.target.value;
 			themeCore.themeUpdated(false, e.target.value);
 		})
-		$('#theme').val(user_theme);
-		const themeArr = [user_primary_color, user_text_color, user_accent_color, user_reader_background];
+
+
 		const themePickerArr = 
 			$('.ColorPicker').map((idx, el) => {
 				const pickr = new Pickr({
@@ -414,6 +422,7 @@
 				})
 					.on('save', color => {
 						pickr.colorBackup = color.toHEXA().toString(0);
+						serialization.all[themeMapping[pickr.idx]] = pickr.colorBackup;
 						pickr.hide();
 					})
 					.on('change', (color, instance) => {
@@ -425,10 +434,11 @@
 						pickr.getRoot().app.focus();
 					})
 					.on('hide', instance => {
-						pickr.set(pickr.colorBackup);
+						pickr.set(pickr.colorBackup, false);
 						themeCore.themeUpdated(false, $('#theme').val());
 					})
 				pickr.$ = el;
+				pickr.idx = idx;
 				pickr.getRoot().app.setAttribute("tabindex", "-1");
 				pickr.$.style.backgroundColor = pickr.value = themeArr[idx];
 				pickr.set = (value, local) => {
@@ -441,6 +451,18 @@
 				pickr.get = () => pickr.value;
 				return pickr;
 			})
+
+		$('#themeModal').on('hide.bs.modal', (e) => {
+			themeCore.post($('#theme').val());
+			localStorage.setItem('settings', serialization.serialize());
+		})
+
+		$('#resetTheme').click((e) => {
+			themePickerArr.each((idx, picker) => {
+				picker.set(defaultTheme[idx], false);
+			});
+			themeCore.themeUpdated(false, $('#theme').val());
+		}) 
 	</script>
 </body>
 
