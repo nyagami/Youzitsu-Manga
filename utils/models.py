@@ -24,7 +24,6 @@ class Comment(MPTTModel):
         order_insertion_by = ['created_on']
 
     def __str__(self) -> str:
-        time = self.created_on.time()
         return f'Comment by {self.author.user.username} at {self.created_on.date()}'
 
     # def comment_time(self)    -> should be implemented in frontend
