@@ -12,3 +12,4 @@ exclude =
     ./venv/*
     ./*/apps.py
     ./*/migrations/*.py
+    ./test.py

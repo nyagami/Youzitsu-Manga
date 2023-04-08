@@ -14,8 +14,9 @@ from reader.models import Chapter, ChapterIndex, Group, Series, Volume
 from reader.views import series_page_data
 
 from user.models import Profile
-from colorfield.fields import color_hex_validator
+from user.models import User
 from utils.models import Comment
+from colorfield.fields import color_hex_validator
 
 
 from .api import (
@@ -324,18 +325,10 @@ def get_user_info(request):
     return HttpResponse(json.dumps(context), content_type="application/json")
 
 
-def post_comment(request):
-    if request.method == 'POST' and request.user.is_authenticated:
-        parent = int(request.POST.get('parent'))
-        parent_comment = Comment.objects.get(id=parent)
-        Comment.objects.create(article=parent_comment.article)  # this still havent been implemented, just pass flake8
-        return HttpResponse(status=200)
-
-
 @csrf_exempt
 def update_theme(request):
     if request.user.is_authenticated is False or request.method != 'POST':
-        return HttpResponse(json.dumps({"response": "làm cái gì thế ?"}), content_type="application/json", status=401)
+        return HttpResponseBadRequest()
 
     profile = Profile.objects.get(user=request.user)
     theme = request.POST.get('theme')
@@ -350,7 +343,7 @@ def update_theme(request):
         color_hex_validator(accent_color)
         color_hex_validator(reader_background)
     except Exception:
-        return HttpResponse(json.dumps({"response": "invalid values"}), content_type="application/json", status=406)
+        return HttpResponseBadRequest()
 
     profile.theme = theme
     profile.primary_color = primary_color
@@ -359,3 +352,50 @@ def update_theme(request):
     profile.reader_background = reader_background
     profile.save()
     return HttpResponse(json.dumps({"response": "success"}), content_type="application/json", status=200)
+
+
+def post_comment(request):
+    if request.user.is_authenticated is False or request.method != 'POST':
+        return HttpResponseBadRequest()
+
+    article = request.POST.get('article')
+    if not article or len(article) < 3 or article[1] != ':':
+        return HttpResponseBadRequest()
+
+    parent = request.POST.get('parent')
+    if parent:
+        if len(parent) > 10:
+            return HttpResponseBadRequest()
+        try:
+            parent = int(parent)
+        except ValueError:
+            return HttpResponseBadRequest()
+        if parent == -1:
+            parent = None
+        else:
+            try:
+                parent = Comment.objects.get(visible=True, id=parent, article=article)
+            except ValueError:
+                return HttpResponseBadRequest()
+
+    if not parent:
+        deepth = 0
+    else:
+        deepth = parent.deepth + 1
+        if deepth > 2:
+            deepth = 2
+            parent = parent.parent
+    content = request.POST.get('content')
+    if not content:
+        return HttpResponseBadRequest()
+
+    mention = request.POST.get('mention')
+    try:
+        mention = User.objects.get(username=mention).profile
+    except ValueError:
+        mention = None
+
+    media_url = request.POST.get('media_url')
+    comment = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
+                                     metion=mention, deepth=deepth, content=content, media_url=media_url)
+    return HttpResponse(json.dumps(comment), content_type='application/json', status=200)
