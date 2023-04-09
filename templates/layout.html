@@ -211,16 +211,9 @@
 				<div class="modal-content">
 					<div class="Dummy">
 						<div class="setting-wrapper">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Theme</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-						</div>
-						<div class="setting-wrapper">
+							<header class="setting-header">Theme</header>
 							<div>
-								<select class="form-select" id="theme">
+								<select class="form-select" id="theme" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
 									<option value="Dark">Dark</option>
 									<option value="Reaper">Reaper</option>
 									<option value="Zaibatsu">Zaibatsu</option>
@@ -229,9 +222,9 @@
 								</select>
 							</div>
 						</div>
-						<div class="setting-wrapper">
-							<div class="d-flex picker-wrapper">
-								<header>Màu giao diện</header>
+						<div class="setting-wrapper compact">
+							<header class="setting-header">Màu giao diện</header>
+							<div class="setting-field">
 								<div class="setting-field">
 									<button type="button" class="ColorPicker" role="button"
 										aria-label="toggle color picker dialog"
@@ -239,35 +232,37 @@
 								</div>
 							</div>
 						</div>
-						<div class="setting-wrapper">
-							<div class="d-flex picker-wrapper">
-								<header>Màu chữ</header>
+						<div class="setting-wrapper compact">
+							<header class="setting-header">Màu chữ</header>
+							<div class="setting-field">
 								<button type="button" class="ColorPicker" role="button"
 									aria-label="toggle color picker dialog"
 									style="background-color: rgb(43, 98, 153);"></button>
 							</div>
 						</div>
-						<div class="setting-wrapper">
-							<div class="d-flex picker-wrapper">
-								<header>Màu tương tác</header>
+						<div class="setting-wrapper compact">
+							<header class="setting-header">Màu tương tác</header>
+							<div class="setting-field">
 								<button type="button" class="ColorPicker" role="button"
 									aria-label="toggle color picker dialog"
 									style="background-color: rgb(43, 98, 153);"></button>
 							</div>
 						</div>
-						<div class="setting-wrapper">
-							<div class="d-flex picker-wrapper">
-								<header>Nền trang</header>
+						<div class="setting-wrapper compact">
+							<header class="setting-header">Nền trang</header>
+							<div class="setting-field">
 								<button type="button" class="ColorPicker" role="button"
 									aria-label="toggle color picker dialog"
 									style="background-color: rgb(43, 98, 153);"></button>
 							</div>
 						</div>
-						<div class="setting-wrapper">
-							<div class="modal-footer picker-wrapper">
+						<div class="setting-wrapper compact">
+							<header class="setting-header"></header>
+							<div class="setting-field">
 								<button type="button" class="ResetButton" id="resetTheme">Reset</button>
 							</div>
 						</div>
+						<span class="help">Thoát bảng để lưu</span>
 					</div>
 				</div>
 			</div>
@@ -400,14 +395,14 @@
 
 		$('#theme').val(user_theme);
 		if(user_theme !== 'Custom'){
-			$('.picker-wrapper').addClass('disabled');
+			$('.setting-wrapper.compact').addClass('disabled');
 		};
 		
 		$('#theme').on('change', (e) => {
 			if(e.target.value !== 'Custom'){
-				$('.picker-wrapper').addClass('disabled');
+				$('.setting-wrapper.compact').addClass('disabled');
 			}else{
-				$('.picker-wrapper').removeClass('disabled');
+				$('.setting-wrapper.compact').removeClass('disabled');
 			}
 			serialization.all['thm.theme'] = e.target.value;
 			themeCore.themeUpdated(false, e.target.value);
@@ -482,6 +477,9 @@
 		document.addEventListener('keyup', e => {
 			if(e.code === 'KeyT'){
 				$('#themeModal').modal('toggle');
+			}
+			if(e.code === 'Escape'){
+				$('#themeModal').modal('close');
 			}
 		});
 	</script>
