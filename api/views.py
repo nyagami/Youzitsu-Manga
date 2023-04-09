@@ -399,3 +399,16 @@ def post_comment(request):
     comment = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
                                      metion=mention, deepth=deepth, content=content, media_url=media_url)
     return HttpResponse(json.dumps(comment), content_type='application/json', status=200)
+
+
+def delete_comment(request):
+    if request.user.is_authenticated is False or request.method != 'POST':
+        return HttpResponseBadRequest()
+    id = request.POST.get('id')
+    try:
+        comment = Comment.objects.get(id=id)
+        if comment.author.user.username != request.user.username:
+            raise ValueError
+        comment.delete()
+    except ValueError:
+        return HttpResponseBadRequest()
