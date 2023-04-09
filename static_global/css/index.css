@@ -487,10 +487,12 @@ nav ul li #btn_profile::after {
 }
 
 .help{
+    position: absolute;
+    bottom: 3rem;
     color: var(--accentCol);
     font-weight: bolder;
     font-family: inherit;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem 0 1rem;
 }
 
 .setting-wrapper{
@@ -498,7 +500,7 @@ nav ul li #btn_profile::after {
 	border-bottom: 1px solid rgba(0,0,0,0.3);
 }
 
-.setting-wrapper:last-child  {
+.setting-wrapper:nth-child(6){
 	border-bottom: none;
 }
 
