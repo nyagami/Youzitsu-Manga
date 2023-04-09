@@ -413,6 +413,7 @@ def delete_comment(request):
     except ValueError:
         return HttpResponseBadRequest()
 
+
 def update_comment(request):
     if request.user.is_authenticated is False or request.method != 'POST':
         return HttpResponseBadRequest()
