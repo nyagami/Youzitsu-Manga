@@ -412,3 +412,19 @@ def delete_comment(request):
         comment.delete()
     except ValueError:
         return HttpResponseBadRequest()
+
+def update_comment(request):
+    if request.user.is_authenticated is False or request.method != 'POST':
+        return HttpResponseBadRequest()
+    id = request.POST.get('id')
+    try:
+        comment = Comment.objects.get(id=id)
+        if comment.author.user.username != request.user.username:
+            raise ValueError
+        content = request.POST.get('content')
+        mention = request.POST.get('mention')
+        if not content:
+            raise ValueError
+        comment.update(content=content, mention=mention)
+    except ValueError:
+        return HttpResponseBadRequest()
