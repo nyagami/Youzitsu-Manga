@@ -250,20 +250,20 @@ header > h1 a {
 header > h1 a:hover {
 	text-decoration: underline;
 }
-/*
+
 aside header > .guya {
 	cursor: pointer;
-	background: url('/static/logo_small.png');
+	background: url('/static/img/Kei_Shy.png');
 	background-size: contain;
 	background-repeat: no-repeat;
 	box-sizing: border-box;
 	background-size: 50%;
 	background-position: 50% 50%;
 	outline: none;
-}*/
+}
 
 .ico-btn.guya:before {
-	content:"\e907";
+	/* content:"\e907"; */
 	font-size: 1.2em;
 }
 .ico-btn.close:before {
