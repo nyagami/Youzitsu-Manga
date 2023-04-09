@@ -209,49 +209,65 @@
 			aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLongTitle">Theme</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div>
-							<select class="form-select" id="theme">
-								<option value="Dark">Dark</option>
-								<option value="Reaper">Reaper</option>
-								<option value="Zaibatsu">Zaibatsu</option>
-								<option value="Light">Light</option>
-								<option value="Custom">Custom</option>
-							</select>
+					<div class="Dummy">
+						<div class="setting-wrapper">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Theme</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
 						</div>
-						<div class="d-flex picker-wrapper">
-							<header>Màu giao diện</header>
-							<button type="button" class="ColorPicker" role="button"
-								aria-label="toggle color picker dialog"
-								style="background-color: rgb(43, 98, 153);"></button>
+						<div class="setting-wrapper">
+							<div>
+								<select class="form-select" id="theme">
+									<option value="Dark">Dark</option>
+									<option value="Reaper">Reaper</option>
+									<option value="Zaibatsu">Zaibatsu</option>
+									<option value="Light">Light</option>
+									<option value="Custom">Custom</option>
+								</select>
+							</div>
 						</div>
-						<div class="d-flex picker-wrapper">
-							<header>Màu chữ</header>
-							<button type="button" class="ColorPicker" role="button"
-								aria-label="toggle color picker dialog"
-								style="background-color: rgb(43, 98, 153);"></button>
+						<div class="setting-wrapper">
+							<div class="d-flex picker-wrapper">
+								<header>Màu giao diện</header>
+								<div class="setting-field">
+									<button type="button" class="ColorPicker" role="button"
+										aria-label="toggle color picker dialog"
+										style="background-color: rgb(43, 98, 153);"></button>
+								</div>
+							</div>
 						</div>
-						<div class="d-flex picker-wrapper">
-							<header>Màu tương tác</header>
-							<button type="button" class="ColorPicker" role="button"
-								aria-label="toggle color picker dialog"
-								style="background-color: rgb(43, 98, 153);"></button>
+						<div class="setting-wrapper">
+							<div class="d-flex picker-wrapper">
+								<header>Màu chữ</header>
+								<button type="button" class="ColorPicker" role="button"
+									aria-label="toggle color picker dialog"
+									style="background-color: rgb(43, 98, 153);"></button>
+							</div>
 						</div>
-						<div class="d-flex picker-wrapper">
-							<header>Nền trang</header>
-							<button type="button" class="ColorPicker" role="button"
-								aria-label="toggle color picker dialog"
-								style="background-color: rgb(43, 98, 153);"></button>
+						<div class="setting-wrapper">
+							<div class="d-flex picker-wrapper">
+								<header>Màu tương tác</header>
+								<button type="button" class="ColorPicker" role="button"
+									aria-label="toggle color picker dialog"
+									style="background-color: rgb(43, 98, 153);"></button>
+							</div>
 						</div>
-					</div>
-					<div class="modal-footer picker-wrapper">
-						<button type="button" class="ResetButton" id="resetTheme">Reset</button>
+						<div class="setting-wrapper">
+							<div class="d-flex picker-wrapper">
+								<header>Nền trang</header>
+								<button type="button" class="ColorPicker" role="button"
+									aria-label="toggle color picker dialog"
+									style="background-color: rgb(43, 98, 153);"></button>
+							</div>
+						</div>
+						<div class="setting-wrapper">
+							<div class="modal-footer picker-wrapper">
+								<button type="button" class="ResetButton" id="resetTheme">Reset</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -353,14 +369,14 @@
 				searchButton.removeClass('active');
 				icon.css('border-radius', '1.5rem');
 			}
-		})
+		});
 
 		$('button.nav-btn').click((e) => {
 			let target = $(e.currentTarget);
 			if (!target.next().is(':visible')) target.next().show();
 			else target.next().hide();
 			hideOnClickOutside(target, target.next());
-		})
+		});
 
 		function hideOnClickOutside(toggle, selector) {
 			const outsideClickListener = (event) => {
@@ -376,16 +392,16 @@
 			}
 
 			document.addEventListener('click', outsideClickListener);
-		}
+		};
 
 		$('#read-all-noti').click(() => {
 			$('.noti-time').removeClass('not-read');
-		})
+		});
 
 		$('#theme').val(user_theme);
 		if(user_theme !== 'Custom'){
 			$('.picker-wrapper').addClass('disabled');
-		}
+		};
 		
 		$('#theme').on('change', (e) => {
 			if(e.target.value !== 'Custom'){
@@ -395,8 +411,7 @@
 			}
 			serialization.all['thm.theme'] = e.target.value;
 			themeCore.themeUpdated(false, e.target.value);
-		})
-
+		});
 
 		const themePickerArr = 
 			$('.ColorPicker').map((idx, el) => {
@@ -450,19 +465,25 @@
 				};
 				pickr.get = () => pickr.value;
 				return pickr;
-			})
+			});
 
 		$('#themeModal').on('hide.bs.modal', (e) => {
 			themeCore.post($('#theme').val());
 			localStorage.setItem('settings', serialization.serialize());
-		})
+		});
 
 		$('#resetTheme').click((e) => {
 			themePickerArr.each((idx, picker) => {
 				picker.set(defaultTheme[idx], false);
 			});
 			themeCore.themeUpdated(false, $('#theme').val());
-		}) 
+		});
+
+		document.addEventListener('keyup', e => {
+			if(e.code === 'KeyT'){
+				$('#themeModal').modal('toggle');
+			}
+		});
 	</script>
 </body>
 
