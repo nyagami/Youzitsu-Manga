@@ -10,3 +10,4 @@ django-colorfield
 django-registration-redux
 python-dotenv
 django-mptt==0.14.0
+channels==3.0.4

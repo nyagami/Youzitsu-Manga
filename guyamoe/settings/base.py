@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "api.apps.ApiConfig",
     "reader.apps.ReaderConfig",
     "utils.apps.UtilsConfig",
+    "channels",
     "homepage.apps.HomepageConfig",
     "user.apps.UserConfig",
     "misc.apps.MiscConfig",
@@ -96,7 +97,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "guyamoe.wsgi.application"
-
+ASGI_APPLICATION = "guyamoe.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
