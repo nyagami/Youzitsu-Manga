@@ -27,3 +27,17 @@ class Comment(MPTTModel):
         return f'Comment by {self.author.user.username} at {self.created_on.date()}'
 
     # def comment_time(self)    -> should be implemented in frontend
+
+
+class Notification(models.Model):
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sent_notifications')
+
+    # null = everyone :D
+    receiver = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL, related_name='received_notifications')
+    title = models.CharField(default='Thông báo', max_length=200,)
+    content = models.TextField(blank=True, null=True, max_length=500)
+    read = models.BooleanField(default=False)
+    created_on = models.TimeField(auto_now=True)
+
+    class Meta:
+        ordering = ("-create_on")
