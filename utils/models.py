@@ -40,4 +40,4 @@ class Notification(models.Model):
     created_on = models.TimeField(auto_now=True)
 
     class Meta:
-        ordering = ("-create_on")
+        ordering = ("-create_on",)
