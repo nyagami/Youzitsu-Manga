@@ -18,10 +18,14 @@ class NotifcationConsumer(AsyncJsonWebsocketConsumer):
             self.channel_name
         )
 
+    async def receive_json(self, content, **kwargs):
+        notifcation = content['notification']
+        notifcation
+
 
 class CommentConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
-        self.group = self.scope['url_route']['kwargs']['article']
+        self.group = self.scope['url_route']['kwargs']['type'] + '_' + self.scope['url_route']['kwargs']['article']
         await self.channel_layer.group_add(
             self.group,
             self.channel_name
@@ -33,3 +37,7 @@ class CommentConsumer(AsyncJsonWebsocketConsumer):
             self.group,
             self.channel_name
         )
+
+    async def receive_json(self, content, **kwargs):
+        comment = content['comment']
+        comment

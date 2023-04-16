@@ -213,7 +213,8 @@
 						<div class="setting-wrapper">
 							<header class="setting-header">Theme</header>
 							<div>
-								<select class="form-select" id="theme" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+								<select class="form-select" id="theme" onfocus='this.size=5;' onblur='this.size=1;'
+									onchange='this.size=1; this.blur();'>
 									<option value="Dark">Dark</option>
 									<option value="Reaper">Reaper</option>
 									<option value="Zaibatsu">Zaibatsu</option>
@@ -317,6 +318,7 @@
 			}
 		}
 		const is_authenticated = "{{ request.user.is_authenticated }}" === "True";
+		var username = "{{ request.user.username }}";
 		const themeCore = new ThemeCore();
 		const serialization = new Serialization();
 		const defaultTheme = ['#3a3f44', '#ddd', '#b2dffb', '#272b30'];
@@ -394,21 +396,21 @@
 		});
 
 		$('#theme').val(user_theme);
-		if(user_theme !== 'Custom'){
+		if (user_theme !== 'Custom') {
 			$('.setting-wrapper.compact').addClass('disabled');
 		};
-		
+
 		$('#theme').on('change', (e) => {
-			if(e.target.value !== 'Custom'){
+			if (e.target.value !== 'Custom') {
 				$('.setting-wrapper.compact').addClass('disabled');
-			}else{
+			} else {
 				$('.setting-wrapper.compact').removeClass('disabled');
 			}
 			serialization.all['thm.theme'] = e.target.value;
 			themeCore.themeUpdated(false, e.target.value);
 		});
 
-		const themePickerArr = 
+		const themePickerArr =
 			$('.ColorPicker').map((idx, el) => {
 				const pickr = new Pickr({
 					el: el,
@@ -452,11 +454,11 @@
 				pickr.getRoot().app.setAttribute("tabindex", "-1");
 				pickr.$.style.backgroundColor = pickr.value = themeArr[idx];
 				pickr.set = (value, local) => {
-					if(pickr.value && value.toLowerCase() == pickr.value.toLowerCase()) return;
+					if (pickr.value && value.toLowerCase() == pickr.value.toLowerCase()) return;
 					pickr.value = value;
 					pickr.$.style.backgroundColor = value;
 					themeArr[idx] = value
-					if(!local) pickr.setColor(value, true);
+					if (!local) pickr.setColor(value, true);
 				};
 				pickr.get = () => pickr.value;
 				return pickr;
@@ -475,14 +477,15 @@
 		});
 
 		document.addEventListener('keyup', e => {
-			if(e.code === 'KeyT'){
+			if (e.code === 'KeyT') {
 				$('#themeModal').modal('toggle');
 			}
-			if(e.code === 'Escape'){
+			if (e.code === 'Escape') {
 				$('#themeModal').modal('close');
 			}
 		});
 	</script>
+	<script src="{% static 'js/socket/user.js' %}"></script>
 </body>
 
 </html>
