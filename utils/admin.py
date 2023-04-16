@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from mptt.admin import MPTTModelAdmin
-from utils.models import Comment
+from utils.models import Comment, Notification
 
 # Register your models here.
 
@@ -11,3 +11,4 @@ class CommentAdmin(MPTTModelAdmin):
 
 
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Notification)
