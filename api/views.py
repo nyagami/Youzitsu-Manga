@@ -6,6 +6,7 @@ from datetime import datetime
 
 from django.conf import settings
 from django.core.cache import cache
+from django.forms import model_to_dict
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import csrf_exempt
@@ -16,6 +17,7 @@ from reader.views import series_page_data
 from user.models import Profile
 from user.models import User
 from utils.models import Comment
+from utils.consumers import NotifcationConsumer
 from colorfield.fields import color_hex_validator
 
 
@@ -359,7 +361,7 @@ def post_comment(request):
         return HttpResponseBadRequest()
 
     article = request.POST.get('article')
-    if not article or len(article) < 3 or article[1] != ':':
+    if not article or len(article) < 3 or article[1] != '_':
         return HttpResponseBadRequest()
 
     parent = request.POST.get('parent')
@@ -389,6 +391,7 @@ def post_comment(request):
     if not content:
         return HttpResponseBadRequest()
 
+    # who is replied
     mention = request.POST.get('mention')
     try:
         mention = User.objects.get(username=mention).profile
@@ -398,7 +401,19 @@ def post_comment(request):
     media_url = request.POST.get('media_url')
     comment = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
                                      metion=mention, deepth=deepth, content=content, media_url=media_url)
-    return HttpResponse(json.dumps(comment), content_type='application/json', status=200)
+
+    # socketing
+    if mention:
+        comment.type = 'reply'
+        NotifcationConsumer.notify_one(model_to_dict(comment), mention)
+    # people who are tagged in
+    other_mentions = request.POST['other_mentions']
+    if other_mentions:
+        comment.type = 'mention'
+        other_mentions = other_mentions.trim().split()
+        NotifcationConsumer.notify_all(model_to_dict(mention), other_mentions)
+
+    return HttpResponse(json.dumps({"response": "success"}), content_type='application/json', status=200)
 
 
 def delete_comment(request):

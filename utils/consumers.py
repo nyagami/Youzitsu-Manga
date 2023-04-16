@@ -30,12 +30,20 @@ class NotifcationConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json(event)
 
     # content must be decoded json
-    async def notify_all(self, content, users):
-        for user in users:
+    @classmethod
+    async def notify_all(self, content, usernames):
+        for username in usernames:
             await get_channel_layer().group_send(
-                user.username,
+                username,
                 {'type': 'notify', 'notification': content}
             )
+
+    @classmethod
+    async def notify_one(self, content, username):
+        await get_channel_layer().group_send(
+            username,
+            {'type': 'notify', 'notification': content}
+        )
 
 
 class CommentConsumer(AsyncJsonWebsocketConsumer):
