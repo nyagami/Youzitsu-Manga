@@ -170,9 +170,9 @@
 								<span class="" id="username"><i>@{{ request.user.username }}</i></span>
 							</div>
 							<div class="space"></div>
-							<button>
+							<a href="/user/{{ request.user.username }}/">
 								<i class="fa-solid fa-gear fa-lg icon"></i>
-							</button>
+							</a>
 							{% else %}
 							<div class="w-100 d-flex justify-content-center">
 								<a class="regis-link" href="/user/login">Đăng nhập</a> | <a class="regis-link"

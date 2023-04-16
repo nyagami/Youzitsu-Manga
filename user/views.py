@@ -2,6 +2,7 @@ from django.contrib.auth.views import (
     LoginView as OldLoginView, LogoutView as OldLogOutView, PasswordChangeView as OldPasswordChangeView,
     PasswordResetView as OldPasswordResetView
 )
+from django.shortcuts import render
 from registration.backends.simple.views import RegistrationView as OldRegistrationView
 
 from .form import RegistrationForm
@@ -55,3 +56,13 @@ class PasswordResetView(OldPasswordResetView):
     template_name = "password/password_reset.html"
     html_email_template_name = "password/password_reset_email.html"
     email_template_name = "password/password_reset_email.txt"
+
+def profile(request, username):
+    print(request.user)
+    return render(
+        request, 'profile.html',
+        {
+            "owner": request.user.is_authenticated and request.user.username == username,
+            "page_title": username,
+        }
+    )
