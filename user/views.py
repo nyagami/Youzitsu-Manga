@@ -57,6 +57,7 @@ class PasswordResetView(OldPasswordResetView):
     html_email_template_name = "password/password_reset_email.html"
     email_template_name = "password/password_reset_email.txt"
 
+
 def profile(request, username):
     print(request.user)
     return render(
