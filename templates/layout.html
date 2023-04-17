@@ -161,18 +161,16 @@
 						<div class="d-flex user-section">
 							{% if request.user.is_authenticated %}
 							<div id="user-avatar">
-								<img class="rounded-circle user-avatar-lg"
-									src="{% if request.user.profile.avatar %} {{ request.user.profile.avatar }} {% else %} {% static 'img/default_avatar.jpeg' %} {% endif %}"
-									alt="avatar">
+								<a href="/user/{{ request.user.username }}/">
+									<img class="rounded-circle user-avatar-lg"
+										src="{% if request.user.profile.avatar %} {{ request.user.profile.avatar }} {% else %} {% static 'img/default_avatar.jpeg' %} {% endif %}"
+										alt="avatar">
+								</a>
 							</div>
 							<div id="user-info">
 								<span class="d-block user-fullname">{{ request.user.profile.display_name }}</span>
 								<span class="" id="username"><i>@{{ request.user.username }}</i></span>
 							</div>
-							<div class="space"></div>
-							<a href="/user/{{ request.user.username }}/">
-								<i class="fa-solid fa-gear fa-lg icon"></i>
-							</a>
 							{% else %}
 							<div class="w-100 d-flex justify-content-center">
 								<a class="regis-link" href="/user/login">Đăng nhập</a> | <a class="regis-link"

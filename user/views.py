@@ -2,9 +2,11 @@ from django.contrib.auth.views import (
     LoginView as OldLoginView, LogoutView as OldLogOutView, PasswordChangeView as OldPasswordChangeView,
     PasswordResetView as OldPasswordResetView
 )
+
 from django.shortcuts import render
 from registration.backends.simple.views import RegistrationView as OldRegistrationView
 
+from django.contrib.auth.models import User
 from .form import RegistrationForm
 from .models import Profile
 
@@ -59,11 +61,15 @@ class PasswordResetView(OldPasswordResetView):
 
 
 def profile(request, username):
-    print(request.user)
+    try:
+        user = User.objects.get(username=username)
+    except ValueError:
+        return render(request, 'homepage/404_page.html', status=404)
     return render(
         request, 'profile.html',
         {
-            "owner": request.user.is_authenticated and request.user.username == username,
+            "owner": user.username == request.user.username,
             "page_title": username,
+            "profile": user.profile
         }
     )
