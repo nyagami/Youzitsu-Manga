@@ -3,55 +3,9 @@
   <link rel="stylesheet" href="{% static 'css/comment.css' %}{{ version_query }}">
   <style>
     
-
-.comment-container{
-    width: 80%;
-    padding: 0.5rem 2rem;
-    padding-top: 1rem;
-}
-
-.comment-section{
-    overflow: hidden;
-    padding: 12px 12px;
-    margin-left: 12px;
-    display: flex;
-    max-width: 80%;
-    border-radius: 22px;
-    background: var(--sidebarColFocus);
-}
-
-.comment-img{
-    border-radius: 50px;
-    width: 40px;
-    height: 40px;
-    z-index: 99;
-}
-
-.comment-action{
-    margin-left: 1rem; 
-    margin-bottom: 0.5rem; 
-    margin-top: 0.25rem;
-}
-.comment-reply{
-    display: inline-block;
-}
-.comment-reply:hover{
-    cursor: pointer;
-    text-decoration-line: underline;
-}
-
-.deepth-0{
-    padding-left: 4rem !important;
-}
-.deepth-1{
-    padding-left: 8rem !important;
-}
-.deepth-2{
-    padding-left: 12rem !important;
-}
   </style>
 </head>
-<div class="comment-wrap hidden" data-bind="comment_section">
+<div class="comment-wrap" data-bind="comment_section">
     {% load mptt_tags %}
     <ul>
         {% recursetree comments %}
@@ -59,7 +13,9 @@
             <div class="comment-container deepth-{{ node.deepth}}">
                 <div class="comment-content-main">
                     <div class="comment-avt">
-                        <img src="{% static 'img/character/thumb-kei.png' %}" alt="23" class="comment-img">
+                        <a href="/user/{{ node.author.user.username }}">
+                            <img src="{{ node.author.avatar}}" alt="23" class="comment-img">
+                        </a>
                         <span>
                             {{ node.author.display_name }}
                         </span>
