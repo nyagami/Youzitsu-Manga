@@ -28,7 +28,7 @@
     <ul>
         {% recursetree comments %}
         <li>
-            <div class="comment-container deepth-{{ node.deepth}}" comment-id="{{ node.id }}">
+            <div class="comment-container deepth-{{ node.deepth}}" comment-id="{{ node.id }}" deepth="{{ node.deepth }}">
                 <div class="comment-avt">
                     <a href="/user/{{ node.author.user.username }}">
                         <img src="{{ node.author.avatar}}" alt="avatar" class="comment-img">
@@ -41,17 +41,17 @@
                     <p>{{ node.content }}</p>
                     {% if request.user.is_authenticated %}
                     <div class="comment-action">
-                        <h1 class="comment-reply">
+                        <h5 class="comment-reply">
                             trả lời
-                        </h1>
+                        </h5>
                     </div>
                     {% endif %}
                 </div>
             </div>
             {% if not node.is_leaf_node %}
-            <ul>
-                {{ children }}
-            </ul>
+            <ul>{{ children }}</ul>
+            {% else %}
+            <ul></ul>
             {% endif %}
         </li>
         {% endrecursetree %}
@@ -61,6 +61,38 @@
     [...document.getElementsByClassName("comment-editor")].forEach(ele => {
         ele.addEventListener('keydown', e => {
             e.stopImmediatePropagation();
+        })
+    });
+    [...document.getElementsByClassName("comment-reply")].forEach(ele => {
+        let container = ele.parentElement.parentElement.parentElement;
+        if(container.classList.contains('deepth-2')){
+            container = container.parentElement.parentElement.previousElementSibling;
+        }
+        const deepth = Number(container.getAttribute('deepth'));
+        container = container.nextElementSibling;
+        const reply = document.createElement('li');
+        reply.innerHTML = `
+        <div class="comment-dialog deepth-${deepth+1}">
+            <div class="comment-avt">
+                <a href="/user/{{ request.user.username }}">
+                    <img src="{{ request.user.profile.avatar }}" alt="avatar" class="comment-img">
+                </a>
+            </div>
+            <div class="box-comment">
+                <textarea class="comment-editor" placeholder="Viết bình luận"></textarea>
+                <div class="comment-button-group">
+                    <div type="button">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                    <div type="button" class="comment-button-submit">
+                        <i class="fa-solid fa-comment"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        ele.addEventListener('click', e => {
+            container.appendChild(reply);
         })
     })
 </script>
