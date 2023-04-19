@@ -12,13 +12,13 @@
 .comment-container{
     padding: 0.5rem 2rem;
     padding-top: 1rem;
+    display: flex;
+    max-width: calc(100% - 29rem - 40px);
 }
 
-.comment-section{
+.comment-content p{
     overflow: hidden;
-    padding: 12px 12px;
-    margin-left: 12px;
-    display: flex;
+    padding: 12px;
     border-radius: 22px;
     background: var(--sidebarColFocus);
 }
@@ -33,9 +33,13 @@
     height: 40px;
 }
 
+.comment-username{
+    padding-left: 0.5rem;
+    font-weight: bold;
+}
+
 .comment-action{
     margin-left: 1rem; 
-    margin-bottom: 0.5rem; 
     margin-top: 0.25rem;
 }
 
@@ -58,6 +62,9 @@
     html{
         font-size: 12px;
     }
+    .comment-container{
+        max-width: 100%;
+    }
     .deepth-0{
         padding-left: 1rem !important;
     }
@@ -67,4 +74,59 @@
     .deepth-2{
         padding-left: 4rem !important;
     }
+}
+
+.comment-dialog{
+    display: flex;
+    margin-top: 1rem;
+}
+
+.box-comment{
+	display: block;
+    position: relative;
+    line-height: 1.358;
+    word-break: break-word;
+    border-radius: 22px;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    cursor: text;
+	padding: 0;
+    width: calc(100% - 16rem - 4rem - 40px);
+}
+
+@media screen and (max-width: 700px) {
+    .box-comment{
+        width: calc(100% - 4rem - 40px);
+    }
+}
+
+.box-comment textarea{
+    position: relative;
+	min-height: 5rem;
+    color: var(--textCol);
+	padding: 12px;
+    border-radius: 22px;
+    background-color: var(--sidebarColFocus);
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+	border: none;
+	resize: none;
+}
+.box-comment textarea:focus{
+  outline: none !important;
+}
+
+.comment-button-group{
+    padding: 0 0.5rem;
+    display: flex;
+}
+
+.comment-button-group div {
+    cursor: pointer;
+}
+
+.comment-button-submit{
+    position: relative;
+    left: calc(100% - 0.5rem);
 }

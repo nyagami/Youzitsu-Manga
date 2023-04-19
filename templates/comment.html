@@ -1,18 +1,27 @@
 {% load static %}
 <head>
-  <link rel="stylesheet" href="{% static 'css/comment.css' %}{{ version_query }}">
-  <style>
-    
-  </style>
+    <script src="https://kit.fontawesome.com/75d6000ca7.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/comment.css' %}{{ version_query }}">
 </head>
 <div class="comment-wrapper hidden" data-bind="comment_section">
     {% load mptt_tags %}
     {% if request.user.is_authenticated %}
-    <div class="comment-dialog">
+    <div class="comment-dialog deepth-0">
         <div class="comment-avt">
             <a href="/user/{{ request.user.username }}">
                 <img src="{{ request.user.profile.avatar }}" alt="avatar" class="comment-img">
             </a>
+        </div>
+        <div class="box-comment">
+            <textarea class="comment-editor" placeholder="Viết bình luận"></textarea>
+            <div class="comment-button-group">
+                <div type="button">
+                    <i class="fa-solid fa-image"></i>
+                </div>
+                <div type="button" class="comment-button-submit">
+                    <i class="fa-solid fa-comment"></i>
+                </div>
+            </div>
         </div>
     </div>
     {% endif %}
@@ -20,28 +29,24 @@
         {% recursetree comments %}
         <li>
             <div class="comment-container deepth-{{ node.deepth}}" comment-id="{{ node.id }}">
+                <div class="comment-avt">
+                    <a href="/user/{{ node.author.user.username }}">
+                        <img src="{{ node.author.avatar}}" alt="avatar" class="comment-img">
+                    </a>
+                </div>
                 <div class="comment-content">
-                    <div class="comment-avt">
-                        <a href="/user/{{ node.author.user.username }}">
-                            <img src="{{ node.author.avatar}}" alt="avatar" class="comment-img">
-                        </a>
-                        <span>
-                            {{ node.author.display_name }}
-                        </span>
-                    </div>
-                    <div class="comment-section">
-                        <h1>
-                            {{ node.content }}
+                    <span class="comment-username">
+                        {{ node.author.display_name }}
+                    </span>
+                    <p>{{ node.content }}</p>
+                    {% if request.user.is_authenticated %}
+                    <div class="comment-action">
+                        <h1 class="comment-reply">
+                            trả lời
                         </h1>
                     </div>
+                    {% endif %}
                 </div>
-                {% if request.user.is_authenticated %}
-                <div class="comment-action">
-                    <h1 class="comment-reply">
-                        Reply
-                    </h1>
-                </div>
-                {% endif %}
             </div>
             {% if not node.is_leaf_node %}
             <ul>
@@ -52,3 +57,10 @@
         {% endrecursetree %}
     </ul>
 </div>
+<script type="text/javascript">
+    [...document.getElementsByClassName("comment-editor")].forEach(ele => {
+        ele.addEventListener('keydown', e => {
+            e.stopImmediatePropagation();
+        })
+    })
+</script>
