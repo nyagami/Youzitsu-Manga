@@ -1,15 +1,15 @@
-.comment-wrap{
+.comment-wrapper{
     position: fixed;
-    bottom: 0;
     width: 100%;
     height: 50vh;
+    bottom: 0;
     overflow-y: scroll;
+    overflow-x: hidden;
     color: var(--textCol);
     background-color: var(--prevCol);
 }
 
 .comment-container{
-    width: 80%;
     padding: 0.5rem 2rem;
     padding-top: 1rem;
 }
@@ -19,7 +19,6 @@
     padding: 12px 12px;
     margin-left: 12px;
     display: flex;
-    max-width: 80%;
     border-radius: 22px;
     background: var(--sidebarColFocus);
 }
@@ -32,7 +31,6 @@
     border-radius: 50px;
     width: 40px;
     height: 40px;
-    z-index: 99;
 }
 
 .comment-action{
