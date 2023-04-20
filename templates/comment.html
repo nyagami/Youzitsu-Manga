@@ -30,11 +30,7 @@
     <ul>
         {% recursetree comments %}
         <li>
-            <div class="comment-container deepth-{{ node.deepth}}"
-                comment-id="{{ node.id }}" deepth="{{ node.deepth }}"
-                username = "{{ node.author.user.username }}"
-                display-name="{{ node.author.display_name }}"
-            >
+            <div class="comment-container deepth-{{ node.deepth}}">
                 <div class="comment-avt">
                     <a href="/user/{{ node.author.user.username }}">
                         <img src="{{ node.author.avatar}}" alt="avatar" class="comment-img">

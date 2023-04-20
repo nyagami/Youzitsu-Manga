@@ -17,11 +17,7 @@ const openCommentSocket = () => {
                 const comment = data.comment;
                 const commentElement = document.createElement('li');
                     commentElement.innerHTML = `
-                    <div class="comment-container deepth-${comment.deepth}"
-                        comment-id="${comment.id}" deepth="${comment.deepth}"
-                        username = "${comment.username}"
-                        display-name="${comment.author.display_name}";
-                    >
+                    <div class="comment-container deepth-${comment.deepth}">
                         <div class="comment-avt">
                             <a href="/user/${comment.username}">
                                 <img src="${comment.author.avatar}" alt="avatar" class="comment-img">
