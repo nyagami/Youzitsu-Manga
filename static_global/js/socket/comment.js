@@ -31,12 +31,23 @@ const openCommentSocket = () => {
                             ${is_authenticated 
                                 ?
                                 `<div class="comment-bottom">
-                                    <h5 class="comment-reply" parent="${comment.parent}" comment-id="${comment.id}" 
+                                    <button class="comment-reply" parent="${comment.parent}" comment-id="${comment.id}" 
                                     deepth="${comment.deepth}" username="${comment.username}" 
                                     display-name="${comment.author.display_name}" onclick="replyHandler(this, event)">
-                                        trả lời
-                                    </h5>
+                                        Trả lời
+                                    </button>
                                     <span class="time"> ${convertTime(comment.created_on)} </span>
+                                    <div class="more">
+                                        <button class="ico-btn more-btn"
+                                            onclick="this.nextElementSibling.classList.toggle('hidden'); this.nextElementSibling.focus()"
+                                        >
+                                        </button>
+                                        <button class="more-menu hidden" onblur="this.classList.add('hidden')">
+                                            <div class="more-item">Xoá</div>
+                                            <div class="more-item">Chỉnh sửa</div>
+                                            <div class="more-item">Báo cáo</div>
+                                        </button>
+                                    </div>
                                 </div>
                                 ` 
                                 : 

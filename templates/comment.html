@@ -1,6 +1,5 @@
 {% load static %}
 <head>
-    <script src="https://kit.fontawesome.com/75d6000ca7.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/comment.css' %}{{ version_query }}">
 </head>
 <div class="comment-wrapper hidden" data-bind="comment_section">
@@ -15,14 +14,12 @@
         <div class="box-comment">
             <textarea class="comment-editor" placeholder="Viết bình luận" onfocus="ediorFocusHandler(this)"></textarea>
             <div class="comment-button-group">
-                <div type="button">
-                    <i class="fa-solid fa-image"></i>
-                </div>
-                <div type="button" class="comment-button-submit"
+                <button type="button" class="ico-btn comment-button-media"></button>
+                <div class="space"></div>
+                <button type="button" class="ico-btn comment-button-submit"
                  onclick="postCommentHandler(this)"
                 >
-                    <i class="fa-solid fa-comment"></i>
-                </div>
+                </button>
             </div>
         </div>
     </div>
@@ -43,12 +40,24 @@
                     <p>{{ node.content }}</p>
                     {% if request.user.is_authenticated %}
                     <div class="comment-bottom">
-                        <h5 class="comment-reply" parent="{{ node.parent.id }}" comment-id="{{ node.id }}" 
-                        deepth="{{ node.deepth }}" username="{{ node.author.user.username }}" 
-                        display-name="{{ node.author.display_name }}" onclick="replyHandler(this)">
-                            trả lời
-                        </h5>
+                        <button class="comment-reply" parent="{{ node.parent.id }}" comment-id="{{ node.id }}" 
+                            deepth="{{ node.deepth }}" username="{{ node.author.user.username }}" 
+                            display-name="{{ node.author.display_name }}" onclick="replyHandler(this)"
+                        >
+                            Trả lời
+                        </button>
                         <span class="time hidden">{{ node.created_on }} </span>
+                        <div class="more">
+                            <button class="ico-btn more-btn"
+                                onclick="this.nextElementSibling.classList.toggle('hidden'); this.nextElementSibling.focus()"
+                            >
+                            </button>
+                            <button class="more-menu hidden" onblur="this.classList.add('hidden')">
+                                <div class="more-item">Xoá</div>
+                                <div class="more-item">Chỉnh sửa</div>
+                                <div class="more-item">Báo cáo</div>
+                            </button>
+                        </div>
                     </div>
                     {% endif %}
                 </div>
@@ -138,17 +147,16 @@
                 </a>
             </div>
             <div class="box-comment">
-                <textarea class="comment-editor" placeholder="đang trả lời ${display_name}" onfocus="ediorFocusHandler(this)"></textarea>
+                <textarea class="comment-editor" placeholder="Đang trả lời ${display_name}" onfocus="ediorFocusHandler(this)"></textarea>
                 <div class="comment-button-group">
-                    <div type="button">
-                        <i class="fa-solid fa-image"></i>
-                    </div>
-                    <div type="button" class="comment-button-submit"
+                    <button type="button" class="ico-btn comment-button-media"></button>
+                    <div class="space"></div>
+                    <button type="button" class="ico-btn comment-button-submit"
                         mention="${username}" parent=${commentId}
                         onclick="postCommentHandler(this)"
                     >
                         <i class="fa-solid fa-comment"></i>
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>

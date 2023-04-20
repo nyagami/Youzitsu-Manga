@@ -46,12 +46,52 @@
     display: flex;
 }
 
+.comment-bottom .comment-reply{
+    color: var(--textCol);
+    font-size: 1rem;
+}
+
 .comment-bottom .time{
     margin-left: 2rem;
     font-weight: lighter;
     font-size: smaller;
     align-self: center;
     color: var(--accentCol);
+}
+
+.comment-bottom .more{
+    position: relative;
+    margin-left: 2rem;
+}
+
+.more .ico-btn{
+    height: auto;
+    width: auto;
+}
+
+.ico-btn.more-btn::before{
+    content: "\e926";
+    font-size: 1.5rem;
+}
+
+.more-menu{
+    position: absolute;
+    background-color: var(--sidebarColDark);
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 8rem;
+    z-index: 2;
+}
+
+.more-menu .more-item{
+    color: var(--textCol);
+    padding: 0.3rem;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.more-menu .more-item:hover{
+    background-color: var(--accentCol);
 }
 
 .comment-reply:hover{
@@ -128,19 +168,20 @@
 }
 
 .comment-button-group{
-    padding: 0 2rem 0 0.5rem;
+    position: relative;
+    padding-left: 0.5rem;
     display: flex;
 }
-
-.comment-button-group div {
-    cursor: pointer;
+.ico-btn.comment-button-media::before{
+    content: "\e931";
+}
+.ico-btn.ico-btn.comment-button-submit{
+    align-self: flex-end;
+}
+.ico-btn.comment-button-submit::before{
+    content: "\e91d";
 }
 
-.comment-button-group div:hover{
-    color: var(--accentCol);
-}
-
-.comment-button-submit{
-    position: relative;
-    left: calc(100% - 0.5rem);
+.space{
+    flex: 1;
 }
