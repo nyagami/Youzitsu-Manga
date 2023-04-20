@@ -15,11 +15,7 @@ const openCommentSocket = () => {
         switch (data.type) {
             case 'comment':
                 const comment = data.comment;
-                if(comment.parent){
-
-                }else{
-                    const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_section'] > ul");
-                    const commentElement = document.createElement('li');
+                const commentElement = document.createElement('li');
                     commentElement.innerHTML = `
                     <div class="comment-container deepth-${comment.deepth}"
                         comment-id="${comment.id}" deepth="${comment.deepth}"
@@ -39,7 +35,9 @@ const openCommentSocket = () => {
                             ${is_authenticated 
                                 ?
                                 `<div class="comment-bottom">
-                                    <h5 class="comment-reply" onclick="replyHandler(this, event)">
+                                    <h5 class="comment-reply" parent="${comment.parent}" comment-id="${comment.id}" 
+                                    deepth="${comment.deepth}" username="${comment.username}" 
+                                    display-name="${comment.author.display_name}" onclick="replyHandler(this, event)">
                                         trả lời
                                     </h5>
                                     <span class="time"> ${convertTime(comment.created_on)} </span>
@@ -50,7 +48,13 @@ const openCommentSocket = () => {
                         </div>
                     </div>
                     <ul></ul>
+                    <div class="reply-comment-box" comment-id="${comment.id}"></div>
                     `;
+                if(comment.parent){
+                    const parent = document.querySelector(`.comment-container[comment-id="${comment.parent}"]`).nextElementSibling;
+                    parent.appendChild(commentElement);
+                }else{
+                    const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_section'] > ul");
                     wrapper.prepend(commentElement);
                 }
                 break;

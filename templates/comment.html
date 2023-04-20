@@ -47,7 +47,9 @@
                     <p>{{ node.content }}</p>
                     {% if request.user.is_authenticated %}
                     <div class="comment-bottom">
-                        <h5 class="comment-reply" onclick="replyHandler(this, event)">
+                        <h5 class="comment-reply" parent="{{ node.parent.id }}" comment-id="{{ node.id }}" 
+                        deepth="{{ node.deepth }}" username="{{ node.author.user.username }}" 
+                        display-name="{{ node.author.display_name }}" onclick="replyHandler(this)">
                             trả lời
                         </h5>
                         <span class="time hidden">{{ node.created_on }} </span>
@@ -60,6 +62,7 @@
             {% else %}
             <ul></ul>
             {% endif %}
+            <div class="reply-comment-box" comment-id="{{ node.id }}"></div>
         </li>
         {% endrecursetree %}
     </ul>
@@ -119,18 +122,19 @@
             e.stopImmediatePropagation();
         });
     }
-    function replyHandler(ele, event){
-        let container = ele.parentElement.parentElement.parentElement;
-        if(container.classList.contains('deepth-2')){
-            container = container.parentElement.parentElement.previousElementSibling;
+    function replyHandler(ele){
+        const parent = ele.getAttribute('parent');
+        let deepth = Number(ele.getAttribute('deepth'));
+        let commentId = ele.getAttribute('comment-id');
+        let container = document.querySelector(`.reply-comment-box[comment-id="${commentId}"]`);
+        if(deepth === 2){
+            container = document.querySelector(`.reply-comment-box[comment-id="${parent}"]`);
+            commentId = parent;
+            deepth = 1;
         }
-        const deepth = Number(container.getAttribute('deepth'));
-        const username = container.getAttribute('username');
-        const display_name = container.getAttribute('display-name');
-        const commentId = container.getAttribute("comment-id");
-        container = container.nextElementSibling;
-        const reply = document.createElement('li');
-        reply.innerHTML = `
+        const username = ele.getAttribute('username');
+        const display_name = ele.getAttribute('display-name');
+        replyHTML = `
         <div class="comment-dialog deepth-${deepth+1}">
             <div class="comment-avt">
                 <a href="/user/{{ request.user.username }}">
@@ -145,6 +149,7 @@
                     </div>
                     <div type="button" class="comment-button-submit"
                         mention="${username}" parent=${commentId}
+                        onclick="postCommentHandler(this)"
                     >
                         <i class="fa-solid fa-comment"></i>
                     </div>
@@ -152,14 +157,13 @@
             </div>
         </div>
         `;
-        container.appendChild(reply);
-        reply.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+        container.innerHTML = replyHTML;
+        container.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     }
 
     function postCommentHandler(ele){
         const content = ele.parentElement.previousElementSibling.value;
         if(!content) return;
-        ele.parentElement.previousElementSibling.value = '';
         const mention = ele.getAttribute("mention") || '';
         const parent = ele.getAttribute("parent") || '-1';
         const formBody = new FormData();
@@ -168,6 +172,7 @@
         formBody.append('parent', parent);
         formBody.append('content', content);
         formBody.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+        document.querySelector(`.reply-comment-box[comment-id="${parent}"]`).innerHTML = '';
         fetch("/api/comment/",{
             method: "POST",
             body: formBody,
