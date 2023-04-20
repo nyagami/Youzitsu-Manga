@@ -313,20 +313,6 @@ def series_data_slug(request):
         return HttpResponse(json.dumps(series), content_type="application/json")
 
 
-def get_user_info(request):
-    if request.user.is_authenticated is False:
-        context = None
-    else:
-        profile = Profile.objects.get(user=request.user)
-        context = {
-            "is_authenticated": True,
-            "username": profile.user.username,
-            "display_name": profile.display_name,
-            "avatar": str(profile.avatar),
-        }
-    return HttpResponse(json.dumps(context), content_type="application/json")
-
-
 @csrf_exempt
 def update_theme(request):
     if request.user.is_authenticated is False or request.method != 'POST':

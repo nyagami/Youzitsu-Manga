@@ -49,8 +49,7 @@ urlpatterns = [
         name="api-search-index",
     ),
 
-    # user info
-    path("get_user_info/", views.get_user_info, name="api-get-user-info"),
-
     path("update_theme/", views.update_theme, name="api-update-theme"),
+
+    path("comment/", views.post_comment, name="api-post_comment"),
 ]
