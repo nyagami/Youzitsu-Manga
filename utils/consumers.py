@@ -2,7 +2,7 @@
 # from channels.db import database_sync_to_async
 from channels.consumer import get_channel_layer
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
-
+from asgiref.sync import async_to_sync
 
 class NotifcationConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
@@ -48,8 +48,8 @@ class NotifcationConsumer(AsyncJsonWebsocketConsumer):
 
 class CommentConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
-        # group should be like ^[a-z]_[\w-]+
-        self.group = self.scope['url_route']['kwargs']['type'] + '_' + self.scope['url_route']['kwargs']['article']
+        # group should be like ^[a-z]_[\w_-]+
+        self.group = self.scope['url_route']['kwargs']['article']
         await self.channel_layer.group_add(
             self.group,
             self.channel_name
@@ -71,3 +71,10 @@ class CommentConsumer(AsyncJsonWebsocketConsumer):
 
     async def comment(self, event):
         await self.send_json(event)
+
+    @classmethod
+    def send_comment(self, article, content):
+        async_to_sync(get_channel_layer().group_send)(
+            article,
+            {'type': 'comment', 'comment': content}
+        )

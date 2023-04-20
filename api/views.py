@@ -17,7 +17,7 @@ from reader.views import series_page_data
 from user.models import Profile
 from user.models import User
 from utils.models import Comment
-from utils.consumers import NotifcationConsumer
+from utils.consumers import NotifcationConsumer, CommentConsumer
 from colorfield.fields import color_hex_validator
 
 
@@ -389,9 +389,14 @@ def post_comment(request):
                                      mention=mention, deepth=deepth, content=content, media_url=media_url)
 
     # socketing
+
+    comment.type = 'comment'
+    CommentConsumer.send_comment(article, model_to_dict(comment))
+
     if mention:
         comment.type = 'reply'
         NotifcationConsumer.notify_one(model_to_dict(comment), mention)
+
     # people who are tagged in
     other_mentions = request.POST.get('other_mentions')
     if other_mentions:
