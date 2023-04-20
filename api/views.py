@@ -385,24 +385,24 @@ def post_comment(request):
         mention = None
 
     media_url = request.POST.get('media_url')
-    comment = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
+    comment_obj = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
                                      mention=mention, deepth=deepth, content=content, media_url=media_url)
 
     # socketing
-
-    comment.type = 'comment'
-    CommentConsumer.send_comment(article, model_to_dict(comment))
+    comment = model_to_dict(comment_obj)
+    comment['author'] = model_to_dict(request.user.profile)
+    comment['username'] = request.user.username
+    comment['created_on'] = f'{comment_obj.created_on.date()} {comment_obj.created_on.time()}'
+    CommentConsumer.send_comment(article, comment)
 
     if mention:
-        comment.type = 'reply'
-        NotifcationConsumer.notify_one(model_to_dict(comment), mention)
+        NotifcationConsumer.notify_one(comment, mention)
 
     # people who are tagged in
     other_mentions = request.POST.get('other_mentions')
     if other_mentions:
-        comment.type = 'mention'
         other_mentions = other_mentions.trim().split()
-        NotifcationConsumer.notify_all(model_to_dict(comment), other_mentions)
+        NotifcationConsumer.notify_all(comment, other_mentions)
 
     return HttpResponse(json.dumps({"response": "success"}), content_type='application/json', status=200)
 

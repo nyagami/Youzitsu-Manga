@@ -3,10 +3,6 @@ const openCommentSocket = () => {
     if (!username || !is_authenticated) return;
     commentSocket = new WebSocket(`ws://${window.location.host}/ws/comment/c/${article}/`);
 
-    commentSocket.onopen = e => {
-        console.log(`ws opened for comment`);
-    }
-
     commentSocket.onclose = e => {
         setTimeout(function () {
             console.log("Reconnecting...");
@@ -15,18 +11,57 @@ const openCommentSocket = () => {
     }
 
     commentSocket.onmessage = e => {
+        console.log(e);
         const data = JSON.parse(e.data);
-        console.log(data);
         switch (data.type) {
             case 'comment':
-                console.log(data.comment);
+                const comment = data.comment;
+                console.log(comment);
+                if(comment.parent){
+
+                }else{
+                    const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_section'] > ul");
+                    const commentElement = document.createElement('li');
+                    commentElement.innerHTML = `
+                    <div class="comment-container deepth-${comment.deepth}"
+                        comment-id="${comment.id}" deepth="${comment.deepth}"
+                        username = "${comment.username}"
+                        display-name="${comment.author.display_name}";
+                    >
+                        <div class="comment-avt">
+                            <a href="/user/${comment.username}">
+                                <img src="${comment.author.avatar}" alt="avatar" class="comment-img">
+                            </a>
+                        </div>
+                        <div class="comment-content">
+                            <span class="comment-username">
+                                ${comment.author.display_name}
+                            </span>
+                            <p>${comment.content}</p>
+                            ${is_authenticated 
+                                ?
+                                `<div class="comment-bottom">
+                                    <h5 class="comment-reply" onclick="replyHandler(this, event)">
+                                        trả lời
+                                    </h5>
+                                    <span class="time hidden"> ${comment.created_on} </span>
+                                </div>
+                                ` 
+                                : 
+                                ''}
+                        </div>
+                    </div>
+                    <ul></ul>
+                    `;
+                    wrapper.prepend(commentElement);
+                }
                 break;
             default:
                 break;
         }
     }
 
-    commentSocket.onerror = e => {
+    commentSocket.onerror = err => {
         console.log("WebSocket encountered an error: " + err.message);
         console.log("Closing the socket.");
         commentSocket.close();
