@@ -24,46 +24,18 @@
         </div>
     </div>
     {% endif %}
-    <ul>
+    <ul class="comment-list" comment-id="-1">
         {% recursetree comments %}
         <li>
-            <div class="comment-container deepth-{{ node.deepth}}">
-                <div class="comment-avt">
-                    <a href="/user/{{ node.author.user.username }}">
-                        <img src="{{ node.author.avatar}}" alt="avatar" class="comment-img">
-                    </a>
-                </div>
-                <div class="comment-content">
-                    <span class="comment-username">
-                        {{ node.author.display_name }}
-                    </span>
-                    <p>{{ node.content }}</p>
-                    {% if request.user.is_authenticated %}
-                    <div class="comment-bottom">
-                        <button class="comment-reply" parent="{{ node.parent.id }}" comment-id="{{ node.id }}" 
-                            deepth="{{ node.deepth }}" username="{{ node.author.user.username }}" 
-                            display-name="{{ node.author.display_name }}" onclick="replyHandler(this)"
-                        >
-                            Trả lời
-                        </button>
-                        <span class="time hidden">{{ node.created_on }} </span>
-                        <div class="more">
-                            <button class="ico-btn more-btn"
-                                onclick="this.nextElementSibling.classList.toggle('hidden'); this.nextElementSibling.focus()"
-                            >
-                            </button>
-                            <button class="more-menu hidden" onblur="this.classList.add('hidden')">
-                                <div class="more-item">Xoá</div>
-                                <div class="more-item">Chỉnh sửa</div>
-                                <div class="more-item">Báo cáo</div>
-                            </button>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
+            <div class="comment-container deepth-{{ node.deepth}}"
+                data-id="{{ node.id }}" data-parent="{{ node.parent.id }}" data-deepth="{{ node.deepth }}"
+                data-time="{{ node.created_on }}" data-username="{{ node.author.user.username }}"
+                data-display-name="{{ node.author.display_name }}" data-avatar="{{ node.author.avatar }}"
+                data-content="{{ node.content }}"
+            >
             </div>
             {% if not node.is_leaf_node %}
-            <ul>{{ children }}</ul>
+            <ul class="comment-list" comment-id="{{ node.id }}">{{ children }}</ul>
             {% else %}
             <ul></ul>
             {% endif %}
@@ -120,6 +92,56 @@
 <script type="text/javascript">
     const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_section'] > ul");
     wrapper.append(...Array.from(wrapper.childNodes).reverse());
+    function renderComment(ele){
+        const id = ele.getAttribute('data-id');
+        const parent = ele.getAttribute('data-parent');
+        const time = ele.getAttribute('data-time');
+        const deepth = ele.getAttribute('data-deepth');
+        const username = ele.getAttribute('data-username');
+        const display_name = ele.getAttribute('data-display-name');
+        const avatar = ele.getAttribute('data-avatar');
+        const content = ele.getAttribute('data-content');
+        commentHTML = `
+        <div class="comment-avt">
+            <a href="/user/${username}">
+                <img src="${avatar}" alt="avatar" class="comment-img">
+            </a>
+        </div>
+        <div class="comment-content">
+            <span class="comment-username">${display_name}</span>
+            <p>${content}</p>
+            ${is_authenticated
+                ?
+                `
+                <div class="comment-bottom">
+                    <button class="comment-reply" parent="${parent}" comment-id="${id}" 
+                        deepth="${deepth}" username="${username}" 
+                        display-name="${display_name}" onclick="replyHandler(this)"
+                    >
+                        Trả lời
+                    </button>
+                    <span class="time">${convertTime(time)}</span>
+                    <div class="more">
+                        <button class="ico-btn more-btn"
+                            onclick="this.nextElementSibling.classList.toggle('hidden'); this.nextElementSibling.focus()"
+                        >
+                        </button>
+                        <button class="more-menu hidden" onblur="this.classList.add('hidden')">
+                            <div class="more-item">Xoá</div>
+                            <div class="more-item">Chỉnh sửa</div>
+                            <div class="more-item">Báo cáo</div>
+                        </button>
+                    </div>
+                </div>
+                `
+                : ''
+            }
+        </div>
+        `
+        ele.innerHTML = commentHTML;
+    }
+    $("comment-container").forEach(ele => renderComment(ele));
+
     const article = "{{ article }}";
 
     function ediorFocusHandler(ele){
@@ -168,6 +190,7 @@
     function postCommentHandler(ele){
         const content = ele.parentElement.previousElementSibling.value;
         if(!content) return;
+        ele.parentElement.previousElementSibling.value = '';
         const mention = ele.getAttribute("mention") || '';
         const parent = ele.getAttribute("parent") || '-1';
         const formBody = new FormData();
@@ -176,7 +199,8 @@
         formBody.append('parent', parent);
         formBody.append('content', content);
         formBody.append('csrfmiddlewaretoken', "{{ csrf_token }}");
-        document.querySelector(`.reply-comment-box[comment-id="${parent}"]`).innerHTML = '';
+        replyBox = document.querySelector(`.reply-comment-box[comment-id="${parent}"]`);
+        if(replyBox) replyBox.innerHTML = '';
         fetch("/api/comment/",{
             method: "POST",
             body: formBody,

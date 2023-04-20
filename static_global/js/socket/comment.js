@@ -17,53 +17,24 @@ const openCommentSocket = () => {
                 const comment = data.comment;
                 const commentElement = document.createElement('li');
                     commentElement.innerHTML = `
-                    <div class="comment-container deepth-${comment.deepth}">
-                        <div class="comment-avt">
-                            <a href="/user/${comment.username}">
-                                <img src="${comment.author.avatar}" alt="avatar" class="comment-img">
-                            </a>
-                        </div>
-                        <div class="comment-content">
-                            <span class="comment-username">
-                                ${comment.author.display_name}
-                            </span>
-                            <p>${comment.content}</p>
-                            ${is_authenticated 
-                                ?
-                                `<div class="comment-bottom">
-                                    <button class="comment-reply" parent="${comment.parent}" comment-id="${comment.id}" 
-                                    deepth="${comment.deepth}" username="${comment.username}" 
-                                    display-name="${comment.author.display_name}" onclick="replyHandler(this, event)">
-                                        Trả lời
-                                    </button>
-                                    <span class="time"> ${convertTime(comment.created_on)} </span>
-                                    <div class="more">
-                                        <button class="ico-btn more-btn"
-                                            onclick="this.nextElementSibling.classList.toggle('hidden'); this.nextElementSibling.focus()"
-                                        >
-                                        </button>
-                                        <button class="more-menu hidden" onblur="this.classList.add('hidden')">
-                                            <div class="more-item">Xoá</div>
-                                            <div class="more-item">Chỉnh sửa</div>
-                                            <div class="more-item">Báo cáo</div>
-                                        </button>
-                                    </div>
-                                </div>
-                                ` 
-                                : 
-                                ''}
-                        </div>
+                    <div class="comment-container deepth-${comment.deepth}"
+                        data-id="${comment.id}" data-parent="${comment.parent}" data-deepth="${comment.deept}"
+                        data-time="${comment.created_on}" data-username="${comment.username}"
+                        data-display-name="${comment.author.display_name}" data-avatar="${comment.author.avatar}"
+                        data-content="${comment.content}"
+                    >
                     </div>
                     <ul></ul>
                     <div class="reply-comment-box" comment-id="${comment.id}"></div>
                     `;
                 if(comment.parent){
-                    const parent = document.querySelector(`.comment-container[comment-id="${comment.parent}"]`).nextElementSibling;
+                    const parent = document.querySelector(`ul.comment-list[comment-id="${comment.parent}"]`);
                     parent.appendChild(commentElement);
                 }else{
-                    const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_section'] > ul");
+                    const wrapper = document.querySelector("ul.comment-list[comment-id='-1']");
                     wrapper.prepend(commentElement);
                 }
+                renderComment(commentElement.firstElementChild);
                 break;
             default:
                 break;
