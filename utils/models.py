@@ -21,7 +21,7 @@ class Comment(MPTTModel):
     media_url = models.CharField(max_length=50, null=True, blank=True)  # image link or smt
 
     class MPTTMeta:
-        order_insertion_by = ['created_on']
+        order_insertion_by = ['-created_on']
 
     def __str__(self) -> str:
         return f'Comment by {self.author.user.username} at {self.created_on.date()}'

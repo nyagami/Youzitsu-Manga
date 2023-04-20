@@ -1,7 +1,7 @@
 let commentSocket = null;
 const openCommentSocket = () => {
     if (!username || !is_authenticated) return;
-    commentSocket = new WebSocket(`ws://${window.location.host}/ws/comment/c/test/`);
+    commentSocket = new WebSocket(`ws://${window.location.host}/ws/comment/c/${article}/`);
 
     commentSocket.onopen = e => {
         console.log(`ws opened for comment`);

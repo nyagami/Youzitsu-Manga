@@ -18,7 +18,9 @@
                 <div type="button">
                     <i class="fa-solid fa-image"></i>
                 </div>
-                <div type="button" class="comment-button-submit">
+                <div type="button" class="comment-button-submit"
+                    author="{{ request.user.username }}" reply="" deepth="0" parent=""
+                >
                     <i class="fa-solid fa-comment"></i>
                 </div>
             </div>
@@ -28,7 +30,10 @@
     <ul>
         {% recursetree comments %}
         <li>
-            <div class="comment-container deepth-{{ node.deepth}}" comment-id="{{ node.id }}" deepth="{{ node.deepth }}">
+            <div class="comment-container deepth-{{ node.deepth}}"
+                comment-id="{{ node.id }}" deepth="{{ node.deepth }}"
+                author = "{{ node.author.user.username }}" article="{{ article }}"
+            >
                 <div class="comment-avt">
                     <a href="/user/{{ node.author.user.username }}">
                         <img src="{{ node.author.avatar}}" alt="avatar" class="comment-img">
@@ -44,6 +49,7 @@
                         <h5 class="comment-reply">
                             trả lời
                         </h5>
+                        <span>{{ node.created_on}} </span>
                     </div>
                     {% endif %}
                 </div>
@@ -58,6 +64,7 @@
     </ul>
 </div>
 <script type="text/javascript">
+    const article = "{{ article }}";
     [...document.getElementsByClassName("comment-editor")].forEach(ele => {
         ele.addEventListener('keydown', e => {
             e.stopImmediatePropagation();
@@ -69,6 +76,8 @@
             container = container.parentElement.parentElement.previousElementSibling;
         }
         const deepth = Number(container.getAttribute('deepth'));
+        const author = container.getAttribute('author');
+        const commentId = container.getAttribute("comment-id");
         container = container.nextElementSibling;
         const reply = document.createElement('li');
         reply.innerHTML = `
@@ -84,7 +93,9 @@
                     <div type="button">
                         <i class="fa-solid fa-image"></i>
                     </div>
-                    <div type="button" class="comment-button-submit">
+                    <div type="button" class="comment-button-submit"
+                        author="${author}" parent=${commentId} deepth=${deepth+1} article="${article}"
+                    >
                         <i class="fa-solid fa-comment"></i>
                     </div>
                 </div>
@@ -96,3 +107,4 @@
         })
     })
 </script>
+<script src="{% static 'js/socket/comment.js' %}{{ version_query }}"></script>

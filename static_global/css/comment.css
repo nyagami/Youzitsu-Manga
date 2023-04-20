@@ -17,6 +17,7 @@
 }
 
 .comment-content p{
+    cursor: text;
     overflow: hidden;
     padding: 12px;
     border-radius: 22px;
