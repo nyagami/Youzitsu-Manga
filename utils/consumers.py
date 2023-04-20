@@ -4,6 +4,7 @@ from channels.consumer import get_channel_layer
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from asgiref.sync import async_to_sync
 
+
 class NotifcationConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
         self.group = self.scope['url_route']['kwargs']['username']

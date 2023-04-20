@@ -386,7 +386,7 @@ def post_comment(request):
 
     media_url = request.POST.get('media_url')
     comment_obj = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
-                                     mention=mention, deepth=deepth, content=content, media_url=media_url)
+                                         mention=mention, deepth=deepth, content=content, media_url=media_url)
 
     # socketing
     comment = model_to_dict(comment_obj)
