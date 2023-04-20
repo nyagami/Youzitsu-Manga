@@ -213,6 +213,8 @@ def reader(request, series_slug, chapter, page=None):
     if page:
         article = f'c_{series_slug}_c{chapter}'
         comments = Comment.objects._mptt_filter(article=article)
+        for comment in comments:
+            comment.created_on = f'{comment.created_on.date()} {comment.created_on.time()}'
         data = get_all_metadata(request, series_slug)
         if chapter in data:
             data[chapter]["relative_url"] = f"read/manga/{series_slug}/{chapter}/1"

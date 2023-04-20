@@ -49,7 +49,7 @@
                         <h5 class="comment-reply">
                             trả lời
                         </h5>
-                        <span>{{ node.created_on}} </span>
+                        <span class="time hidden">{{ node.created_on }} </span>
                     </div>
                     {% endif %}
                 </div>
@@ -63,6 +63,49 @@
         {% endrecursetree %}
     </ul>
 </div>
+<script>
+    function zpad(n) {
+		if (n < 10) return '0' + n;
+		return n;
+	}
+    let now = new Date();
+    function truncTime(TimeString){
+        const arr = TimeString.trim().split(/[\s\D]+/g).map(e => Number(e));
+        const commentTime = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]));
+        let delta = Math.abs(now - commentTime)/1000;
+        let days = Math.floor(delta / 86400);
+        delta -= days * 86400;
+
+        let hours = Math.floor(delta / 3600) % 24;
+        delta -= hours * 3600;
+
+        let minutes = Math.floor(delta / 60) % 60;
+        delta -= minutes * 60;
+        let seconds = parseInt(delta % 60);
+
+        if (days >= 7) {
+            return `${zpad(commentTime.getDate())}-${zpad(commentTime.getMonth() + 1)}-${commentTime.getFullYear()}`;
+        }
+        else if (days < 7 && days > 0) {
+            return`${days} ngày trước`;
+        }
+        else if (hours > 0) {
+            return `${hours} giờ trước`;
+        }
+        else if (minutes > 0) {
+            return `${minutes} phút trước`;
+        }
+        else if (seconds > 0) {
+            return`${seconds} giây trước`;
+        }
+        return TimeString;
+    }
+    [...document.getElementsByClassName("time")].forEach(ele => {
+        console.log(ele.textContent);
+        ele.textContent = truncTime(ele.textContent);
+        ele.classList.remove("hidden");
+    })
+</script>
 <script type="text/javascript">
     const article = "{{ article }}";
     [...document.getElementsByClassName("comment-editor")].forEach(ele => {
@@ -103,7 +146,7 @@
         </div>
         `;
         ele.addEventListener('click', e => {
-            container.appendChild(reply);
+            container.prepend(reply);
         })
     })
 </script>
