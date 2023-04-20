@@ -11,12 +11,10 @@ const openCommentSocket = () => {
     }
 
     commentSocket.onmessage = e => {
-        console.log(e);
         const data = JSON.parse(e.data);
         switch (data.type) {
             case 'comment':
                 const comment = data.comment;
-                console.log(comment);
                 if(comment.parent){
 
                 }else{
@@ -44,7 +42,7 @@ const openCommentSocket = () => {
                                     <h5 class="comment-reply" onclick="replyHandler(this, event)">
                                         trả lời
                                     </h5>
-                                    <span class="time hidden"> ${comment.created_on} </span>
+                                    <span class="time"> ${convertTime(comment.created_on)} </span>
                                 </div>
                                 ` 
                                 : 

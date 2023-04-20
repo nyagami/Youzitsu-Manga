@@ -73,7 +73,7 @@
 		return n;
 	}
     let now = new Date();
-    function truncTime(TimeString){
+    function convertTime(TimeString){
         const arr = TimeString.trim().split(/[\s\D]+/g).map(e => Number(e));
         const commentTime = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]));
         let delta = Math.abs(now - commentTime)/1000;
@@ -105,7 +105,7 @@
         return TimeString;
     }
     $("time").forEach(ele => {
-        ele.textContent = truncTime(ele.textContent);
+        ele.textContent = convertTime(ele.textContent);
         ele.classList.remove("hidden");
     });
 </script>
