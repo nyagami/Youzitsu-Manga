@@ -381,23 +381,23 @@ def post_comment(request):
     mention = request.POST.get('mention')
     try:
         mention = User.objects.get(username=mention).profile
-    except ValueError:
+    except User.DoesNotExist:
         mention = None
 
     media_url = request.POST.get('media_url')
     comment = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
-                                     metion=mention, deepth=deepth, content=content, media_url=media_url)
+                                     mention=mention, deepth=deepth, content=content, media_url=media_url)
 
     # socketing
     if mention:
         comment.type = 'reply'
         NotifcationConsumer.notify_one(model_to_dict(comment), mention)
     # people who are tagged in
-    other_mentions = request.POST['other_mentions']
+    other_mentions = request.POST.get('other_mentions')
     if other_mentions:
         comment.type = 'mention'
         other_mentions = other_mentions.trim().split()
-        NotifcationConsumer.notify_all(model_to_dict(mention), other_mentions)
+        NotifcationConsumer.notify_all(model_to_dict(comment), other_mentions)
 
     return HttpResponse(json.dumps({"response": "success"}), content_type='application/json', status=200)
 

@@ -13,13 +13,13 @@
             </a>
         </div>
         <div class="box-comment">
-            <textarea class="comment-editor" placeholder="Viết bình luận"></textarea>
+            <textarea class="comment-editor" placeholder="Viết bình luận" onfocus="ediorFocusHandler(this)"></textarea>
             <div class="comment-button-group">
                 <div type="button">
                     <i class="fa-solid fa-image"></i>
                 </div>
                 <div type="button" class="comment-button-submit"
-                    author="{{ request.user.username }}" reply="" deepth="0" parent=""
+                 onclick="postCommentHandler(this)"
                 >
                     <i class="fa-solid fa-comment"></i>
                 </div>
@@ -32,7 +32,8 @@
         <li>
             <div class="comment-container deepth-{{ node.deepth}}"
                 comment-id="{{ node.id }}" deepth="{{ node.deepth }}"
-                author = "{{ node.author.user.username }}" article="{{ article }}"
+                username = "{{ node.author.user.username }}"
+                display-name="{{ node.author.display_name }}"
             >
                 <div class="comment-avt">
                     <a href="/user/{{ node.author.user.username }}">
@@ -45,8 +46,8 @@
                     </span>
                     <p>{{ node.content }}</p>
                     {% if request.user.is_authenticated %}
-                    <div class="comment-action">
-                        <h5 class="comment-reply">
+                    <div class="comment-bottom">
+                        <h5 class="comment-reply" onclick="replyHandler(this, event)">
                             trả lời
                         </h5>
                         <span class="time hidden">{{ node.created_on }} </span>
@@ -64,6 +65,9 @@
     </ul>
 </div>
 <script>
+    function $(className){
+        return [...document.getElementsByClassName(className)];
+    }
     function zpad(n) {
 		if (n < 10) return '0' + n;
 		return n;
@@ -100,26 +104,30 @@
         }
         return TimeString;
     }
-    [...document.getElementsByClassName("time")].forEach(ele => {
-        console.log(ele.textContent);
+    $("time").forEach(ele => {
         ele.textContent = truncTime(ele.textContent);
         ele.classList.remove("hidden");
-    })
+    });
 </script>
 <script type="text/javascript">
+    const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_section'] > ul");
+    wrapper.append(...Array.from(wrapper.childNodes).reverse());
+
     const article = "{{ article }}";
-    [...document.getElementsByClassName("comment-editor")].forEach(ele => {
+
+    function ediorFocusHandler(ele){
         ele.addEventListener('keydown', e => {
             e.stopImmediatePropagation();
-        })
-    });
-    [...document.getElementsByClassName("comment-reply")].forEach(ele => {
+        });
+    }
+    function replyHandler(ele, event){
         let container = ele.parentElement.parentElement.parentElement;
         if(container.classList.contains('deepth-2')){
             container = container.parentElement.parentElement.previousElementSibling;
         }
         const deepth = Number(container.getAttribute('deepth'));
-        const author = container.getAttribute('author');
+        const username = container.getAttribute('username');
+        const display_name = container.getAttribute('display-name');
         const commentId = container.getAttribute("comment-id");
         container = container.nextElementSibling;
         const reply = document.createElement('li');
@@ -131,13 +139,13 @@
                 </a>
             </div>
             <div class="box-comment">
-                <textarea class="comment-editor" placeholder="Viết bình luận"></textarea>
+                <textarea class="comment-editor" placeholder="đang trả lời ${display_name}" onfocus="ediorFocusHandler(this)"></textarea>
                 <div class="comment-button-group">
                     <div type="button">
                         <i class="fa-solid fa-image"></i>
                     </div>
                     <div type="button" class="comment-button-submit"
-                        author="${author}" parent=${commentId} deepth=${deepth+1} article="${article}"
+                        mention="${username}" parent=${commentId}
                     >
                         <i class="fa-solid fa-comment"></i>
                     </div>
@@ -145,9 +153,26 @@
             </div>
         </div>
         `;
-        ele.addEventListener('click', e => {
-            container.prepend(reply);
-        })
-    })
+        container.appendChild(reply);
+        reply.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+    }
+
+    function postCommentHandler(ele){
+        const content = ele.parentElement.previousElementSibling.value;
+        if(!content) return;
+        ele.parentElement.previousElementSibling.value = '';
+        const mention = ele.getAttribute("mention") || '';
+        const parent = ele.getAttribute("parent") || '-1';
+        const formBody = new FormData();
+        formBody.append('article', article);
+        formBody.append('mention', mention);
+        formBody.append('parent', parent);
+        formBody.append('content', content);
+        formBody.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+        fetch("/api/comment/",{
+            method: "POST",
+            body: formBody,
+        });
+    }
 </script>
 <script src="{% static 'js/socket/comment.js' %}{{ version_query }}"></script>
