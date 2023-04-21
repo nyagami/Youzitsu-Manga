@@ -15,7 +15,6 @@ from reader.models import Chapter, ChapterIndex, Group, Series, Volume
 from reader.views import series_page_data
 
 from user.models import Profile
-from user.models import User
 from utils.models import Comment
 from utils.consumers import NotifcationConsumer, CommentConsumer
 from colorfield.fields import color_hex_validator
@@ -376,8 +375,6 @@ def post_comment(request):
     content = request.POST.get('content')
     if not content:
         return HttpResponseBadRequest()
-
-
     media_url = request.POST.get('media_url')
     comment_obj = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
                                          deepth=deepth, content=content, media_url=media_url)
