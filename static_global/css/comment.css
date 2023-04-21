@@ -1,4 +1,4 @@
-.comment-wrapper{
+.comment-wrapper {
     position: fixed;
     width: 100%;
     height: 50vh;
@@ -10,14 +10,14 @@
     padding-bottom: 3rem;
 }
 
-.comment-container{
+.comment-container {
     padding: 0.5rem 2rem;
     padding-top: 1rem;
     display: flex;
     max-width: calc(100% - 29rem - 40px);
 }
 
-.comment-content p{
+.comment-content p {
     cursor: text;
     overflow: hidden;
     padding: 12px;
@@ -25,33 +25,33 @@
     background: var(--sidebarColFocus);
 }
 
-.comment-avt a{
+.comment-avt a {
     text-decoration: none;
 }
 
-.comment-img{
+.comment-img {
     border-radius: 50px;
     width: 40px;
     height: 40px;
 }
 
-.comment-username{
+.comment-username {
     padding-left: 0.5rem;
     font-weight: bold;
 }
 
-.comment-bottom{
-    margin-left: 1rem; 
+.comment-bottom {
+    margin-left: 1rem;
     margin-top: 0.25rem;
     display: flex;
 }
 
-.comment-bottom .comment-reply{
+.comment-bottom .comment-reply {
     color: var(--textCol);
     font-size: 1rem;
 }
 
-.comment-bottom .time{
+.comment-bottom .time {
     margin-left: 2rem;
     font-weight: lighter;
     font-size: smaller;
@@ -59,22 +59,22 @@
     color: var(--accentCol);
 }
 
-.comment-bottom .more{
+.comment-bottom .more {
     position: relative;
     margin-left: 2rem;
 }
 
-.more .ico-btn{
+.more .ico-btn {
     height: auto;
     width: auto;
 }
 
-.ico-btn.more-btn::before{
+.ico-btn.more-btn::before {
     content: "\e926";
     font-size: 1.5rem;
 }
 
-.more-menu{
+.more-menu {
     position: absolute;
     background-color: var(--sidebarColDark);
     padding: 0.5rem;
@@ -83,139 +83,150 @@
     z-index: 2;
 }
 
-.more-menu .more-item{
+.more-menu .more-item {
     color: var(--textCol);
     padding: 0.3rem;
     border-radius: 5px;
     font-size: 1rem;
 }
 
-.more-menu .more-item:hover{
+.more-menu .more-item:hover {
     background-color: var(--accentCol);
 }
 
-.comment-reply:hover{
+.comment-reply:hover {
     cursor: pointer;
     text-decoration-line: underline;
 }
 
-.deepth-0{
+.deepth-0 {
     padding-left: 4rem !important;
 }
-.deepth-1{
+
+.deepth-1 {
     padding-left: 8rem !important;
 }
-.deepth-2{
+
+.deepth-2 {
     padding-left: 12rem !important;
 }
 
 @media screen and (max-width: 700px) {
-    html{
+    html {
         font-size: 12px;
     }
-    .comment-container{
+
+    .comment-container {
         max-width: 100%;
     }
-    .deepth-0{
+
+    .deepth-0 {
         padding-left: 1rem !important;
     }
-    .deepth-1{
+
+    .deepth-1 {
         padding-left: 2.5rem !important;
     }
-    .deepth-2{
+
+    .deepth-2 {
         padding-left: 4rem !important;
     }
 }
 
-.comment-dialog{
+.comment-dialog {
     display: flex;
     margin-top: 1rem;
 }
 
-.box-comment{
-	display: block;
+.box-comment {
+    display: block;
     position: relative;
     line-height: 1.358;
     word-break: break-word;
     border-radius: 22px;
     word-wrap: break-word;
     box-sizing: border-box;
-	padding: 0;
+    padding: 0;
     width: calc(100% - 16rem - 4rem - 40px - 2rem);
 }
 
 @media screen and (max-width: 700px) {
-    .box-comment{
+    .box-comment {
         width: calc(100% - 4rem - 40px);
     }
 }
 
-.box-comment textarea{
+.box-comment textarea {
     position: relative;
-	min-height: 5rem;
+    min-height: 5rem;
     color: var(--textCol);
-	padding: 12px;
+    padding: 12px;
     border-radius: 22px;
     background-color: var(--sidebarColFocus);
     font-family: inherit;
     font-size: 1rem;
     width: 100%;
-	border: none;
-	resize: none;
-}
-.box-comment textarea:focus{
-  outline: none !important;
+    border: none;
+    resize: none;
 }
 
-.comment-button-group{
+.box-comment textarea:focus {
+    outline: none !important;
+}
+
+.comment-button-group {
     position: relative;
     padding-left: 0.5rem;
     display: flex;
 }
-.comment-button-group .ico-btn{
+
+.comment-button-group .ico-btn {
     align-items: unset;
     height: 2rem;
     width: 2rem;
 }
-.ico-btn.comment-button-media::-webkit-file-upload-button{
+
+.ico-btn.comment-button-media::-webkit-file-upload-button {
     visibility: hidden;
 }
-.ico-btn.comment-button-media::before{
+
+.ico-btn.comment-button-media::before {
     content: "\e931";
 }
-.ico-btn.ico-btn.comment-button-submit{
+
+.ico-btn.ico-btn.comment-button-submit {
     align-self: flex-end;
 }
-.ico-btn.comment-button-submit::before{
+
+.ico-btn.comment-button-submit::before {
     content: "\e91d";
 }
 
-.space{
+.space {
     flex: 1;
 }
 
 #image-modal {
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    position: fixed;
+    z-index: 1000;
+    padding-top: 100px;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-  }
+    width: 100%;
+    height: 100%;
+    overflow-x: scroll;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px 0;
+}
 
-/* Modal Content (image) */
 .modal-content {
     margin: auto;
     display: block;
     width: 80%;
     max-width: 700px;
-  }
+}
 
-  .close {
+.close {
     position: absolute;
     top: 15px;
     right: 35px;
@@ -223,18 +234,17 @@
     font-size: 40px;
     font-weight: bold;
     transition: 0.3s;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
-  }
-  
-  /* 100% Image Width on Smaller Screens */
-  @media only screen and (max-width: 700px){
+}
+
+@media only screen and (max-width: 700px) {
     .modal-content {
-      width: 100%;
+        width: 100%;
     }
-  }
+}

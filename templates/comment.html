@@ -21,8 +21,9 @@
                 >
                 </button>
             </div>
-            <div class="">
-                <img onclick="displayModal(this)" src="" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
+            <div>
+                <button class="ico-btn delete hidden" onclick="this.nextElementSibling.setAttribute('src','data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA'); this.classList.add('hidden')">🗑️</button>
+                <img onclick="displayModal(this)" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA" alt="lỗi" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
             </div>
         </div>
     </div>
@@ -246,6 +247,7 @@
         if(!src) return;
         document.querySelector("#image-modal img").setAttribute("src", src);
         document.getElementById("image-modal").classList.remove("hidden");
+        document.querySelector('.ico-btn.delete').classList.remove("hidden");
     }
     
     document.querySelectorAll("textarea").forEach(ele => {
@@ -258,6 +260,7 @@
                     const reader = new FileReader();
                     reader.onload = function(e){
                         document.querySelector("img[comment-id='-1']").setAttribute('src', e.target.result);
+                        document.querySelector('.ico-btn.delete').classList.remove("hidden");
                     }
                     reader.readAsDataURL(blob);
                 }
