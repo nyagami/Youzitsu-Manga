@@ -10,9 +10,7 @@ from user.models import Profile
 class Comment(MPTTModel):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     article = models.CharField(max_length=50)  # news: n: ..., chapter: c: ...
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
-    mention = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL,
-                                related_name='mentions')    # The one who is replied or noone
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='reply', on_delete=models.CASCADE)
     deepth = models.SmallIntegerField(default=0,)
     created_on = models.DateTimeField(auto_now_add=True)
     visible = models.BooleanField(default=True)     # someone should be silent :D

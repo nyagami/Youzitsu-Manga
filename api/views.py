@@ -377,16 +377,10 @@ def post_comment(request):
     if not content:
         return HttpResponseBadRequest()
 
-    # who is replied
-    mention = request.POST.get('mention')
-    try:
-        mention = User.objects.get(username=mention).profile
-    except User.DoesNotExist:
-        mention = None
 
     media_url = request.POST.get('media_url')
     comment_obj = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
-                                         mention=mention, deepth=deepth, content=content, media_url=media_url)
+                                         deepth=deepth, content=content, media_url=media_url)
 
     # socketing
     comment = model_to_dict(comment_obj)
@@ -395,14 +389,19 @@ def post_comment(request):
     comment['created_on'] = f'{comment_obj.created_on.date()} {comment_obj.created_on.time()}'
     CommentConsumer.send_comment(article, comment)
 
-    if mention:
-        NotifcationConsumer.notify_one(comment, mention)
+    # who is replied
+    reply = None
+    if parent:
+        reply = parent.author.user.username
+
+    if reply:
+        NotifcationConsumer.notify_one(comment, reply)
 
     # people who are tagged in
-    other_mentions = request.POST.get('other_mentions')
-    if other_mentions:
-        other_mentions = other_mentions.trim().split()
-        NotifcationConsumer.notify_all(comment, other_mentions)
+    mentions = request.POST.get('mentions')
+    if mentions:
+        mentions = mentions.trim().split()
+        NotifcationConsumer.notify_all(comment, mentions)
 
     return HttpResponse(json.dumps({"response": "success"}), content_type='application/json', status=200)
 

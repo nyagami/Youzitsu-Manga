@@ -37,7 +37,7 @@
             {% if not node.is_leaf_node %}
             <ul class="comment-list" comment-id="{{ node.id }}">{{ children }}</ul>
             {% else %}
-            <ul></ul>
+            <ul class="comment-list" comment-id="{{ node.id }}"></ul>
             {% endif %}
             <div class="reply-comment-box" comment-id="{{ node.id }}"></div>
         </li>
@@ -161,7 +161,6 @@
             commentId = parent;
             deepth = 1;
         }
-        const username = ele.getAttribute('username');
         const display_name = ele.getAttribute('display-name');
         replyHTML = `
         <div class="comment-dialog deepth-${deepth+1}">
@@ -176,8 +175,7 @@
                     <button type="button" class="ico-btn comment-button-media"></button>
                     <div class="space"></div>
                     <button type="button" class="ico-btn comment-button-submit"
-                        mention="${username}" parent=${commentId}
-                        onclick="postCommentHandler(this)"
+                        parent=${commentId} onclick="postCommentHandler(this)"
                     >
                         <i class="fa-solid fa-comment"></i>
                     </button>
@@ -187,17 +185,16 @@
         `;
         container.innerHTML = replyHTML;
         container.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+        container.querySelector("textarea").focus({preventScroll: true});
     }
 
     function postCommentHandler(ele){
         const content = ele.parentElement.previousElementSibling.value;
         if(!content) return;
         ele.parentElement.previousElementSibling.value = '';
-        const mention = ele.getAttribute("mention") || '';
         const parent = ele.getAttribute("parent") || '-1';
         const formBody = new FormData();
         formBody.append('article', article);
-        formBody.append('mention', mention);
         formBody.append('parent', parent);
         formBody.append('content', content);
         formBody.append('csrfmiddlewaretoken', "{{ csrf_token }}");
