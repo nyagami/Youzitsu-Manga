@@ -16,7 +16,7 @@ class Comment(MPTTModel):
     visible = models.BooleanField(default=True)     # someone should be silent :D
     likes = models.IntegerField(default=0)
     content = models.TextField(max_length=500,)
-    media_url = models.CharField(max_length=50, null=True, blank=True)  # image link or smt
+    media_url = models.CharField(max_length=200, null=True, blank=True)  # image link or smt
 
     class MPTTMeta:
         order_insertion_by = ['created_on']
