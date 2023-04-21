@@ -172,6 +172,14 @@
     padding-left: 0.5rem;
     display: flex;
 }
+.comment-button-group .ico-btn{
+    align-items: unset;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.ico-btn.comment-button-media::-webkit-file-upload-button{
+    visibility: hidden;
+}
 .ico-btn.comment-button-media::before{
     content: "\e931";
 }

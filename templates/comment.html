@@ -14,13 +14,14 @@
         <div class="box-comment">
             <textarea class="comment-editor" placeholder="Viết bình luận" onfocus="ediorFocusHandler(this)"></textarea>
             <div class="comment-button-group">
-                <button type="button" class="ico-btn comment-button-media"></button>
+                <input type="file" onchange="renderImage(this)" accept="image/jpeg, image/png, image/webp" class="ico-btn comment-button-media"></input>
                 <div class="space"></div>
                 <button type="button" class="ico-btn comment-button-submit"
                  onclick="postCommentHandler(this)"
                 >
                 </button>
             </div>
+            <img src="" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
         </div>
     </div>
     {% endif %}
@@ -221,5 +222,34 @@
             }
         });
     }
+
+    function renderImage(ele){
+        if(ele.files && ele.files[0]){
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.querySelector("img[comment-id='-1']").setAttribute('src', e.target.result);
+            };
+
+            reader.readAsDataURL(ele.files[0]);
+        }
+    }
+
+    document.querySelectorAll("textarea").forEach(ele => {
+        ele.addEventListener("paste", (event) => {
+            const items = event.clipboardData.items;
+            for(let i in items){
+                const item = items[i];
+                if(item.kind === 'file' && (['image/png', 'image/jpeg', 'image/webp'].includes(item.type))){
+                    const blob = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = function(e){
+                        document.querySelector("img[comment-id='-1']").setAttribute('src', e.target.result);
+                    }
+                    reader.readAsDataURL(blob);
+                }
+            }
+        })
+    })
 </script>
 <script src="{% static 'js/socket/comment.js' %}{{ version_query }}"></script>
