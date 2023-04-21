@@ -1063,7 +1063,6 @@ function UI_Reader(o) {
 	this.imageView = new UI_ReaderImageView({
 		node: this._.image_viewer
 	}).S.link(this);
-
 	this.commentView = new UI_CommmentView({
 		node: this._.comment_view
 	}).S.link(this);
@@ -2309,26 +2308,6 @@ function UI_ReaderImageWrapper(o) {
 	})
 	this.S.proxyOut('loaded');
 	this.S.proxyOut('imageHeight');
-}
-
-function UI_CommmentView(o){
-	o=be(o);
-	UI.call(this, {
-		node: o.node,
-		kind: ['ReaderCommentView'].concat(o.kind || []),
-	});
-	Linkable.call(this);
-	this.active = false;
-
-	this.close = () => {
-		this.active = false;
-		this.$.classList.add('hidden');
-	};
-
-	this.open = () => {
-		this.active = true;
-		this.$.classList.remove('hidden');
-	}
 }
 
 function UI_ReaderNoticeWrapper(o) {

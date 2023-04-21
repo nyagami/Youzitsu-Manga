@@ -138,7 +138,7 @@
     margin-top: 1rem;
 }
 
-.box-comment {
+.comment-box {
     display: block;
     position: relative;
     line-height: 1.358;
@@ -151,12 +151,12 @@
 }
 
 @media screen and (max-width: 700px) {
-    .box-comment {
+    .comment-box {
         width: calc(100% - 4rem - 40px);
     }
 }
 
-.box-comment textarea {
+.comment-box textarea {
     position: relative;
     min-height: 5rem;
     color: var(--textCol);
@@ -170,7 +170,7 @@
     resize: none;
 }
 
-.box-comment textarea:focus {
+.comment-box textarea:focus {
     outline: none !important;
 }
 
@@ -206,7 +206,7 @@
     flex: 1;
 }
 
-#image-modal {
+.ImageModal {
     position: fixed;
     z-index: 1000;
     padding-top: 100px;
@@ -219,14 +219,14 @@
     padding: 20px 0;
 }
 
-.modal-content {
+.ImageModal img {
     margin: auto;
     display: block;
     width: 80%;
     max-width: 700px;
 }
 
-.close {
+.ImageModal .close {
     position: absolute;
     top: 15px;
     right: 35px;
@@ -236,15 +236,15 @@
     transition: 0.3s;
 }
 
-.close:hover,
-.close:focus {
+.ImageModal .close:hover,
+.ImageModal .close:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
 }
 
 @media only screen and (max-width: 700px) {
-    .modal-content {
+    .ImageModal img {
         width: 100%;
     }
 }

@@ -1,10 +1,10 @@
 var userSocket = null;
 const openUserSocket = () => {
-    if (!username) return;
-    userSocket = new WebSocket(`ws://${window.location.host}/ws/${username}/`);
+    if (!requestUsername) return;
+    userSocket = new WebSocket(`ws://${window.location.host}/ws/${requestUsername}/`);
 
     userSocket.onopen = e => {
-        console.log(`ws opened for ${username}`);
+        console.log(`ws opened for ${requestUsername}`);
     }
 
     userSocket.onclose = e => {

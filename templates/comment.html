@@ -1,32 +1,16 @@
 {% load static %}
 <head>
     <link rel="stylesheet" href="{% static 'css/comment.css' %}{{ version_query }}">
+    <script>
+        var requestUsername = "{{ request.user.username }}";
+        var requestDisplayName = "{{ request.user.profile.display_name }}";
+        var requestAvatar = "{{ request.user.profile.avatar }}";
+    </script>
 </head>
 <div class="comment-wrapper hidden" data-bind="comment_view">
     {% load mptt_tags %}
     {% if request.user.is_authenticated %}
-    <div class="comment-dialog deepth-0">
-        <div class="comment-avt">
-            <a href="/user/{{ request.user.username }}">
-                <img src="{{ request.user.profile.avatar }}" alt="avatar" class="comment-img">
-            </a>
-        </div>
-        <div class="box-comment">
-            <textarea class="comment-editor" placeholder="Viết bình luận" onfocus="ediorFocusHandler(this)"></textarea>
-            <div class="comment-button-group">
-                <input type="file" onchange="renderImage(this)" accept="image/jpeg, image/png, image/webp" class="ico-btn comment-button-media"></input>
-                <div class="space"></div>
-                <button type="button" class="ico-btn comment-button-submit"
-                 onclick="postCommentHandler(this)"
-                >
-                </button>
-            </div>
-            <div>
-                <button class="ico-btn delete hidden" onclick="this.nextElementSibling.setAttribute('src','data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA'); this.classList.add('hidden')">🗑️</button>
-                <img onclick="displayModal(this)" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA" alt="lỗi" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
-            </div>
-        </div>
-    </div>
+    <div class="comment-box-container"></div>
     {% endif %}
     <ul class="comment-list" comment-id="-1">
         {% recursetree comments %}
@@ -36,6 +20,7 @@
                 data-time="{{ node.created_on }}" data-username="{{ node.author.user.username }}"
                 data-display-name="{{ node.author.display_name }}" data-avatar="{{ node.author.avatar }}"
                 data-content="{{ node.content }}" data-media="{{ node.media_url }}"
+                data-bind="comment_node"
             >
             </div>
             {% if not node.is_leaf_node %}
@@ -43,15 +28,12 @@
             {% else %}
             <ul class="comment-list" comment-id="{{ node.id }}"></ul>
             {% endif %}
-            <div class="reply-comment-box" comment-id="{{ node.id }}"></div>
+            <div class="comment-box-container" comment-id="{{ node.id }}"></div>
         </li>
         {% endrecursetree %}
     </ul>
 </div>
-<div id="image-modal" class="hidden">
-    <span class="close" onclick="this.parentElement.classList.add('hidden')">&times;</span>
-    <img class="modal-content">
-</div>
+<div id="image-modal"></div>
 <script>
     function $(className){
         return [...document.getElementsByClassName(className)];
@@ -94,189 +76,13 @@
     }
 </script>
 <script type="text/javascript">
-    const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_view'] > ul");
-    wrapper.append(...Array.from(wrapper.childNodes).reverse());
-    function renderComment(ele){
-        const id = ele.getAttribute('data-id');
-        const parent = ele.getAttribute('data-parent');
-        const time = ele.getAttribute('data-time');
-        const deepth = ele.getAttribute('data-deepth');
-        const _username = ele.getAttribute('data-username');
-        const display_name = ele.getAttribute('data-display-name');
-        const avatar = ele.getAttribute('data-avatar');
-        const content = ele.getAttribute('data-content');
-        const media = ele.getAttribute('data-media');
-        commentHTML = `
-        <div class="comment-avt">
-            <a href="/user/${_username}">
-                <img src="${avatar}" alt="avatar" class="comment-img">
-            </a>
-        </div>
-        <div class="comment-content">
-            <span class="comment-username">${display_name}</span>
-            <p>${content}</p>
-            ${media && media != 'None'
-                ? `<img onclick="displayModal(this)" src="${media}" alt="lỗi" style="max-height: 360px; max-width: 100%; position: relative;">`
-                : ''
-            }
-            ${is_authenticated
-                ?
-                `
-                <div class="comment-bottom">
-                    <button class="comment-reply" parent="${parent}" comment-id="${id}" 
-                        deepth="${deepth}" username="${_username}" 
-                        display-name="${display_name}" onclick="replyHandler(this)"
-                    >
-                        Trả lời
-                    </button>
-                    <span class="time">${convertTime(time)}</span>
-                    <div class="more">
-                        <button class="ico-btn more-btn"
-                            onclick="this.nextElementSibling.classList.toggle('hidden'); this.nextElementSibling.focus()"
-                        >
-                        </button>
-                        <button class="more-menu hidden" onblur="this.classList.add('hidden')">
-                            ${
-                                username === _username
-                                ?
-                                    `
-                                    <div class="more-item" comment-id="${id}" onclick="deleteCommentHandler(this)">Xoá</div>
-                                    `       
-                                : ''
-                            }
-                            <div class="more-item" onclick="this.parentElement.classList.add('hidden')">Báo cáo</div>
-                        </button>
-                    </div>
-                </div>
-                `
-                : ''
-            }
-        </div>
-        `
-        ele.innerHTML = commentHTML;
-    }
-    $("comment-container").forEach(ele => renderComment(ele));
-
     const article = "{{ article }}";
-
-    function ediorFocusHandler(ele){
-        ele.addEventListener('keydown', e => {
-            e.stopImmediatePropagation();
-        });
-    }
-    function replyHandler(ele){
-        const parent = ele.getAttribute('parent');
-        let deepth = Number(ele.getAttribute('deepth'));
-        let commentId = ele.getAttribute('comment-id');
-        let container = document.querySelector(`.reply-comment-box[comment-id="${commentId}"]`);
-        if(deepth === 2){
-            container = document.querySelector(`.reply-comment-box[comment-id="${parent}"]`);
-            commentId = parent;
-            deepth = 1;
-        }
-        const display_name = ele.getAttribute('display-name');
-        replyHTML = `
-        <div class="comment-dialog deepth-${deepth+1}">
-            <div class="comment-avt">
-                <a href="/user/{{ request.user.username }}">
-                    <img src="{{ request.user.profile.avatar }}" alt="avatar" class="comment-img">
-                </a>
-            </div>
-            <div class="box-comment">
-                <textarea class="comment-editor" placeholder="Đang trả lời ${display_name}" onfocus="ediorFocusHandler(this)"></textarea>
-                <div class="comment-button-group">
-                    <button type="button" class="ico-btn comment-button-media"></button>
-                    <div class="space"></div>
-                    <button type="button" class="ico-btn comment-button-submit"
-                        parent=${commentId} onclick="postCommentHandler(this)"
-                    >
-                        <i class="fa-solid fa-comment"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        `;
-        container.innerHTML = replyHTML;
-        container.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-        container.querySelector("textarea").focus({preventScroll: true});
-    }
-
-    function postCommentHandler(ele){
-        const content = ele.parentElement.previousElementSibling.value;
-        if(!content) return;
-        ele.parentElement.previousElementSibling.value = '';
-        const parent = ele.getAttribute("parent") || '-1';
-        let media = document.querySelector("img[comment-id='-1']").getAttribute("src");
-        if(media === "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA") media = "";
-        else{
-            media = media.substring(media.indexOf(";base64,") + ";base64,".length);
-        }
-        const formBody = new FormData();
-        formBody.append('article', article);
-        formBody.append('parent', parent);
-        formBody.append('content', content);
-        formBody.append('media', media);
-        formBody.append('csrfmiddlewaretoken', "{{ csrf_token }}");
-        replyBox = document.querySelector(`.reply-comment-box[comment-id="${parent}"]`);
-        if(replyBox) replyBox.innerHTML = '';
-        fetch("/api/comment/",{
-            method: "POST",
-            body: formBody,
-        });
-    }
-
-    function deleteCommentHandler(ele){
-        commentId = ele.getAttribute('comment-id');
-        container = document.querySelector(`.comment-container[data-id='${commentId}']`).parentElement;
-        const formBody = new FormData();
-        formBody.append('id', commentId);
-        formBody.append('csrfmiddlewaretoken', "{{ csrf_token }}");
-        fetch('/api/comment/delete/',{
-            method: 'POST',
-            body: formBody,
-        }).then(res => {
-            if(res.ok){
-                container.remove();
-            }
-        });
-    }
-
-    function renderImage(ele){
-        if(ele.files && ele.files[0]){
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                document.querySelector("img[comment-id='-1']").setAttribute('src', e.target.result);
-                document.querySelector('.ico-btn.delete').classList.remove("hidden");
-            };
-
-            reader.readAsDataURL(ele.files[0]);
-        }
-    }
-
+    const csrf_token = "{{ csrf_token }}";
     function displayModal(ele){
         const src = ele.getAttribute('src')
         if(!src) return;
         document.querySelector("#image-modal img").setAttribute("src", src);
         document.getElementById("image-modal").classList.remove("hidden");
     }
-    
-    document.querySelectorAll("textarea").forEach(ele => {
-        ele.addEventListener("paste", (event) => {
-            const items = event.clipboardData.items;
-            for(let i in items){
-                const item = items[i];
-                if(item.kind === 'file' && (['image/png', 'image/jpeg', 'image/webp'].includes(item.type))){
-                    const blob = item.getAsFile();
-                    const reader = new FileReader();
-                    reader.onload = function(e){
-                        document.querySelector("img[comment-id='-1']").setAttribute('src', e.target.result);
-                        document.querySelector('.ico-btn.delete').classList.remove("hidden");
-                    }
-                    reader.readAsDataURL(blob);
-                }
-            }
-        })
-    })
 </script>
 <script src="{% static 'js/socket/comment.js' %}{{ version_query }}"></script>

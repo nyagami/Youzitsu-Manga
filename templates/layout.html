@@ -316,7 +316,7 @@
 			}
 		}
 		const is_authenticated = "{{ request.user.is_authenticated }}" === "True";
-		var username = "{{ request.user.username }}";
+		var requestUsername= "{{ request.user.username }}";
 		const themeCore = new ThemeCore();
 		const serialization = new Serialization();
 		const defaultTheme = ['#3a3f44', '#ddd', '#b2dffb', '#272b30'];

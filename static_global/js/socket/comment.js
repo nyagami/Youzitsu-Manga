@@ -1,6 +1,6 @@
 let commentSocket = null;
 const openCommentSocket = () => {
-    if (!username || !is_authenticated) return;
+    if (!requestUsername || !is_authenticated) return;
     commentSocket = new WebSocket(`ws://${window.location.host}/ws/comment/c/${article}/`);
 
     commentSocket.onclose = e => {
@@ -18,14 +18,15 @@ const openCommentSocket = () => {
                 const commentElement = document.createElement('li');
                     commentElement.innerHTML = `
                     <div class="comment-container deepth-${comment.deepth}"
-                        data-id="${comment.id}" data-parent="${comment.parent}" data-deepth="${comment.deept}"
+                        data-id="${comment.id}" data-parent="${comment.parent || ''}" data-deepth="${comment.deepth}"
                         data-time="${comment.created_on}" data-username="${comment.username}"
                         data-display-name="${comment.author.display_name}" data-avatar="${comment.author.avatar}"
                         data-content="${comment.content}" data-media="${comment.media_url}"
+                        data-bind="comment_node"
                     >
                     </div>
-                    <ul></ul>
-                    <div class="reply-comment-box" comment-id="${comment.id}"></div>
+                    <ul class="comment-list" comment-id="${comment.id}"></ul>
+                    <div class="comment-box-container" comment-id="${comment.id}"></div>
                     `;
                 if(comment.parent){
                     const parent = document.querySelector(`ul.comment-list[comment-id="${comment.parent}"]`);
@@ -34,7 +35,7 @@ const openCommentSocket = () => {
                     const wrapper = document.querySelector("ul.comment-list[comment-id='-1']");
                     wrapper.prepend(commentElement);
                 }
-                renderComment(commentElement.firstElementChild);
+                new CommentNode(commentElement.querySelector("[data-bind='comment_node']"));
                 break;
             default:
                 break;
