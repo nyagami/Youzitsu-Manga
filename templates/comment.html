@@ -84,10 +84,6 @@
         }
         return TimeString;
     }
-    $("time").forEach(ele => {
-        ele.textContent = convertTime(ele.textContent);
-        ele.classList.remove("hidden");
-    });
 </script>
 <script type="text/javascript">
     const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_section'] > ul");
@@ -97,13 +93,13 @@
         const parent = ele.getAttribute('data-parent');
         const time = ele.getAttribute('data-time');
         const deepth = ele.getAttribute('data-deepth');
-        const username = ele.getAttribute('data-username');
+        const _username = ele.getAttribute('data-username');
         const display_name = ele.getAttribute('data-display-name');
         const avatar = ele.getAttribute('data-avatar');
         const content = ele.getAttribute('data-content');
         commentHTML = `
         <div class="comment-avt">
-            <a href="/user/${username}">
+            <a href="/user/${_username}">
                 <img src="${avatar}" alt="avatar" class="comment-img">
             </a>
         </div>
@@ -115,7 +111,7 @@
                 `
                 <div class="comment-bottom">
                     <button class="comment-reply" parent="${parent}" comment-id="${id}" 
-                        deepth="${deepth}" username="${username}" 
+                        deepth="${deepth}" username="${_username}" 
                         display-name="${display_name}" onclick="replyHandler(this)"
                     >
                         Trả lời
@@ -127,9 +123,15 @@
                         >
                         </button>
                         <button class="more-menu hidden" onblur="this.classList.add('hidden')">
-                            <div class="more-item">Xoá</div>
-                            <div class="more-item">Chỉnh sửa</div>
-                            <div class="more-item">Báo cáo</div>
+                            ${
+                                username === _username
+                                ?
+                                    `
+                                    <div class="more-item" comment-id="${id}" onclick="deleteCommentHandler(this)">Xoá</div>
+                                    `       
+                                : ''
+                            }
+                            <div class="more-item" onclick="this.parentElement.classList.add('hidden')">Báo cáo</div>
                         </button>
                     </div>
                 </div>
@@ -204,6 +206,22 @@
         fetch("/api/comment/",{
             method: "POST",
             body: formBody,
+        });
+    }
+
+    function deleteCommentHandler(ele){
+        commentId = ele.getAttribute('comment-id');
+        container = document.querySelector(`.comment-container[data-id='${commentId}']`).parentElement;
+        const formBody = new FormData();
+        formBody.append('id', commentId);
+        formBody.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+        fetch('/api/comment/delete/',{
+            method: 'POST',
+            body: formBody,
+        }).then(res => {
+            if(res.ok){
+                container.remove();
+            }
         });
     }
 </script>

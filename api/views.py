@@ -418,6 +418,7 @@ def delete_comment(request):
         comment.delete()
     except ValueError:
         return HttpResponseBadRequest()
+    return HttpResponse(json.dumps({"response": "success"}), content_type='application/json', status=200)
 
 
 def update_comment(request):

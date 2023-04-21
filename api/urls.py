@@ -52,4 +52,5 @@ urlpatterns = [
     path("update_theme/", views.update_theme, name="api-update-theme"),
 
     path("comment/", views.post_comment, name="api-post_comment"),
+    path("comment/delete/", views.delete_comment, name="api-delete-comment"),
 ]
