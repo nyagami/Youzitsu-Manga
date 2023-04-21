@@ -21,7 +21,9 @@
                 >
                 </button>
             </div>
-            <img src="" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
+            <div class="">
+                <img onclick="displayModal(this)" src="" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
+            </div>
         </div>
     </div>
     {% endif %}
@@ -44,6 +46,10 @@
         </li>
         {% endrecursetree %}
     </ul>
+</div>
+<div id="image-modal" class="hidden">
+    <span class="close" onclick="this.parentElement.classList.add('hidden')">&times;</span>
+    <img class="modal-content">
 </div>
 <script>
     function $(className){
@@ -235,6 +241,13 @@
         }
     }
 
+    function displayModal(ele){
+        const src = ele.getAttribute('src')
+        if(!src) return;
+        document.querySelector("#image-modal img").setAttribute("src", src);
+        document.getElementById("image-modal").classList.remove("hidden");
+    }
+    
     document.querySelectorAll("textarea").forEach(ele => {
         ele.addEventListener("paste", (event) => {
             const items = event.clipboardData.items;
