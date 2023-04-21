@@ -2,7 +2,7 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/comment.css' %}{{ version_query }}">
 </head>
-<div class="comment-wrapper hidden" data-bind="comment_section">
+<div class="comment-wrapper hidden" data-bind="comment_view">
     {% load mptt_tags %}
     {% if request.user.is_authenticated %}
     <div class="comment-dialog deepth-0">
@@ -94,7 +94,7 @@
     }
 </script>
 <script type="text/javascript">
-    const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_section'] > ul");
+    const wrapper = document.querySelector(".comment-wrapper[data-bind='comment_view'] > ul");
     wrapper.append(...Array.from(wrapper.childNodes).reverse());
     function renderComment(ele){
         const id = ele.getAttribute('data-id');

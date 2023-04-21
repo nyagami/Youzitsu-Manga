@@ -1064,8 +1064,8 @@ function UI_Reader(o) {
 		node: this._.image_viewer
 	}).S.link(this);
 
-	this.commentSection = new UI_CommmentSection({
-		node: this._.comment_section
+	this.commentView = new UI_CommmentView({
+		node: this._.comment_view
 	}).S.link(this);
 
 	this.groupList = new UI_Tabs({
@@ -1446,8 +1446,8 @@ function UI_Reader(o) {
 	}
 
 	this.openComments = function(e) {
-		if(this.commentSection.active) this.commentSection.close();
-		else this.commentSection.open();
+		if(this.commentView.active) this.commentView.close();
+		else this.commentView.open();
 	}
 
 	this.setLayout = (layout, silent) => {
@@ -2155,7 +2155,7 @@ const SCROLL_X = 3;
 			return;
 		}
 		if(e.button != 0) return;
-		if(Settings.get('bhv.clickTurnPage') === false || Reader.commentSection.active) return;
+		if(Settings.get('bhv.clickTurnPage') === false || Reader.commentView.active) return;
 	var box = this.$.getBoundingClientRect();
 	var areas = [
 			0,
@@ -2311,11 +2311,11 @@ function UI_ReaderImageWrapper(o) {
 	this.S.proxyOut('imageHeight');
 }
 
-function UI_CommmentSection(o){
+function UI_CommmentView(o){
 	o=be(o);
 	UI.call(this, {
 		node: o.node,
-		kind: ['ReaderCommentSection'].concat(o.kind || []),
+		kind: ['ReaderCommentView'].concat(o.kind || []),
 	});
 	Linkable.call(this);
 	this.active = false;
