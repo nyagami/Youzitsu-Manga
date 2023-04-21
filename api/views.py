@@ -3,6 +3,8 @@ import os
 import time
 import zipfile
 from datetime import datetime
+from base64 import b64decode
+from hashlib import sha512
 
 from django.conf import settings
 from django.core.cache import cache
@@ -375,7 +377,16 @@ def post_comment(request):
     content = request.POST.get('content')
     if not content:
         return HttpResponseBadRequest()
-    media_url = request.POST.get('media_url')
+    media = request.POST.get('media')
+    media_url = ''
+    if media:
+        os.makedirs(os.path.join(settings.MEDIA_ROOT, 'comment'), exist_ok=True)
+        hash = sha512(media.encode()).hexdigest() + '.jpeg'
+        media_url = os.path.join(settings.MEDIA_ROOT, 'comment', hash)
+        if not os.path.exists(media_url):
+            with open(media_url, 'wb') as f:
+                f.write(b64decode(media))
+        media_url = '/media/comment/' + hash
     comment_obj = Comment.objects.create(author=request.user.profile, article=article, parent=parent,
                                          deepth=deepth, content=content, media_url=media_url)
 

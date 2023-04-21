@@ -35,7 +35,7 @@
                 data-id="{{ node.id }}" data-parent="{{ node.parent.id }}" data-deepth="{{ node.deepth }}"
                 data-time="{{ node.created_on }}" data-username="{{ node.author.user.username }}"
                 data-display-name="{{ node.author.display_name }}" data-avatar="{{ node.author.avatar }}"
-                data-content="{{ node.content }}"
+                data-content="{{ node.content }}" data-media="{{ node.media_url }}"
             >
             </div>
             {% if not node.is_leaf_node %}
@@ -105,6 +105,7 @@
         const display_name = ele.getAttribute('data-display-name');
         const avatar = ele.getAttribute('data-avatar');
         const content = ele.getAttribute('data-content');
+        const media = ele.getAttribute('data-media');
         commentHTML = `
         <div class="comment-avt">
             <a href="/user/${_username}">
@@ -114,6 +115,10 @@
         <div class="comment-content">
             <span class="comment-username">${display_name}</span>
             <p>${content}</p>
+            ${media && media != 'None'
+                ? `<img onclick="displayModal(this)" src="${media}" alt="lỗi" style="max-height: 360px; max-width: 100%; position: relative;">`
+                : ''
+            }
             ${is_authenticated
                 ?
                 `
@@ -201,10 +206,16 @@
         if(!content) return;
         ele.parentElement.previousElementSibling.value = '';
         const parent = ele.getAttribute("parent") || '-1';
+        let media = document.querySelector("img[comment-id='-1']").getAttribute("src");
+        if(media === "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA") media = "";
+        else{
+            media = media.substring(media.indexOf(";base64,") + ";base64,".length);
+        }
         const formBody = new FormData();
         formBody.append('article', article);
         formBody.append('parent', parent);
         formBody.append('content', content);
+        formBody.append('media', media);
         formBody.append('csrfmiddlewaretoken', "{{ csrf_token }}");
         replyBox = document.querySelector(`.reply-comment-box[comment-id="${parent}"]`);
         if(replyBox) replyBox.innerHTML = '';
@@ -236,6 +247,7 @@
 
             reader.onload = function (e) {
                 document.querySelector("img[comment-id='-1']").setAttribute('src', e.target.result);
+                document.querySelector('.ico-btn.delete').classList.remove("hidden");
             };
 
             reader.readAsDataURL(ele.files[0]);
@@ -247,7 +259,6 @@
         if(!src) return;
         document.querySelector("#image-modal img").setAttribute("src", src);
         document.getElementById("image-modal").classList.remove("hidden");
-        document.querySelector('.ico-btn.delete').classList.remove("hidden");
     }
     
     document.querySelectorAll("textarea").forEach(ele => {

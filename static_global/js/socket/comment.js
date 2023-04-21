@@ -21,7 +21,7 @@ const openCommentSocket = () => {
                         data-id="${comment.id}" data-parent="${comment.parent}" data-deepth="${comment.deept}"
                         data-time="${comment.created_on}" data-username="${comment.username}"
                         data-display-name="${comment.author.display_name}" data-avatar="${comment.author.avatar}"
-                        data-content="${comment.content}"
+                        data-content="${comment.content}" data-media="${comment.media_url}"
                     >
                     </div>
                     <ul></ul>
