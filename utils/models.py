@@ -29,14 +29,18 @@ class Notification(models.Model):
     sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sent_notifications')
 
     # null = everyone :D
-    receiver = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL, related_name='received_notifications')
+    receiver = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(default='Thông báo', max_length=200,)
+    href = models.CharField(default="#", max_length=200, blank=True, null=True)
     content = models.TextField(blank=True, null=True, max_length=500)
-    read = models.BooleanField(default=False)
-    created_on = models.TimeField(auto_now=True)
+    unread = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ("-created_on",)
+    
+    def __str__(self) -> str:
+        return f'Từ {self.sender} tới {self.receiver if self.receiver else "mọi người"} lúc {self.created_on}'
 
     # def __init__(self, *args, **kwargs) -> None:
     #     if kwargs.get('sender'):

@@ -1,4 +1,5 @@
 {% load static %}
+{% load page_tags %}
 <!DOCTYPE html>
 <html class="h-100" lang="vi" class="h-100">
 
@@ -87,62 +88,32 @@
 				</li> -->
 				<li>
 					<button class="nav-btn" id="btn_bell">
-						<i class="indicator"></i>
+						{% if new_noti %} <i class="indicator"></i> {% endif %}
 						<i class="fas fa-bell icon"></i>
 					</button>
 					<div class="nav-menu">
 						<div class="list-title">
 							<h5>Thông báo</h5>
-							<a href="#" id="read-all-noti">Đã đọc hết</a>
+							<a href="{{ notification.href }}" id="read-all-noti">Đã đọc hết</a>
 						</div>
 						<div class="list-group">
 							<ul class="nav-menu-list">
+								{% for notification in notifications %}
 								<li class="nav-menu-item">
-									<a href="#" class="noti-link">
-										<img src="{% static 'img/character/thumb-shiina.png' %}"
+									<a href="/user/{{ notification.sender.user.username }}" class="noti-link">
+										<img src="{{ notification.sender.avatar }}"
 											class="rounded-circle user-avatar-lg" alt="user">
 										<div class="noti-body">
 											<div class="noti-content">
-												<span class="user-fullname">Hiyori</span>
-												Chào các bạn, hiện tại ngoài đọc truyện ra thì các tính năng khác đều là
-												đang thử nghiệm.
-												<br>
-												Và các những dữ liệu hiện tại cũng không được lưu lại!
-												Chúc các bạn đọc truyện vui vẻ ^ ^
-											</div>
-											<span class="noti-time">1 phút trước</span>
-										</div>
-									</a>
-								</li>
-								<li class="nav-menu-item">
-									<a href="#" class="noti-link">
-										<img src="{% static 'img/character/thumb-kiyotaka.png' %}"
-											class="rounded-circle user-avatar-lg" alt="user">
-										<div class="noti-body">
-											<div class="noti-content">
-												<span class="user-fullname">Kiyotaka</span>
-												Chào mừng bạn đến với <b>Lớp học đề cao thực lực!</b>
+												<span class="user-fullname">{{ notification.sender.display_name }}</span>
+												{{ notification.content | convert_to_markdown | safe }}
 											</div>
 											<span class="noti-time">5 phút trước</span>
-											<i class="not-read"></i>
+											<i class="{% if notification.unread %} not-read {% endif %}"></i>
 										</div>
 									</a>
 								</li>
-								<li class="nav-menu-item">
-									<a href="#" class="noti-link">
-										<img src="{% static 'img/character/thumb-kei.png' %}"
-											class="rounded-circle user-avatar-lg" alt="user">
-										<div class="noti-body">
-											<div class="noti-content">
-												<span class="user-fullname">Kei</span>
-												Mồ ~
-												<br>
-												Kiyotaka lại lôi mình vào vụ phiền phức này...
-											</div>
-											<span class="noti-time">5 phút trước</span>
-										</div>
-									</a>
-								</li>
+								{% endfor %}
 							</ul>
 						</div>
 					</div>
