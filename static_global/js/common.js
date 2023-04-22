@@ -34,7 +34,8 @@ function UI_CommmentView(o){
         this.reverse();
         this.commentList = this.$.querySelector(".comment-list[comment-id='-1']");
         this.commentBoxCtn = this.$.querySelector('.comment-box-container');
-        CBD = {
+        // Comment box data
+        const CBD = {
             parent: '-1',
             deepth: '0',
         }
@@ -199,27 +200,15 @@ function CommentBox(node, data, isRootComment){
                 <div class="comment-button-group">
                     <input type="file" accept="image/jpeg, image/png, image/webp" class="ico-btn comment-button-media"></input>
                     <div class="space"></div>
-                    <button type="button" class="ico-btn comment-button-submit"
-                        parent="${data.parent}"
-                    >
-                    </button>
+                    <button type="button" class="ico-btn comment-button-submit" parent="${data.parent}"></button>
                 </div>
-                <div>
-                    <button class="ico-btn delete hidden">🗑️</button>
-                    <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA" alt="lỗi" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
-                </div>
+                <div class="comment-box-image"></div>
             </div>
         </div>
         `;
-        this.img = this.$.querySelector('.comment-box img');
-        this.img.onclick = () => imageModal.open(this.img);
-        this.deleteBtn = this.$.querySelector('.comment-box .delete');
-        this.deleteBtn.onclick = () => {
-            this.img.setAttribute("src", "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA");
-            this.deleteBtn.classList.add("hidden");
-        }
-        this.textarea = this.$.querySelector('textarea');
         this.$.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        this.imgContainer = new CommentBoxImage(this.$.querySelector(".comment-box-image"));
+        this.textarea = this.$.querySelector('textarea');
         this.textarea.focus({preventScroll: true});
         this.textarea.addEventListener('keydown', e => {
             e.stopImmediatePropagation();
@@ -233,8 +222,7 @@ function CommentBox(node, data, isRootComment){
                     const blob = item.getAsFile();
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        this.img.setAttribute('src', e.target.result);
-                        this.deleteBtn.classList.remove("hidden");
+                        this.imgContainer.open(e.target.result);
                     }
                     reader.readAsDataURL(blob);
                 }
@@ -247,8 +235,7 @@ function CommentBox(node, data, isRootComment){
                 const reader = new FileReader();
     
                 reader.onload = (e) => {
-                    this.img.setAttribute('src', e.target.result);
-                    this.deleteBtn.classList.remove("hidden");
+                    this.imgContainer.open(e.target.result);
                 };
     
                 reader.readAsDataURL(this.imgInput.files[0]);
@@ -259,7 +246,7 @@ function CommentBox(node, data, isRootComment){
         this.submitBtn.onclick = () => {
             const content = this.textarea.value;
             if(!content) return;
-            let media = this.img.getAttribute("src");
+            let media = this.imgContainer.img.getAttribute("src");
             if(media === "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA") media = "";
             else{
                 media = media.substring(media.indexOf(";base64,") + ";base64,".length);
@@ -280,9 +267,38 @@ function CommentBox(node, data, isRootComment){
 
     this.clear = () => {
         this.textarea.value = '';
+        this.imgContainer.clear();
     }
 
     if(this.isRootComment) this.init();
+}
+
+function CommentBoxImage(node){
+    this.$ = node;
+    this.init = () => {
+        this.$.classList.add("hidden", "CommentBoxImage");
+        this.$.innerHTML = `
+            <button class="ico-btn clear">Xoá</button>
+            <img alt="lỗi" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
+        `;
+        this.clearBtn = this.$.querySelector("button.clear");
+        this.img = this.$.querySelector("img");
+
+        this.img.onclick = () => imageModal.open(this.img);
+        this.clearBtn.onclick = this.clear;
+    }
+    this.open = (imageData) => {
+        this.img.setAttribute("src", imageData);
+        this.$.classList.remove('hidden');
+    }
+    this.close = () => {
+        this.$.classList.add("hidden");
+    }
+    this.clear = () => {
+        this.img.setAttribute("src", "");
+        this.close();
+    }
+    this.init();
 }
 
 function ImageModal(){
