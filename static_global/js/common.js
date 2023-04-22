@@ -40,6 +40,31 @@ function UI_CommmentView(o){
         new CommentBox(this.commentBoxCtn, CBD, true);
         this.$.querySelectorAll("[data-bind='comment_node']").map(node => new CommentNode(node));
     }
+    this.addNode = (data) => {
+        const comment = data.comment;
+        const container = document.createElement('li');
+        container.innerHTML = `
+        <div class="comment-container deepth-${comment.deepth}"
+            data-id="${comment.id}" data-parent="${comment.parent || ''}" data-deepth="${comment.deepth}"
+            data-time="${comment.created_on}" data-username="${comment.username}"
+            data-display-name="${comment.author.display_name}" data-avatar="${comment.author.avatar}"
+            data-content="${comment.content}" data-media="${comment.media_url}"
+            data-bind="comment_node"
+        >
+        </div>
+        <ul class="comment-list" comment-id="${comment.id}"></ul>
+        <div class="comment-box-container" comment-id="${comment.id}"></div>
+        `;
+        if(comment.parent){
+            const parent = this.$.querySelector(`ul.comment-list[comment-id="${comment.parent}"]`);
+            parent.appendChild(container);
+        }else{
+            const wrapper = this.$.querySelector("ul.comment-list[comment-id='-1']");
+            wrapper.prepend(container);
+        }
+        new CommentNode(container.querySelector("[data-bind='comment_node']"));
+    }
+
     this.init();
 }
 
@@ -246,12 +271,12 @@ function CommentBox(node, data, isRootComment){
 function ImageModal(){
     this.$ = document.querySelector('#image-modal');
     this.init = () => {
+        this.$.classList.add('hidden', 'ImageModal');
         this.$.innerHTML = `
             <span class="close" onclick="this.parentElement.classList.add('hidden')">&times;</span>
             <img>
         `
         this.img = this.$.querySelector('img');
-        this.$.classList.add('hidden', 'ImageModal');
     }
     this.close = () => {
         this.$.classList.add('hidden');
@@ -282,28 +307,7 @@ function CommentSocket(){
             const data = JSON.parse(e.data);
             switch (data.type) {
                 case 'comment':
-                    const comment = data.comment;
-                    const commentElement = document.createElement('li');
-                        commentElement.innerHTML = `
-                        <div class="comment-container deepth-${comment.deepth}"
-                            data-id="${comment.id}" data-parent="${comment.parent || ''}" data-deepth="${comment.deepth}"
-                            data-time="${comment.created_on}" data-username="${comment.username}"
-                            data-display-name="${comment.author.display_name}" data-avatar="${comment.author.avatar}"
-                            data-content="${comment.content}" data-media="${comment.media_url}"
-                            data-bind="comment_node"
-                        >
-                        </div>
-                        <ul class="comment-list" comment-id="${comment.id}"></ul>
-                        <div class="comment-box-container" comment-id="${comment.id}"></div>
-                        `;
-                    if(comment.parent){
-                        const parent = document.querySelector(`ul.comment-list[comment-id="${comment.parent}"]`);
-                        parent.appendChild(commentElement);
-                    }else{
-                        const wrapper = document.querySelector("ul.comment-list[comment-id='-1']");
-                        wrapper.prepend(commentElement);
-                    }
-                    new CommentNode(commentElement.querySelector("[data-bind='comment_node']"));
+                    if(commentView) commentView.addNode(data);
                     break;
                 default:
                     break;
@@ -317,7 +321,6 @@ function CommentSocket(){
     }
     this.open();
 }
-
+commentView = null;     //this will be initialised when Reader UI is initialised
 imageModal = new ImageModal();
-
 new CommentSocket();

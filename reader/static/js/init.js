@@ -1066,6 +1066,7 @@ function UI_Reader(o) {
 	this.commentView = new UI_CommmentView({
 		node: this._.comment_view
 	}).S.link(this);
+	commentView = this.commentView;
 
 	this.groupList = new UI_Tabs({
 		node: this._.groups
