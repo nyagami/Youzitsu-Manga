@@ -39,7 +39,7 @@ function UI_CommmentView(o){
             parent: '-1',
             deepth: '0',
         }
-        new CommentBox(this.commentBoxCtn, CBD, true);
+        if(is_authenticated) new CommentBox(this.commentBoxCtn, CBD, true);
         this.nodes = {};
         this.$.querySelectorAll("[data-bind='comment_node']").forEach(node => {
             commentNode = new CommentNode(node);
