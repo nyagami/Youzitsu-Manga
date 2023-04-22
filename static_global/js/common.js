@@ -32,14 +32,20 @@ function UI_CommmentView(o){
     }
     this.init = () => {
         this.reverse();
+        this.commentList = this.$.querySelector(".comment-list[comment-id='-1']");
         this.commentBoxCtn = this.$.querySelector('.comment-box-container');
         CBD = {
             parent: '-1',
             deepth: '0',
         }
         new CommentBox(this.commentBoxCtn, CBD, true);
-        this.$.querySelectorAll("[data-bind='comment_node']").map(node => new CommentNode(node));
+        this.nodes = {};
+        this.$.querySelectorAll("[data-bind='comment_node']").forEach(node => {
+            commentNode = new CommentNode(node);
+            this.nodes[commentNode.id] = commentNode;
+        });
     }
+    // receive data from socket
     this.receive = (data) => {
         const comment = data.comment;
         const container = document.createElement('li');
@@ -56,13 +62,14 @@ function UI_CommmentView(o){
         <div class="comment-box-container" comment-id="${comment.id}"></div>
         `;
         if(comment.parent){
-            const parent = this.$.querySelector(`ul.comment-list[comment-id="${comment.parent}"]`);
+            const parent = this.nodes[comment.parent].commentList;
             parent.appendChild(container);
         }else{
-            const wrapper = this.$.querySelector("ul.comment-list[comment-id='-1']");
+            const wrapper = this.commentList;
             wrapper.prepend(container);
         }
-        new CommentNode(container.querySelector("[data-bind='comment_node']"));
+        const commentNode = new CommentNode(container.querySelector("[data-bind='comment_node']"));
+        this.nodes[commentNode.id] = commentNode;
     }
 
     this.init();
@@ -73,27 +80,27 @@ function CommentNode(node){
     this.init = () => {
         this.$.classList.add('CommentNode');
         this.container = this.$.parentElement;
-        const id = this.$.getAttribute('data-id');
-        const parent = this.$.getAttribute('data-parent');
-        const time = this.$.getAttribute('data-time');
-        let deepth = Number(this.$.getAttribute('data-deepth'));
-        const username = this.$.getAttribute('data-username');
-        const display_name = this.$.getAttribute('data-display-name');
-        const avatar = this.$.getAttribute('data-avatar');
-        const content = escapeHtml(this.$.getAttribute('data-content'));
-        const media = this.$.getAttribute('data-media');
+        this.id = this.$.getAttribute('data-id');
+        this.parent = this.$.getAttribute('data-parent');
+        this.time = this.$.getAttribute('data-time');
+        this.deepth = Number(this.$.getAttribute('data-deepth'));
+        this.username = this.$.getAttribute('data-username');
+        this.display_name = this.$.getAttribute('data-display-name');
+        this.avatar = this.$.getAttribute('data-avatar');
+        this.content = escapeHtml(this.$.getAttribute('data-content'));
+        this.media = this.$.getAttribute('data-media');
 
         this.$.innerHTML = `
             <div class="comment-avt">
-                <a href="/user/${username}">
-                    <img src="${avatar}" alt="avatar" class="comment-img">
+                <a href="/user/${this.username}">
+                    <img src="${this.avatar}" alt="avatar" class="comment-img">
                 </a>
             </div>
             <div class="comment-content">
-                <span class="comment-username">${display_name}</span>
-                <p>${content}</p>
-                ${media && media != 'None'
-                    ? `<img src="${media}" alt="lỗi" style="max-height: 360px; max-width: 100%; position: relative;">`
+                <span class="comment-username">${this.display_name}</span>
+                <p>${this.content}</p>
+                ${this.media && this.media != 'None'
+                    ? `<img src="${this.media}" alt="lỗi" style="max-height: 360px; max-width: 100%; position: relative;">`
                     : ''
                 }
                 ${is_authenticated
@@ -103,7 +110,7 @@ function CommentNode(node){
                         <button class="comment-reply">
                             Trả lời
                         </button>
-                        <span class="time">${convertTime(time)}</span>
+                        <span class="time">${convertTime(this.time)}</span>
                         <div class="more">
                             <button class="ico-btn more-btn"
                                 onclick="this.nextElementSibling.classList.toggle('hidden'); this.nextElementSibling.focus()"
@@ -111,7 +118,7 @@ function CommentNode(node){
                             </button>
                             <button class="more-menu hidden" onblur="this.classList.add('hidden')">
                                 ${
-                                    requestUsername === username
+                                    requestUsername === this.username
                                     ?
                                         `
                                         <div class="more-item delete">Xoá</div>
@@ -127,19 +134,20 @@ function CommentNode(node){
                 }
             </div>
         `;
-        if(deepth == 2){
-            this.commentBox = document.querySelector(`.comment-box-container[comment-id="${parent}"]`);
-            deepth = 1;
+        let CBdeepth = this.deepth + 1;
+        if(CBdeepth == 3){
+            this.commentBox = document.querySelector(`.comment-box-container[comment-id="${this.parent}"]`);
+            CBdeepth = 2;
         }else{
-            this.commentBox = this.container.querySelector(`.comment-box-container[comment-id="${id}"]`);
+            this.commentBox = this.container.querySelector(`.comment-box-container[comment-id="${this.id}"]`);
         }
         this.commentBox = new CommentBox(
             this.commentBox,
             {
-                username: username,
-                display_name: display_name,
-                parent: id,
-                deepth: deepth + 1,
+                username: this.username,
+                display_name: this.display_name,
+                parent: this.id,
+                deepth: CBdeepth,
             },
             false
         );
@@ -151,7 +159,7 @@ function CommentNode(node){
         if(this.deleteBtn){
             this.deleteBtn.onclick = () =>{
                 const formBody = new FormData();
-                formBody.append('id', id);
+                formBody.append('id', this.id);
                 formBody.append('csrfmiddlewaretoken', csrf_token);
                 fetch('/api/comment/delete/',{
                     method: 'POST',
@@ -167,6 +175,8 @@ function CommentNode(node){
         if(this.img){
             this.img.onclick = () => imageModal.open(this.img);
         }
+
+        this.commentList = this.container.querySelector(`.comment-list[comment-id="${this.id}"]`);
     }
 
     this.init();
