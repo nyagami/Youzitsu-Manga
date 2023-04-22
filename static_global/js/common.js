@@ -101,7 +101,7 @@ function CommentNode(node){
                 <span class="comment-username">${this.display_name}</span>
                 <p>${this.content}</p>
                 ${this.media && this.media != 'None'
-                    ? `<img src="${this.media}" alt="lỗi" style="max-height: 360px; max-width: 100%; position: relative;">`
+                    ? `<img src="${this.media}" alt="lỗi">`
                     : ''
                 }
                 ${is_authenticated
@@ -279,7 +279,7 @@ function CommentBoxImage(node){
         this.$.classList.add("hidden", "CommentBoxImage");
         this.$.innerHTML = `
             <button class="ico-btn clear">Xoá</button>
-            <img alt="lỗi" style="max-height: 240px; max-width: 100%; position: relative;">
+            <img alt="lỗi">
         `;
         this.clearBtn = this.$.querySelector("button.clear");
         this.img = this.$.querySelector("img");

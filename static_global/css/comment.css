@@ -8,6 +8,11 @@
     color: var(--textCol);
     background-color: var(--prevCol);
     padding-bottom: 3rem;
+    cursor: default;
+}
+
+.comment-wrapper img{
+    cursor: pointer;
 }
 
 .comment-container {
@@ -17,12 +22,20 @@
     max-width: calc(100% - 29rem - 40px);
 }
 
-.comment-content p {
+.CommentNode .comment-content p {
     cursor: text;
     overflow: hidden;
     padding: 12px;
     border-radius: 22px;
     background: var(--sidebarColFocus);
+}
+
+.CommentNode .comment-content img{
+    position: relative;
+    max-height: 360px; 
+    max-width: 100;
+    border: solid 2px var(--accentCol);
+    border-radius: 5px;
 }
 
 .comment-avt a {
@@ -57,6 +70,7 @@
     font-size: smaller;
     align-self: center;
     color: var(--accentCol);
+    cursor: text;
 }
 
 .comment-bottom .more {
@@ -95,7 +109,6 @@
 }
 
 .comment-reply:hover {
-    cursor: pointer;
     text-decoration-line: underline;
 }
 
@@ -172,6 +185,14 @@
 
 .comment-box textarea:focus {
     outline: none !important;
+}
+
+.CommentBoxImage img{
+    position: relative;
+    max-height: 240px;
+    max-width: 100%;
+    border: solid 2px var(--accentCol);
+    border-radius: 5px;
 }
 
 .comment-button-group {
