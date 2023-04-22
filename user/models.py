@@ -16,7 +16,7 @@ def avatar_image_path(self, filename):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="user", related_name="profile")
     display_name = models.CharField(verbose_name="Tên hiển thị", max_length=50, blank=True, null=True)
-    avatar = models.CharField(max_length=200, blank=True, null=True)
+    avatar = models.CharField(default="/static/img/unknown_user.jpeg", max_length=200, blank=True, null=True)
     description = models.TextField(verbose_name="Mô tả", max_length=500, blank=True)
 
     theme = models.CharField("Giao diện", max_length=50, default='Dark')
