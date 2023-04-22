@@ -138,7 +138,10 @@ function CommentNode(node){
                 });
             }
         }
-        this.img = this.$.querySelector("comment-content img");
+        this.img = this.$.querySelector(".comment-content img");
+        if(this.img){
+            this.img.onclick = () => imageModal.open(this.img);
+        }
     }
 
     this.init();
@@ -174,6 +177,7 @@ function CommentBox(node, data, isRootComment){
         </div>
         `;
         this.img = this.$.querySelector('.comment-box img');
+        this.img.onclick = () => imageModal.open(this.img);
         this.deleteBtn = this.$.querySelector('.comment-box .delete');
 
         this.textarea = this.$.querySelector('textarea');
@@ -257,7 +261,7 @@ function ImageModal(){
         this.$.classList.add('hidden');
     }
     this.open = (node) => {
-        this.img.setAttribute("img", node.getAttribute("src"));
+        this.img.setAttribute("src", node.getAttribute("src"));
         this.$.classList.remove('hidden');
     }
 

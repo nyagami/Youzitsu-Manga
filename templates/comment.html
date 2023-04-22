@@ -78,11 +78,5 @@
 <script type="text/javascript">
     const article = "{{ article }}";
     const csrf_token = "{{ csrf_token }}";
-    function displayModal(ele){
-        const src = ele.getAttribute('src')
-        if(!src) return;
-        document.querySelector("#image-modal img").setAttribute("src", src);
-        document.getElementById("image-modal").classList.remove("hidden");
-    }
 </script>
 <script src="{% static 'js/socket/comment.js' %}{{ version_query }}"></script>
