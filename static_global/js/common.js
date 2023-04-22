@@ -320,9 +320,9 @@ function ImageModal(){
 
 function CommentSocket(){
     this.socket = null;
-    this.ws_url = `ws://${window.location.host}/ws/comment/c/${article}/`;
     this.open = () => {
-        this.socket = new WebSocket(this.ws_url);
+        const ws_url = `ws://${window.location.host}/ws/comment/c/${article}/`;
+        this.socket = new WebSocket(ws_url);
         this.socket.onopen = () => {
             console.log("Websocket opened for Comment");
         }
@@ -347,6 +347,10 @@ function CommentSocket(){
             console.log("Closing the socket.");
             this.socket.close();
         }
+    }
+    this.reload = () => {
+        this.socket.close();
+        this.open();
     }
     this.open();
 }
