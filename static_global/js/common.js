@@ -40,7 +40,7 @@ function UI_CommmentView(o){
         new CommentBox(this.commentBoxCtn, CBD, true);
         this.$.querySelectorAll("[data-bind='comment_node']").map(node => new CommentNode(node));
     }
-    this.addNode = (data) => {
+    this.receive = (data) => {
         const comment = data.comment;
         const container = document.createElement('li');
         container.innerHTML = `
@@ -195,8 +195,8 @@ function CommentBox(node, data, isRootComment){
                     </button>
                 </div>
                 <div>
-                    <button class="ico-btn delete hidden" onclick="this.nextElementSibling.setAttribute('src','data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA'); this.classList.add('hidden')">🗑️</button>
-                    <img onclick="displayModal(this)" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA" alt="lỗi" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
+                    <button class="ico-btn delete hidden">🗑️</button>
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA" alt="lỗi" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
                 </div>
             </div>
         </div>
@@ -204,7 +204,10 @@ function CommentBox(node, data, isRootComment){
         this.img = this.$.querySelector('.comment-box img');
         this.img.onclick = () => imageModal.open(this.img);
         this.deleteBtn = this.$.querySelector('.comment-box .delete');
-
+        this.deleteBtn.onclick = () => {
+            this.img.setAttribute("src", "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA");
+            this.deleteBtn.classList.add("hidden");
+        }
         this.textarea = this.$.querySelector('textarea');
         this.$.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
         this.textarea.focus({preventScroll: true});
@@ -246,12 +249,12 @@ function CommentBox(node, data, isRootComment){
         this.submitBtn.onclick = () => {
             const content = this.textarea.value;
             if(!content) return;
-            this.textarea.value = '';
             let media = this.img.getAttribute("src");
             if(media === "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA") media = "";
             else{
                 media = media.substring(media.indexOf(";base64,") + ";base64,".length);
             }
+            this.clear();
             const formBody = new FormData();
             formBody.append('article', article);
             formBody.append('parent', this.data.parent || '-1');
@@ -263,6 +266,10 @@ function CommentBox(node, data, isRootComment){
                 body: formBody,
             });
         }
+    }
+
+    this.clear = () => {
+        this.textarea.value = '';
     }
 
     if(this.isRootComment) this.init();
@@ -307,7 +314,7 @@ function CommentSocket(){
             const data = JSON.parse(e.data);
             switch (data.type) {
                 case 'comment':
-                    if(commentView) commentView.addNode(data);
+                    if(commentView) commentView.receive(data);
                     break;
                 default:
                     break;
