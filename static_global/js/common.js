@@ -306,10 +306,12 @@ function ImageModal(){
     this.init = () => {
         this.$.classList.add('hidden', 'ImageModal');
         this.$.innerHTML = `
-            <span class="close" onclick="this.parentElement.classList.add('hidden')">&times;</span>
+            <span class="ico-btn close"></span>
             <img>
         `
         this.img = this.$.querySelector('img');
+        this.closeBtn = this.$.querySelector(".close");
+        this.closeBtn.onclick = this.close;
     }
     this.close = () => {
         this.$.classList.add('hidden');
