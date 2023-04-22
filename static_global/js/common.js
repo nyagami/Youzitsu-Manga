@@ -279,7 +279,7 @@ function CommentBoxImage(node){
         this.$.classList.add("hidden", "CommentBoxImage");
         this.$.innerHTML = `
             <button class="ico-btn clear">Xoá</button>
-            <img alt="lỗi" style="max-height: 240px; max-width: 100%; position: relative;" comment-id="-1">
+            <img alt="lỗi" style="max-height: 240px; max-width: 100%; position: relative;">
         `;
         this.clearBtn = this.$.querySelector("button.clear");
         this.img = this.$.querySelector("img");
