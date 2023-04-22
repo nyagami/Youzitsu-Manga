@@ -33,7 +33,7 @@
 .CommentNode .comment-content img{
     position: relative;
     max-height: 360px; 
-    max-width: 100;
+    max-width: 100%;
     border: solid 2px var(--accentCol);
     border-radius: 5px;
 }
