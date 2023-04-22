@@ -33,7 +33,9 @@ def admin_home(request):
 
 @decorator_from_middleware(OnlineNowMiddleware)
 def home(request):
-    notifications = Notification.objects.filter(Q(receiver=None) | Q(receiver=request.user.profile)).order_by('-created_on')
+    notifications = Notification.objects.filter(
+        Q(receiver=None) | Q(receiver=request.user.profile)
+    ).order_by('-created_on')
     return render(
         request,
         "homepage/homepage.html",

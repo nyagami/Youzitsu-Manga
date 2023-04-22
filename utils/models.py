@@ -38,7 +38,7 @@ class Notification(models.Model):
 
     class Meta:
         ordering = ("-created_on",)
-    
+
     def __str__(self) -> str:
         return f'Từ {self.sender} tới {self.receiver if self.receiver else "mọi người"} lúc {self.created_on}'
 
