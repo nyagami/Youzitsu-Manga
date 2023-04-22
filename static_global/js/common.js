@@ -1,3 +1,13 @@
+function escapeHtml(unsafe)
+{
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 function UI_CommmentView(o){
 	o=be(o);
 	UI.call(this, {
@@ -45,7 +55,7 @@ function CommentNode(node){
         const username = this.$.getAttribute('data-username');
         const display_name = this.$.getAttribute('data-display-name');
         const avatar = this.$.getAttribute('data-avatar');
-        const content = this.$.getAttribute('data-content');
+        const content = escapeHtml(this.$.getAttribute('data-content'));
         const media = this.$.getAttribute('data-media');
 
         this.$.innerHTML = `
@@ -58,7 +68,7 @@ function CommentNode(node){
                 <span class="comment-username">${display_name}</span>
                 <p>${content}</p>
                 ${media && media != 'None'
-                    ? `<img onclick="displayModal(this)" src="${media}" alt="lỗi" style="max-height: 360px; max-width: 100%; position: relative;">`
+                    ? `<img src="${media}" alt="lỗi" style="max-height: 360px; max-width: 100%; position: relative;">`
                     : ''
                 }
                 ${is_authenticated
@@ -128,6 +138,7 @@ function CommentNode(node){
                 });
             }
         }
+        this.img = this.$.querySelector("comment-content img");
     }
 
     this.init();
@@ -245,7 +256,8 @@ function ImageModal(){
     this.close = () => {
         this.$.classList.add('hidden');
     }
-    this.open = () => {
+    this.open = (node) => {
+        this.img.setAttribute("img", node.getAttribute("src"));
         this.$.classList.remove('hidden');
     }
 
