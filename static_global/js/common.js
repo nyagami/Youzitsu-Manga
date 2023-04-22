@@ -154,7 +154,7 @@ function CommentNode(node){
         );
         this.replyBtn = this.$.querySelector('.comment-bottom .comment-reply');
         if(this.replyBtn){
-            this.replyBtn.onclick = e => this.commentBox.init();
+            this.replyBtn.onclick = this.commentBox.init;
         }
         this.deleteBtn = this.$.querySelector('.more .more-item.delete');
         if(this.deleteBtn){
@@ -221,9 +221,7 @@ function CommentBox(node, data, isRootComment){
                 if(item.kind === 'file' && (['image/png', 'image/jpeg', 'image/webp'].includes(item.type))){
                     const blob = item.getAsFile();
                     const reader = new FileReader();
-                    reader.onload = (e) => {
-                        this.imgContainer.open(e.target.result);
-                    }
+                    reader.onload = e => this.imgContainer.open(e.target.result);
                     reader.readAsDataURL(blob);
                 }
             }
@@ -233,11 +231,7 @@ function CommentBox(node, data, isRootComment){
         this.imgInput.onchange = () => {
             if(this.imgInput.files && this.imgInput.files[0]){
                 const reader = new FileReader();
-    
-                reader.onload = (e) => {
-                    this.imgContainer.open(e.target.result);
-                };
-    
+                reader.onload = e => this.imgContainer.open(e.target.result);
                 reader.readAsDataURL(this.imgInput.files[0]);
             }
         }
