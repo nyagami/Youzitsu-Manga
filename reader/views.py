@@ -17,6 +17,7 @@ from .middleware import OnlineNowMiddleware
 from .models import Chapter, HitCount, Series, Volume
 from .users_cache_lib import get_user_ip
 from utils.models import Comment
+from utils.middleware import NotifactionMiddleWare
 
 
 @csrf_exempt
@@ -160,6 +161,7 @@ def series_page_data(request, series_slug):
 
 
 @decorator_from_middleware(OnlineNowMiddleware)
+@decorator_from_middleware(NotifactionMiddleWare)
 def series_info(request, series_slug):
     data = series_page_data(request, series_slug)
     data["version_query"] = settings.STATIC_VERSION
@@ -177,6 +179,7 @@ def series_info_canonical(request, url_str, series_slug):
 
 @staff_member_required
 @decorator_from_middleware(OnlineNowMiddleware)
+@decorator_from_middleware(NotifactionMiddleWare)
 def series_info_admin(request, series_slug):
     data = series_page_data(request, series_slug)
     data["version_query"] = settings.STATIC_VERSION

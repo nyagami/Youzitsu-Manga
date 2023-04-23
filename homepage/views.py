@@ -6,12 +6,11 @@ from django.core.cache import cache
 from django.shortcuts import redirect, render
 from django.utils.decorators import decorator_from_middleware
 from django.views.decorators.cache import cache_control
-from django.db.models import Q
 
 from homepage.middleware import ForwardParametersMiddleware
 from reader.middleware import OnlineNowMiddleware
 from reader.models import Chapter
-from utils.models import Notification
+from utils.middleware import NotifactionMiddleWare
 
 
 @staff_member_required
@@ -32,10 +31,8 @@ def admin_home(request):
 
 
 @decorator_from_middleware(OnlineNowMiddleware)
+@decorator_from_middleware(NotifactionMiddleWare)
 def home(request):
-    notifications = Notification.objects.filter(
-        Q(receiver=None) | Q(receiver=request.user.profile)
-    ).order_by('-created_on')
     return render(
         request,
         "homepage/homepage.html",
@@ -48,14 +45,13 @@ def home(request):
             "template": "home",
             "version_query": settings.STATIC_VERSION,
             "media_url": settings.MEDIA_URL,
-            "notifications": notifications,
-            "new_noti": notifications.filter(unread=True)
         },
     )
 
 
 @cache_control(public=True, max_age=3600, s_maxage=300)
 @decorator_from_middleware(OnlineNowMiddleware)
+@decorator_from_middleware(NotifactionMiddleWare)
 def about(request):
     return render(
         request,

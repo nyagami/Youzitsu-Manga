@@ -88,7 +88,7 @@
 				</li> -->
 				<li>
 					<button class="nav-btn" id="btn_bell">
-						{% if new_noti %} <i class="indicator"></i> {% endif %}
+						{% if request.new_noti %} <i class="indicator"></i> {% endif %}
 						<i class="fas fa-bell icon"></i>
 					</button>
 					<div class="nav-menu">
@@ -98,7 +98,7 @@
 						</div>
 						<div class="list-group">
 							<ul class="nav-menu-list">
-								{% for notification in notifications %}
+								{% for notification in request.notifications %}
 								<li class="nav-menu-item">
 									<a href="/user/{{ notification.sender.user.username }}" class="noti-link">
 										<img src="{{ notification.sender.avatar }}"
