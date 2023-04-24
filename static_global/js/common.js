@@ -241,10 +241,9 @@ function CommentBox(node, data, isRootComment){
             const content = this.textarea.value;
             if(!content) return;
             let media = this.imgContainer.img.getAttribute("src");
-            if(media === "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA") media = "";
-            else{
+            if(media){
                 media = media.substring(media.indexOf(";base64,") + ";base64,".length);
-            }
+            }else media = "";
             this.clear();
             const formBody = new FormData();
             formBody.append('article', article);
