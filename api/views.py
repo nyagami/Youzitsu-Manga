@@ -405,11 +405,12 @@ def post_comment(request):
 
     if reply:
         try:
-            receiver=User.objects.get(username=reply)
+            receiver = User.objects.get(username=reply)
             Notification.objects.create(sender=request.user.profile, receiver=receiver.profile, title='Thông báo',
                                         href='#', content=content, unread=1)
             NotifcationConsumer.notify_one(comment, reply)
-        except: pass
+        except ValueError:
+            pass
 
     # people who are tagged in
     # mentions = request.POST.get('mentions')
