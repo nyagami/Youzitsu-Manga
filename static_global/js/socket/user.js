@@ -16,10 +16,25 @@ const openUserSocket = () => {
 
     userSocket.onmessage = e => {
         const data = JSON.parse(e.data);
-        console.log(data);
         switch (data.type) {
-            case 'notification':
-                console.log(data.notification);
+            case 'notify':
+                notification = data.notification;
+                node = document.createElement('li');
+                node.innerHTML = `
+                <a href="/user/${notification.username}" class="noti-link">
+                    <img src="${notification.author.avatar}"
+                        class="rounded-circle user-avatar-lg" alt="user">
+                    <div class="noti-body">
+                        <div class="noti-content">
+                            <span class="user-fullname">${notification.author.display_name}</span>
+                            ${notification.content}
+                        </div>
+                        <span class="noti-time">5 phút trước</span>
+                        <i class="not-read"></i>
+                    </div>
+                </a>
+                `;
+                document.querySelector('.list-group.list-noti ul').prepend(node);
                 break;
             default:
                 break;

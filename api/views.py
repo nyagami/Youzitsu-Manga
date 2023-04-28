@@ -6,6 +6,7 @@ from datetime import datetime
 from hashlib import sha512
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.forms import model_to_dict
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -16,7 +17,7 @@ from reader.models import Chapter, ChapterIndex, Group, Series, Volume
 from reader.views import series_page_data
 
 from user.models import Profile
-from utils.models import Comment
+from utils.models import Comment, Notification
 from utils.consumers import NotifcationConsumer, CommentConsumer
 from colorfield.fields import color_hex_validator
 
@@ -403,13 +404,18 @@ def post_comment(request):
         reply = parent.author.user.username
 
     if reply:
-        NotifcationConsumer.notify_one(comment, reply)
+        try:
+            receiver=User.objects.get(username=reply)
+            Notification.objects.create(sender=request.user.profile, receiver=receiver.profile, title='Thông báo',
+                                        href='#', content=content, unread=1)
+            NotifcationConsumer.notify_one(comment, reply)
+        except: pass
 
     # people who are tagged in
-    mentions = request.POST.get('mentions')
-    if mentions:
-        mentions = mentions.trim().split()
-        NotifcationConsumer.notify_all(comment, mentions)
+    # mentions = request.POST.get('mentions')
+    # if mentions:
+    #     mentions = mentions.trim().split()
+    #     NotifcationConsumer.notify_all(comment, mentions)
 
     return HttpResponse(json.dumps({"response": "success"}), content_type='application/json', status=200)
 
