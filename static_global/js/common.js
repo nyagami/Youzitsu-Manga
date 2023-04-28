@@ -220,6 +220,7 @@ function CommentBox(node, data, isRootComment){
                 const item = items[i];
                 if(item.kind === 'file' && (['image/png', 'image/jpeg', 'image/webp'].includes(item.type))){
                     const blob = item.getAsFile();
+                    this.blob = blob;
                     const reader = new FileReader();
                     reader.onload = e => this.imgContainer.open(e.target.result);
                     reader.readAsDataURL(blob);
@@ -230,9 +231,11 @@ function CommentBox(node, data, isRootComment){
         this.imgInput = this.$.querySelector('.comment-box input');
         this.imgInput.onchange = () => {
             if(this.imgInput.files && this.imgInput.files[0]){
+                this.blob = this.imgInput.files[0];
                 const reader = new FileReader();
                 reader.onload = e => this.imgContainer.open(e.target.result);
                 reader.readAsDataURL(this.imgInput.files[0]);
+                this.imgInput.value = '';
             }
         }
 
@@ -240,20 +243,19 @@ function CommentBox(node, data, isRootComment){
         this.submitBtn.onclick = () => {
             const content = this.textarea.value;
             if(!content) return;
-            let media = this.imgContainer.img.getAttribute("src");
-            if(media){
-                media = media.substring(media.indexOf(";base64,") + ";base64,".length);
-            }else media = "";
-            this.clear();
             const formBody = new FormData();
             formBody.append('article', article);
             formBody.append('parent', this.data.parent || '-1');
             formBody.append('content', content);
-            formBody.append('media', media);
+            if(this.blob){
+                formBody.append("media", this.blob);
+            }
             formBody.append('csrfmiddlewaretoken', csrf_token);
             fetch("/api/comment/",{
                 method: "POST",
                 body: formBody,
+            }).then(res => {
+                if(res.ok) this.clear();
             });
         }
     }
@@ -261,6 +263,7 @@ function CommentBox(node, data, isRootComment){
     this.clear = () => {
         this.textarea.value = '';
         this.imgContainer.clear();
+        this.blob = null;
     }
 
     if(this.isRootComment) this.init();
