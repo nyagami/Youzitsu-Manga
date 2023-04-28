@@ -23,6 +23,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 SECRET_KEY = os.environ.get("SECRET_KEY", "oxrdiDDsuMtd8SIsgAy7i+aJzSGCWt3Xl1IXeMyfCbA=")
 
 CANONICAL_ROOT_DOMAIN = "youzitsu.ga"
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 SITE_ID = 1
 
