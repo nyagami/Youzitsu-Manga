@@ -94,7 +94,7 @@
 					<div class="nav-menu">
 						<div class="list-title">
 							<h5>Thông báo</h5>
-							<a href="{{ notification.href }}" id="read-all-noti">Đã đọc hết</a>
+							<a href="#" id="read-all-noti">Đã đọc hết</a>
 						</div>
 						<div class="list-group list-noti">
 							<ul class="nav-menu-list">
@@ -108,7 +108,7 @@
 												<span class="user-fullname">{{ notification.sender.display_name }}</span>
 												{{ notification.content | convert_to_markdown | safe }}
 											</div>
-											<span class="noti-time">5 phút trước</span>
+											<span class="noti-time" data-time="{{ notification.created_on }}"></span>
 											<i class="{% if notification.unread %} not-read {% endif %}"></i>
 										</div>
 									</a>
@@ -318,6 +318,42 @@
 	</script>
 
 	<script type="text/javascript">
+		function zpad(n) {
+			if (n < 10) return '0' + n;
+			return n;
+		}
+		let now = new Date();
+		function convertTime(TimeString){
+			console.log(TimeString);
+			const arr = TimeString.trim().split(/[\s\D]+/g).map(e => Number(e));
+			const commentTime = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]));
+			let delta = Math.abs(now - commentTime)/1000;
+			let days = Math.floor(delta / 86400);
+			delta -= days * 86400;
+			let hours = Math.floor(delta / 3600) % 24;
+			delta -= hours * 3600;
+
+			let minutes = Math.floor(delta / 60) % 60;
+			delta -= minutes * 60;
+			let seconds = parseInt(delta % 60);
+
+			if (days >= 7) {
+				return `${zpad(commentTime.getDate())}-${zpad(commentTime.getMonth() + 1)}-${commentTime.getFullYear()}`;
+			}
+			else if (days < 7 && days > 0) {
+				return`${days} ngày trước`;
+			}
+			else if (hours > 0) {
+				return `${hours} giờ trước`;
+			}
+			else if (minutes > 0) {
+				return `${minutes} phút trước`;
+			}
+			else if (seconds > 0) {
+				return`${seconds} giây trước`;
+			}
+			return TimeString;
+		}
 		let searchButton = $('#search_btn');
 		let icon = $('#id-search-icon');
 		icon.click(() => {
@@ -363,6 +399,10 @@
 		$('#read-all-noti').click(() => {
 			$('.noti-time').removeClass('not-read');
 		});
+
+		$('.noti-time').each((index, ele) => {
+			ele.innerHTML = convertTime(ele.getAttribute('data-time'));
+		})
 
 		$('#theme').val(user_theme);
 		if (user_theme !== 'Custom') {

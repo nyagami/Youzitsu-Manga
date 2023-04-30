@@ -11,5 +11,7 @@ class NotifactionMiddleWare(MiddlewareMixin):
         notifications = Notification.objects.filter(
             Q(receiver=None) | Q(receiver=profile)
         ).order_by('-created_on')
+        for notification in notifications:
+            notification.created_on = f'{notification.created_on.date()} {notification.created_on.time()}'
         request.notifications = notifications
         request.new_noti = notifications.filter(unread=False)

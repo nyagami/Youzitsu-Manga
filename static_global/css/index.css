@@ -394,6 +394,10 @@ nav ul li #btn_profile::after {
     outline: unset;
 }
 
+.list-group.list-noti{
+    max-height: 60vh;
+    overflow-y: scroll;
+}
 
 .list-title{
     display: flex;
