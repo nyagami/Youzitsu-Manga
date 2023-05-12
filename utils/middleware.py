@@ -14,4 +14,4 @@ class NotifactionMiddleWare(MiddlewareMixin):
         for notification in notifications:
             notification.created_on = f'{notification.created_on.date()} {notification.created_on.time()}'
         request.notifications = notifications
-        request.new_noti = notifications.filter(unread=False)
+        request.new_noti = notifications.filter(unread=True)

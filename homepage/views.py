@@ -33,6 +33,7 @@ def admin_home(request):
 @decorator_from_middleware(OnlineNowMiddleware)
 @decorator_from_middleware(NotifactionMiddleWare)
 def home(request):
+    print(request.new_noti)
     return render(
         request,
         "homepage/homepage.html",

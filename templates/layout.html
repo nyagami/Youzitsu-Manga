@@ -81,14 +81,9 @@
 					</button>
 				</li>
 				<li class="space"></li>
-				<!-- <li> 
-					<button class="tooltip" data-tooltip="Message" id="btn_msg">
-						<i class="fas fa-message"></i>
-					</button>
-				</li> -->
 				<li>
 					<button class="nav-btn" id="btn_bell">
-						{% if request.new_noti %} <i class="indicator"></i> {% endif %}
+						<i class="indicator{% if not request.new_noti %} d-none{% endif %}"></i>
 						<i class="fas fa-bell icon"></i>
 					</button>
 					<div class="nav-menu">
