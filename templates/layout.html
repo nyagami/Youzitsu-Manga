@@ -305,11 +305,13 @@
 			user_reader_background = "{{ request.user.profile.reader_background }}";
 		}
 		var settings = serialization.deserialize();
-		if (settings['thm.theme']) user_theme = settings['thm.theme'];
-		if (settings['thm.primaryCol']) user_primary_color = settings['thm.primaryCol'];
-		if (settings['thm.textCol']) user_text_color = settings['thm.textCol'];
-		if (settings['thm.accentCol']) user_accent_color = settings['thm.accentCol'];
-		if (settings['thm.readerBg']) user_reader_background = settings['thm.readerBg'];
+		if (settings){
+			if (settings['thm.theme']) user_theme = settings['thm.theme'];
+			if (settings['thm.primaryCol']) user_primary_color = settings['thm.primaryCol'];
+			if (settings['thm.textCol']) user_text_color = settings['thm.textCol'];
+			if (settings['thm.accentCol']) user_accent_color = settings['thm.accentCol'];
+			if (settings['thm.readerBg']) user_reader_background = settings['thm.readerBg'];	
+		}
 		const themeArr = [user_primary_color, user_text_color, user_accent_color, user_reader_background];
 		const themeMapping = ['thm.primaryCol', 'thm.textCol', 'thm.accentCol', 'thm.readerBg'];
 		const Settings = undefined;
@@ -324,7 +326,6 @@
 		}
 		let now = new Date();
 		function convertTime(TimeString){
-			console.log(TimeString);
 			const arr = TimeString.trim().split(/[\s\D]+/g).map(e => Number(e));
 			const commentTime = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]));
 			let delta = Math.abs(now - commentTime)/1000;
