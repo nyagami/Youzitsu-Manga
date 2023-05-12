@@ -60,6 +60,7 @@ class PasswordResetView(OldPasswordResetView):
     html_email_template_name = "password/password_reset_email.html"
     email_template_name = "password/password_reset_email.txt"
 
+
 @decorator_from_middleware(NotifactionMiddleWare)
 def profile(request, username):
     try:
