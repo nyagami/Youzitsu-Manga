@@ -9,6 +9,7 @@ from registration.backends.simple.views import RegistrationView as OldRegistrati
 from django.contrib.auth.models import User
 from .form import RegistrationForm
 from .models import Profile
+from utils.models import Comment
 from utils.middleware import NotifactionMiddleWare
 
 
@@ -70,8 +71,9 @@ def profile(request, username):
     return render(
         request, 'profile.html',
         {
-            "owner": user.username == request.user.username,
+            "owner": user.username,
             "page_title": username,
-            "profile": user.profile
+            "profile": user.profile,
+            "comments": len(Comment.objects._mptt_filter(author=user.profile))
         }
     )
