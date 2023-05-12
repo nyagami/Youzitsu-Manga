@@ -2,13 +2,14 @@ from django.contrib.auth.views import (
     LoginView as OldLoginView, LogoutView as OldLogOutView, PasswordChangeView as OldPasswordChangeView,
     PasswordResetView as OldPasswordResetView
 )
-
+from django.utils.decorators import decorator_from_middleware
 from django.shortcuts import render
 from registration.backends.simple.views import RegistrationView as OldRegistrationView
 
 from django.contrib.auth.models import User
 from .form import RegistrationForm
 from .models import Profile
+from utils.middleware import NotifactionMiddleWare
 
 
 # Registration
@@ -59,7 +60,7 @@ class PasswordResetView(OldPasswordResetView):
     html_email_template_name = "password/password_reset_email.html"
     email_template_name = "password/password_reset_email.txt"
 
-
+@decorator_from_middleware(NotifactionMiddleWare)
 def profile(request, username):
     try:
         user = User.objects.get(username=username)
