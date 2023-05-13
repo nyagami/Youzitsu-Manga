@@ -680,3 +680,12 @@ a.text-white:focus {
     padding: 2.5rem 0;
     background: var(--readerBg);
 }
+textarea{
+    color: var(--textCol);
+}
+.form-control{
+    color: var(--textCol);
+}
+.form-control-label{
+    text-transform: uppercase;
+}
