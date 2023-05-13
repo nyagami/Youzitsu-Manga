@@ -52,7 +52,7 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">Sửa thông tin</h3>
+                  <h3 class="mb-0">{% if owner == request.user.username %} Sửa thông tin {% else%} Thông tin {% endif %}</h3>
                 </div>
               </div>
             </div>
@@ -63,7 +63,11 @@
                     <div class="w-100">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Địa chỉ email</label>
-                        <input type="email" id="input-email" class="form-control" placeholder="kiyotaka@gmail.com" value="{{ profile.user.email }}">
+                        {% if owner == request.user.username %}
+                        <input type="email" id="input-email" class="form-control" placeholder="email" value="{{ profile.user.email }}">
+                        {% else %}
+                        <div class="form-control">{{ profile.user.email}}</div>
+                        {% endif %}
                       </div>
                     </div>
                   </div>
@@ -71,19 +75,27 @@
                     <div class="w-100">
                       <div class="form-group">
                         <label class="form-control-label" for="input-first-name">Tên hiển thị</label>
+                        {% if owner == request.user.username %}
                         <input type="text" id="input-first-name" class="form-control" placeholder="Tên hiển thị" value="{{ profile.display_name}}">
+                        {% else %}
+                        <div class="form-control">{{ profile.display_name }}</div>
+                        {% endif %}
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="w-100">
                       <div class="form-group">
+                        {% if owner == request.user.username %} 
                         <label class="form-control-label">Mô tả</label>
                         <textarea rows="4" class="form-control" placeholder="Viết mô tả về bạn">{{ profile.description }}</textarea>
+                        {% endif %}
                       </div>
                     </div>
                   </div>
+                    {% if owner == request.user.username %}
                     <button type="submit" class="btn btn-sm btn-primary">Lưu</button>
+                    {% endif%}
                 </div>
               </form>
             </div>
