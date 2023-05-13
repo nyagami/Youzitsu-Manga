@@ -3,6 +3,7 @@ from django.contrib.auth.views import (
     PasswordResetView as OldPasswordResetView
 )
 from django.utils.decorators import decorator_from_middleware
+from django.http import HttpResponseForbidden
 from django.shortcuts import render
 from registration.backends.simple.views import RegistrationView as OldRegistrationView
 
@@ -68,6 +69,23 @@ def profile(request, username):
         user = User.objects.get(username=username)
     except ValueError:
         return render(request, 'homepage/404_page.html', status=404)
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        display_name = request.POST.get('display_name')
+        description = request.POST.get('description')
+        try:
+            prf = Profile.objects.get(user=request.user)
+        except ValueError:
+            return HttpResponseForbidden()
+        if email:
+            user.email = email
+            user.save()
+        if display_name or description:
+            if display_name:
+                prf.display_name = display_name
+            if description:
+                prf.description = description
+            prf.save()
     return render(
         request, 'profile.html',
         {

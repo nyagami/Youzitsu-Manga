@@ -480,15 +480,6 @@
 			});
 			themeCore.themeUpdated(false, $('#theme').val());
 		});
-
-		document.addEventListener('keyup', e => {
-			if (e.code === 'KeyT') {
-				$('#themeModal').modal('toggle');
-			}
-			if (e.code === 'Escape') {
-				$('#themeModal').modal('close');
-			}
-		});
 	</script>
 	<script src="{% static 'js/socket/user.js' %}"></script>
 </body>

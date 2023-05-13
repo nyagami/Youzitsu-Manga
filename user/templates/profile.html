@@ -58,13 +58,14 @@
             </div>
             <div class="card-body">
               <form method="POST">
+                {% csrf_token %}
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="w-100">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Địa chỉ email</label>
                         {% if owner == request.user.username %}
-                        <input type="email" id="input-email" class="form-control" placeholder="email" value="{{ profile.user.email }}">
+                        <input type="email" id="input-email" name="email" class="form-control" placeholder="email" value="{{ profile.user.email }}">
                         {% else %}
                         <div class="form-control">{{ profile.user.email}}</div>
                         {% endif %}
@@ -76,7 +77,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-first-name">Tên hiển thị</label>
                         {% if owner == request.user.username %}
-                        <input type="text" id="input-first-name" class="form-control" placeholder="Tên hiển thị" value="{{ profile.display_name}}">
+                        <input type="text" id="input-first-name" name="display_name" class="form-control" placeholder="Tên hiển thị" value="{{ profile.display_name}}">
                         {% else %}
                         <div class="form-control">{{ profile.display_name }}</div>
                         {% endif %}
@@ -88,7 +89,7 @@
                       <div class="form-group">
                         {% if owner == request.user.username %} 
                         <label class="form-control-label">Mô tả</label>
-                        <textarea rows="4" class="form-control" placeholder="Viết mô tả về bạn">{{ profile.description }}</textarea>
+                        <textarea rows="4" class="form-control" name="description" placeholder="Viết mô tả về bạn">{{ profile.description }}</textarea>
                         {% endif %}
                       </div>
                     </div>
