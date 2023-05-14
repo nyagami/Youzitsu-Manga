@@ -493,7 +493,8 @@
 				method: 'POST',
 			}).then(res => {
 				if(res.ok){
-					console.log("ok");
+					$('i.not-read').removeClass('not-read');
+					$('i.indicator').removeClass('indicator');
 				}
 			})
 		}
