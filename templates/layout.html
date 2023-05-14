@@ -89,7 +89,7 @@
 					<div class="nav-menu">
 						<div class="list-title">
 							<h5>Thông báo</h5>
-							<a href="#" id="read-all-noti">Đã đọc hết</a>
+							<a href="#" onclick="readAllNotification()" id="read-all-noti">Đã đọc hết</a>
 						</div>
 						<div class="list-group list-noti">
 							<ul class="nav-menu-list">
@@ -487,6 +487,16 @@
 			});
 			themeCore.themeUpdated(false, $('#theme').val());
 		});
+
+		function readAllNotification(){
+			fetch("/api/notification/read_all/",{
+				method: 'POST',
+			}).then(res => {
+				if(res.ok){
+					console.log("ok");
+				}
+			})
+		}
 	</script>
 	<script src="{% static 'js/socket/user.js' %}"></script>
 </body>

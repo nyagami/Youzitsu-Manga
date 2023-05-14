@@ -457,3 +457,14 @@ def update_comment(request):
         comment.update(content=content, mention=mention)
     except ValueError:
         return HttpResponseBadRequest()
+
+
+@csrf_exempt
+def read_all_notifications(request):
+    if request.method != 'POST' or not request.user.is_authenticated:
+        return HttpResponse(json.dumps({"reponse": "anynomous"}, content_type='application/json', status=200))
+    try:
+        Notification.objects.filter(receiver=request.user.profile).update(unread=False)
+    except ValueError:
+        return HttpResponseBadRequest()
+    return HttpResponse(json.dumps({"response": "success"}), content_type='application/json', status=200)

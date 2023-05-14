@@ -53,4 +53,5 @@ urlpatterns = [
 
     path("comment/", views.post_comment, name="api-post_comment"),
     path("comment/delete/", views.delete_comment, name="api-delete-comment"),
+    path("notification/read_all/", views.read_all_notifications, name="read-all-notifications")
 ]
