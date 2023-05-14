@@ -32,5 +32,5 @@ urlpatterns = [
     path("password/reset/done/", PasswordResetDoneView.as_view(
         template_name="password/password_reset_done.html",
     ), name="password_reset_done"),
-    re_path(r"(?P<username>[a-z]+)/", profile, name="profile"),
+    re_path(r"(?P<username>[a-z]+)/$", profile, name="profile"),
 ]

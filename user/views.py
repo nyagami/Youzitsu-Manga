@@ -1,3 +1,4 @@
+from typing import Any
 from django.contrib.auth.views import (
     LoginView as OldLoginView, LogoutView as OldLogOutView, PasswordChangeView as OldPasswordChangeView,
     PasswordResetView as OldPasswordResetView
@@ -33,6 +34,10 @@ class RegistrationView(OldRegistrationView):
         profile.save()
         return user
 
+    def get(self, request, *args: Any, **kwargs: Any):
+        NotifactionMiddleWare.process_request(self, request)
+        return super().get(request, *args, **kwargs)
+
 
 class LoginView(OldLoginView):
     template_name = "log/login.html"
@@ -41,12 +46,20 @@ class LoginView(OldLoginView):
     }
     redirect_authenticated_user = True
 
+    def get(self, request, *args: Any, **kwargs: Any):
+        NotifactionMiddleWare.process_request(self, request)
+        return super().get(request, *args, **kwargs)
+
 
 class LogoutView(OldLogOutView):
     template_name = 'log/logout.html'
     extra_context = {
         "page_title": "Đăng xuất",
     }
+
+    def get(self, request, *args: Any, **kwargs: Any):
+        NotifactionMiddleWare.process_request(self, request)
+        return super().get(request, *args, **kwargs)
 
 
 class PasswordChangeView(OldPasswordChangeView):
@@ -56,11 +69,19 @@ class PasswordChangeView(OldPasswordChangeView):
         self.request.session['password_pwned'] = False
         return super().form_valid(form)
 
+    def get(self, request, *args, **kwargs):
+        NotifactionMiddleWare.process_request(self, request)
+        return super().get(request, args, kwargs)
+
 
 class PasswordResetView(OldPasswordResetView):
     template_name = "password/password_reset.html"
     html_email_template_name = "password/password_reset_email.html"
     email_template_name = "password/password_reset_email.txt"
+
+    def get(self, request, *args: Any, **kwargs: Any):
+        NotifactionMiddleWare.process_request(self, request)
+        return super().get(request, *args, **kwargs)
 
 
 @decorator_from_middleware(NotifactionMiddleWare)
