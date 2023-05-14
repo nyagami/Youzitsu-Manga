@@ -411,7 +411,8 @@ def post_comment(request):
                 href = '/read/series/' + article[1] + '/' + article[2]
             receiver = User.objects.get(username=reply)
             notification_obj = Notification.objects.create(sender=request.user.profile, receiver=receiver.profile,
-                                        title='Đã hồi bình luận', href=href, content=content, unread=1)
+                                                           title='Đã hồi bình luận', href=href,
+                                                           content=content, unread=1)
             notification = model_to_dict(notification_obj)
             notification['author'] = comment['author']
             NotifcationConsumer.notify_one(notification, reply)
