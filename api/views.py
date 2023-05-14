@@ -405,10 +405,16 @@ def post_comment(request):
 
     if reply:
         try:
+            href = '#'
+            article = article.split('_')
+            if article[0] == 'c':
+                href = '/read/series/' + article[1] + '/' + article[2]
             receiver = User.objects.get(username=reply)
-            Notification.objects.create(sender=request.user.profile, receiver=receiver.profile,
-                                        title='Đã hồi bình luận', href='#', content=content, unread=1)
-            NotifcationConsumer.notify_one(comment, reply)
+            notification_obj = Notification.objects.create(sender=request.user.profile, receiver=receiver.profile,
+                                        title='Đã hồi bình luận', href=href, content=content, unread=1)
+            notification = model_to_dict(notification_obj)
+            notification['author'] = comment['author']
+            NotifcationConsumer.notify_one(notification, reply)
         except ValueError:
             pass
 

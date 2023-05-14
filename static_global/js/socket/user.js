@@ -21,20 +21,22 @@ const openUserSocket = () => {
                 notification = data.notification;
                 node = document.createElement('li');
                 node.innerHTML = `
-                <a href="/user/${notification.username}" class="noti-link">
+                <a href="${notification.href}" class="noti-link">
                     <img src="${notification.author.avatar}"
                         class="rounded-circle user-avatar-lg" alt="user">
                     <div class="noti-body">
                         <div class="noti-content">
                             <span class="user-fullname">${notification.author.display_name}</span>
+                            <div class="font-weight-bold">${notification.title}</div>
                             ${notification.content}
                         </div>
-                        <span class="noti-time">5 phút trước</span>
+                        <span class="noti-time">mới</span>
                         <i class="not-read"></i>
                     </div>
                 </a>
                 `;
                 document.querySelector('.list-group.list-noti ul').prepend(node);
+                document.querySelector('i.indicator').classList.remove('d-none');
                 break;
             default:
                 break;
