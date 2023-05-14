@@ -214,7 +214,7 @@ def get_all_metadata(request, series_slug):
 @decorator_from_middleware(OnlineNowMiddleware)
 def reader(request, series_slug, chapter, page=None):
     if page:
-        article = f'c_{series_slug}_c{chapter}'
+        article = f'c_{series_slug}_{chapter}'
         comments = Comment.objects._mptt_filter(article=article)
         for comment in comments:
             comment.created_on = f'{comment.created_on.date()} {comment.created_on.time()}'
