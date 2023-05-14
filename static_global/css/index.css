@@ -675,3 +675,7 @@ body, button, button:before {
 	opacity: 0.2;
 	pointer-events: none;
 }
+
+.noti-content :not(span.user-fullname){
+    color: var(--textCol) !important;
+}
