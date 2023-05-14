@@ -28,7 +28,7 @@ const openUserSocket = () => {
                         <div class="noti-content">
                             <span class="user-fullname">${notification.author.display_name}</span>
                             <div class="font-weight-bold">${notification.title}</div>
-                            ${notification.content}
+                            ${notification.content.substr(0, 200)}
                         </div>
                         <span class="noti-time">mới</span>
                         <i class="not-read"></i>
