@@ -95,7 +95,7 @@
 							<ul class="nav-menu-list">
 								{% for notification in request.notifications %}
 								<li class="nav-menu-item">
-									<a href="{{ notification.href }}" class="noti-link">
+									<a href="{{ notification.href }}?notification={{ notification.id }}" class="noti-link">
 										<img src="{{ notification.sender.avatar }}"
 											class="rounded-circle user-avatar-lg" alt="user">
 										<div class="noti-body">

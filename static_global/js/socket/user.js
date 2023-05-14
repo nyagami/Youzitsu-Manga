@@ -21,7 +21,7 @@ const openUserSocket = () => {
                 notification = data.notification;
                 node = document.createElement('li');
                 node.innerHTML = `
-                <a href="${notification.href}" class="noti-link">
+                <a href="${notification.href}?notification=${notification.id}" class="noti-link">
                     <img src="${notification.author.avatar}"
                         class="rounded-circle user-avatar-lg" alt="user">
                     <div class="noti-body">

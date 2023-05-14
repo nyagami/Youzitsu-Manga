@@ -7,7 +7,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.db.models import F
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import decorator_from_middleware
@@ -16,7 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .middleware import OnlineNowMiddleware
 from .models import Chapter, HitCount, Series, Volume
 from .users_cache_lib import get_user_ip
-from utils.models import Comment
+from utils.models import Comment, Notification
 from utils.middleware import NotifactionMiddleWare
 
 
@@ -218,6 +218,14 @@ def reader(request, series_slug, chapter, page=None):
         comments = Comment.objects._mptt_filter(article=article)
         for comment in comments:
             comment.created_on = f'{comment.created_on.date()} {comment.created_on.time()}'
+        notification = request.GET.get('notification')
+        if notification:
+            try:
+                notification = Notification.objects.get(receiver=request.user.profile, id=notification)
+                notification.unread = False
+                notification.save()
+            except ValueError:
+                return HttpResponseBadRequest()
         data = get_all_metadata(request, series_slug)
         if chapter in data:
             data[chapter]["relative_url"] = f"read/manga/{series_slug}/{chapter}/1"

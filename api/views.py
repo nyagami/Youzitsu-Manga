@@ -408,7 +408,7 @@ def post_comment(request):
             href = '#'
             article = article.split('_')
             if article[0] == 'c':
-                href = '/read/series/' + article[1] + '/' + article[2]
+                href = '/read/series/' + article[1] + '/' + article[2] + '/1/'
             receiver = User.objects.get(username=reply)
             notification_obj = Notification.objects.create(sender=request.user.profile, receiver=receiver.profile,
                                                            title='Đã hồi bình luận', href=href,
