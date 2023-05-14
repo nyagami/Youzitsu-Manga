@@ -99,9 +99,10 @@
 										<img src="{{ notification.sender.avatar }}"
 											class="rounded-circle user-avatar-lg" alt="user">
 										<div class="noti-body">
-											<div class="noti-content">
+											<div class="noti-content text-break">
 												<span class="user-fullname">{{ notification.sender.display_name }}</span>
-												{{ notification.content | convert_to_markdown | safe }}
+												<div class="font-weight-bold">{{ notification.title }}</div>
+												{{ notification.content | slice:"0:200" | convert_to_markdown | safe }}
 											</div>
 											<span class="noti-time" data-time="{{ notification.created_on }}"></span>
 											<i class="{% if notification.unread %} not-read {% endif %}"></i>

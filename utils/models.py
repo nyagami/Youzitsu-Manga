@@ -30,7 +30,7 @@ class Notification(models.Model):
 
     # null = everyone :D
     receiver = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
-    title = models.CharField(default='Thông báo', max_length=200,)
+    title = models.CharField(default='Đã thông báo', max_length=200,)
     href = models.CharField(default="#", max_length=200, blank=True, null=True)
     content = models.TextField(blank=True, null=True, max_length=500)
     unread = models.BooleanField(default=True)
