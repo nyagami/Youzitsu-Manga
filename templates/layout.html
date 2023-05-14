@@ -155,7 +155,13 @@
 									</button>
 								</li>
 								{% if request.user.is_authenticated %}
-								<li id="logout-btn" class="nav-menu-item" onclick=" location.href = '/user/logout' ">
+								<li class="nav-menu-item" onclick="location.href = '/user/password/change'">
+									<button>
+										<i class="fa-solid fa-key"></i>
+										Đổi mật khẩu
+									</button>
+								</li>
+								<li class="nav-menu-item" onclick="location.href = '/user/logout'">
 									<button>
 										<i class="fa-solid fa-right-from-bracket icon"></i>
 										Đăng xuất
