@@ -681,13 +681,22 @@ body, button, button:before {
 }
 
 .search-results{
-    height: 20rem;
-    width: 120%;
+    min-height: 5rem;
+    max-height: 25rem;
+    max-width: 25rem;
     margin-top: 5px;
     border-radius: 10px;
+    border: solid 2px var(--blackFlag);
     background-color: var(--readerBg);
     padding: 0.5rem 1rem;
     box-shadow: 0 5px 20px 5px var(--accentSelectedInvert);
+    overflow-y: scroll;
+}
+
+.search-results::-webkit-scrollbar,
+.search-results::-webkit-scrollbar-track,
+.search-results::-webkit-scrollbar-thumb{
+    border-radius: 0 6px 6px 0;
 }
 
 .search-link{
@@ -697,6 +706,7 @@ body, button, button:before {
     border: solid 2px var(--borderColor);
     border-radius: 5px;
     background-color: var(--sidebarCol);
+    margin-bottom: 0.5rem;
 }
 
 .search-link img{
@@ -728,6 +738,7 @@ body, button, button:before {
 .search-link .search-details .chapter-name{
     margin-top: 0.2rem;
     color: var(--textCol);
+    word-wrap: break-word;
 }
 
 .search-link:hover{

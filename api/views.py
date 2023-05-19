@@ -112,6 +112,10 @@ def get_all_chapters(request):
         all_chapters = Chapter.objects.all()
         all_chapter_data = []
         for chapter in all_chapters:
+            series_slug = chapter.series.slug
+            chapter_dir = os.path.join(settings.MEDIA_ROOT, 'manga', series_slug, 'chapters',
+                                       chapter.folder, '1_shrunk')
+            thumb_name = os.listdir(chapter_dir)[0]
             all_chapter_data.append(
                 {
                     'name': chapter.title,
@@ -119,8 +123,8 @@ def get_all_chapters(request):
                     'href': chapter.get_absolute_url(),
                     'volume': chapter.volume,
                     'uploaded_time': chapter.get_chapter_time(),
-                    "thumb": f'{settings.MEDIA_URL}manga/{chapter.series.slug}' +
-                             f'/chapters/{chapter.folder}/1_shrunk/01.jpg',
+                    "thumb": f'{settings.MEDIA_URL}manga/{series_slug}' +
+                             f'/chapters/{chapter.folder}/1_shrunk/{thumb_name}',
                 }
             )
     return HttpResponse(json.dumps(all_chapter_data), content_type='application/json')
