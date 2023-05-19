@@ -120,7 +120,7 @@ def get_all_chapters(request):
                     'volume': chapter.volume,
                     'uploaded_time': chapter.get_chapter_time(),
                     "thumb": f'{settings.MEDIA_URL}manga/{chapter.series.slug}' +
-                             '/chapters/{chapter.folder}/1_shrunk/01.jpg',
+                             f'/chapters/{chapter.folder}/1_shrunk/01.jpg',
                 }
             )
     return HttpResponse(json.dumps(all_chapter_data), content_type='application/json')
