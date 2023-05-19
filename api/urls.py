@@ -14,6 +14,7 @@ urlpatterns = [
         name="api-series-page-data",
     ),
     re_path(r"^get_all_series/", views.get_all_series, name="api-get-all-series"),
+    re_path(r"^get_all_chapters/", views.get_all_chapters, name="api-get-all-chapters"),
     re_path(
         r"^get_groups/(?P<series_slug>[\w-]+)/", views.get_groups, name="api-groups"
     ),

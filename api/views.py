@@ -105,6 +105,27 @@ def get_all_groups(request):
     return HttpResponse(json.dumps(all_groups()), content_type="application/json")
 
 
+@cache_control(public=True, max_age=24 * 3600, s_maxage=24 * 3600)
+def get_all_chapters(request):
+    all_chapter_data = cache.get('all_chapters_data')
+    if not all_chapter_data:
+        all_chapters = Chapter.objects.all()
+        all_chapter_data = []
+        for chapter in all_chapters:
+            all_chapter_data.append(
+                {
+                    'name': chapter.title,
+                    'number': chapter.chapter_number,
+                    'href': chapter.get_absolute_url(),
+                    'volume': chapter.volume,
+                    'uploaded_time': chapter.get_chapter_time(),
+                    "thumb": f'{settings.MEDIA_URL}manga/{chapter.series.slug}' +
+                             '/chapters/{chapter.folder}/1_shrunk/01.jpg',
+                }
+            )
+    return HttpResponse(json.dumps(all_chapter_data), content_type='application/json')
+
+
 # @cache_control(public=True, max_age=43200, s_maxage=43200)
 # def download_volume(request, series_slug, volume):
 #     zip_filename = f"{series_slug}_vol_{volume}.zip"
