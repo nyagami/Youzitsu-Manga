@@ -679,3 +679,61 @@ body, button, button:before {
 .noti-content :not(span.user-fullname){
     color: var(--textCol) !important;
 }
+
+.search-results{
+    height: 20rem;
+    width: 120%;
+    margin-top: 5px;
+    border-radius: 10px;
+    background-color: var(--readerBg);
+    padding: 0.5rem 1rem;
+    box-shadow: 0 5px 20px 5px var(--accentSelectedInvert);
+}
+
+.search-link{
+    color: var(--textCol);
+    display: flex;
+    padding: 0.3rem;
+    border: solid 2px var(--borderColor);
+    border-radius: 5px;
+    background-color: var(--sidebarCol);
+}
+
+.search-link img{
+    max-height: 5.6rem;
+    max-width: 4.2rem;
+}
+
+.search-link .search-details{
+    margin-left: 0.5rem;
+}
+
+.search-link .search-details .title{
+    display: flex;
+}
+
+.search-link .search-details .title .chapter{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.search-tag{
+    margin-left: 1rem;
+    color: var(--accentCol);
+    border: solid 1px var(--accentCol);
+    font-size: 12px;
+    padding: 0.2rem 0.5rem;
+}
+
+.search-link .search-details p{
+    margin-top: 0.2rem;
+}
+
+.search-link:hover{
+    background-color: var(--accentCol);
+    color: var(--accentSelected);
+}
+.search-link:hover .search-tag{
+    color: var(--accentSelected);
+    border-color: var(--accentSelected);
+}

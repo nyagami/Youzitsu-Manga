@@ -79,6 +79,7 @@
 						</div>
 						<span class="input-clear" id="id-input-clear"></span>
 					</button>
+					<div class="search-results"></div>
 				</li>
 				<li class="space"></li>
 				<li>
@@ -358,6 +359,12 @@
 			return TimeString;
 		}
 		let searchButton = $('#search_btn');
+		var all_chapters = []
+		fetch("/api/get_all_chapters/")
+		.then(res => res.json())
+		.then(chapters => {
+			all_chapters = chapters;
+		})
 		let icon = $('#id-search-icon');
 		icon.click(() => {
 			searchButton.toggleClass('active');
@@ -365,6 +372,34 @@
 			else icon.css('border-radius', '1.5rem');
 		})
 		input = $("#id-search-input");
+		searchResults = $('.search-results');
+		input.on("input", function(e){
+			value = input.val().toLowerCase();
+			searchResults.html('');
+			if(!value) return ;
+			results = all_chapters.filter(chapter => chapter.name.toLowerCase().includes(value));
+			resultsHtml = results.reduce((res, chapter) => {
+				html = `
+					<div>
+						<a href="${chapter.href}" class="search-link">
+							<div>
+								<img src="${chapter.thumb}">
+							</div>
+							<div class="search-details">
+								<div class="title">
+									<div class="chapter">Chương ${chapter.number}</div>
+									<div class="search-tag">Volume ${chapter.volume}</div>
+								</div>
+								<p>${chapter.name}</p>
+								<span class>Ngày đăng: ${chapter.uploaded_time}</span>
+							</div>
+						</a>
+					</div>
+				`;
+				return res + html;
+			}, '');
+			searchResults.html(resultsHtml);
+		});
 		clear = $("#id-input-clear");
 		clear.click(() => {
 			if (input.val()) {
