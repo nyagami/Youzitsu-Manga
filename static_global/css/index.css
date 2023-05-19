@@ -725,15 +725,17 @@ body, button, button:before {
     padding: 0.2rem 0.5rem;
 }
 
-.search-link .search-details p{
+.search-link .search-details .chapter-name{
     margin-top: 0.2rem;
+    color: var(--textCol);
 }
 
 .search-link:hover{
     background-color: var(--accentCol);
     color: var(--accentSelected);
 }
-.search-link:hover .search-tag{
+.search-link:hover .search-tag,
+.search-link:hover .chapter-name{
     color: var(--accentSelected);
     border-color: var(--accentSelected);
 }

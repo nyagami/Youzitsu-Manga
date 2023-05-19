@@ -79,7 +79,7 @@
 						</div>
 						<span class="input-clear" id="id-input-clear"></span>
 					</button>
-					<div class="search-results"></div>
+					<div class="search-results d-none"></div>
 				</li>
 				<li class="space"></li>
 				<li>
@@ -366,14 +366,31 @@
 			all_chapters = chapters;
 		})
 		let icon = $('#id-search-icon');
-		icon.click(() => {
-			searchButton.toggleClass('active');
-			if (searchButton.hasClass('active')) icon.css('border-radius', '1.5rem 0 0 1.5rem');
-			else icon.css('border-radius', '1.5rem');
-		})
 		input = $("#id-search-input");
 		searchResults = $('.search-results');
+		icon.click(() => {
+			searchButton.toggleClass('active');
+			if (searchButton.hasClass('active')) {
+				icon.css('border-radius', '1.5rem 0 0 1.5rem');
+			}
+			else{
+				searchResults.addClass('d-none');
+				icon.css('border-radius', '1.5rem');
+			}
+		});
+		clear = $("#id-input-clear");
+		clear.click(() => {
+			if (input.val()) {
+				input.val('');
+			}
+			else {
+				searchButton.removeClass('active');
+				searchResults.addClass('d-none');
+				icon.css('border-radius', '1.5rem');
+			}
+		});
 		input.on("input", function(e){
+			searchResults.removeClass('d-none');
 			value = input.val().toLowerCase();
 			searchResults.html('');
 			if(!value) return ;
@@ -390,7 +407,7 @@
 									<div class="chapter">Chương ${chapter.number}</div>
 									<div class="search-tag">Volume ${chapter.volume}</div>
 								</div>
-								<p>${chapter.name}</p>
+								<p class="chapter-name">${chapter.name}</p>
 								<span class>Ngày đăng: ${chapter.uploaded_time}</span>
 							</div>
 						</a>
@@ -399,16 +416,6 @@
 				return res + html;
 			}, '');
 			searchResults.html(resultsHtml);
-		});
-		clear = $("#id-input-clear");
-		clear.click(() => {
-			if (input.val()) {
-				input.val('');
-			}
-			else {
-				searchButton.removeClass('active');
-				icon.css('border-radius', '1.5rem');
-			}
 		});
 
 		$('button.nav-btn').click((e) => {
