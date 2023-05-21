@@ -20,8 +20,12 @@ jobs:
       with:
         path: ~/.cache/pip
         key: pip-${{ runner.os }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('requirements.txt') }}
+    - name: Start MySQL
+      run: sudo systemctl start mysql.service
     - name: Install Dependencies
       run: |
+        sed -i 's/guyamoe.settings.local/guyamoe.settings.prod/' manage.py 
+        sed -i 's/guyamoe.settings.local/guyamoe.settings.prod/' guyamoe/wsgi.py 
         pip install -r requirements.txt
         python3 manage.py makemigrations
         python3 manage.py migrate
