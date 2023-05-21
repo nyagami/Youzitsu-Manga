@@ -28,5 +28,6 @@ jobs:
         sed -i 's/guyamoe.settings.local/guyamoe.settings.prod/' guyamoe/wsgi.py 
         pip install -r requirements.txt
         pip install mysqlclient
+        pip install pymemcache
         python3 manage.py makemigrations
         python3 manage.py migrate
