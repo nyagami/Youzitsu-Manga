@@ -24,6 +24,8 @@ jobs:
       run: sudo systemctl start mysql.service
     - name: Install Dependencies
       run: |
+        sudo apt install memcached
+        sudo systemctl start memcached
         sed -i 's/guyamoe.settings.local/guyamoe.settings.prod/' manage.py 
         sed -i 's/guyamoe.settings.local/guyamoe.settings.prod/' guyamoe/wsgi.py 
         pip install -r requirements.txt
