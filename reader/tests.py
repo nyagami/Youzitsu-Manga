@@ -1,13 +1,19 @@
 from django.test import TestCase
 from django.conf import settings
+from django.http.request import HttpRequest
 
 import os
 import shutil
 import random
+import json
+from datetime import datetime, timezone
 from PIL import Image, ImageDraw, ImageFilter
 
 from .models import (
     Creator, Group, Series, Volume, Chapter
+)
+from api.views import (
+    get_all_series, get_all_chapters
 )
 
 WIDTH = 850
@@ -53,9 +59,10 @@ class ReaderTest(TestCase):
             synopsis="synopsis", alternative_titles="alternative_titles",
         )
         self.volume = Volume.objects.create(volume_number=1, series=self.series)
+        now = datetime.utcnow().replace(tzinfo=timezone.utc)
         self.chapter = Chapter.objects.create(
             series=self.series, title="chapter", chapter_number=1, volume=1,
-            group=self.group, folder="chapter_folder"
+            group=self.group, folder="chapter_folder", uploaded_on=now, updated_on=now
         )
         self.generate_images(self)
         self.series.embed_image = os.path.join(self.series_dir, 'embed_img.jpg')
@@ -91,9 +98,17 @@ class ReaderTest(TestCase):
         for path in img_paths:
             create_img(path)
 
-    def tearDown(self) -> None:
-        super().tearDown()
-        shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'manga', self.series.slug))
+    def test_series_api(self):
+        request = HttpRequest()
+        all_series = json.loads(get_all_series(request).content)
+        self.assertIsNotNone(all_series[self.series.name])
 
-    def test_api_series(self):
-        self.assertTrue(True)
+    def test_chapters_api(self):
+        request = HttpRequest()
+        all_chapters = json.loads(get_all_chapters(request).content)
+        self.assertIsNotNone(c for c in all_chapters if c.name == self.chapter.title)
+
+    @classmethod
+    def tearDownClass(self) -> None:
+        super().tearDownClass()
+        shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'manga', self.series.slug))
