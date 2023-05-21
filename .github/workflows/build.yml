@@ -30,4 +30,5 @@ jobs:
         pip install mysqlclient
         pip install pymemcache
         python3 manage.py makemigrations
-        python3 manage.py test
+    - name: Run unit tests
+      run: python3 manage.py test
