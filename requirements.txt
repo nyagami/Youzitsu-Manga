@@ -1,13 +1,9 @@
-aiohttp==3.7.4
 Django==4.1.7
-django-ratelimit==2.0.0
 Markdown==3.1.1
-Pillow
+Pillow==9.5.0
 python-memcached==1.59
-requests==2.22.0
-beautifulsoup4==4.8.2
-django-colorfield
-django-registration-redux
-python-dotenv
+django-colorfield==0.8.0
+django-registration-redux==2.12
+python-dotenv==0.14.0
 django-mptt==0.14.0
 channels==3.0.4
