@@ -57,7 +57,7 @@
               </div>
             </div>
             <div class="card-body">
-              <form method="POST">
+              <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="pl-lg-4">
                   <div class="row">
@@ -75,9 +75,9 @@
                   <div class="row">
                     <div class="w-100">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-first-name">Tên hiển thị</label>
+                        <label class="form-control-label" for="input-name">Tên hiển thị</label>
                         {% if owner == request.user.username %}
-                        <input type="text" id="input-first-name" name="display_name" class="form-control" placeholder="Tên hiển thị" value="{{ profile.display_name}}">
+                        <input type="text" id="input-name" name="display_name" class="form-control" placeholder="Tên hiển thị" value="{{ profile.display_name}}">
                         {% else %}
                         <div class="form-control">{{ profile.display_name }}</div>
                         {% endif %}
@@ -95,6 +95,14 @@
                     </div>
                   </div>
                     {% if owner == request.user.username %}
+                    <div class="row">
+                      <div class="w-100">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-avatar">Cập nhật Avatar</label>
+                          <input type="file" id="input-avatar" name="avatar" class="form-control" placeholder="Tên hiển thị">
+                        </div>
+                      </div>
+                    </div>
                     <button type="submit" class="btn btn-sm btn-primary">Lưu</button>
                     {% endif%}
                 </div>

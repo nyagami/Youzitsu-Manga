@@ -1,3 +1,4 @@
+import os
 from typing import Any
 from django.contrib.auth.views import (
     LoginView as OldLoginView, LogoutView as OldLogOutView, PasswordChangeView as OldPasswordChangeView,
@@ -6,6 +7,7 @@ from django.contrib.auth.views import (
 from django.utils.decorators import decorator_from_middleware
 from django.http import HttpResponseForbidden
 from django.shortcuts import render
+from django.conf import settings
 from registration.backends.simple.views import RegistrationView as OldRegistrationView
 
 from django.contrib.auth.models import User
@@ -94,6 +96,7 @@ def profile(request, username):
         email = request.POST.get('email')
         display_name = request.POST.get('display_name')
         description = request.POST.get('description')
+        avatar = request.FILES.get('avatar')
         try:
             prf = Profile.objects.get(user=request.user)
         except ValueError:
@@ -106,7 +109,16 @@ def profile(request, username):
                 prf.display_name = display_name
             if description:
                 prf.description = description
-            prf.save()
+        if avatar:
+            avatar_dir = os.path.join(settings.MEDIA_ROOT, 'user', 'avatar', prf.user.username)
+            os.makedirs(avatar_dir, exist_ok=True)
+            ext = str(avatar).rsplit('.', 1)[-1]
+            avatar_path = os.path.join(avatar_dir, f'avatar.{ext}')
+            with open(avatar_path, 'wb') as f:
+                for chunk in avatar.chunks():
+                    f.write(chunk)
+            prf.avatar = f'{settings.MEDIA_URL}user/avatar/{prf.user.username}/avatar.{ext}'
+        prf.save()
     return render(
         request, 'profile.html',
         {
